@@ -3,6 +3,7 @@ const ws = require('ws');
 
 const MAX_VAGAS = 50;
 const LOCK_KEY = 42050;
+const DATABASE_PROVIDER = 'neon';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CELULAR_REGEX = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
 const ESTADOS = new Set([
@@ -23,10 +24,11 @@ function sendJson(response, status, payload) {
 }
 
 function getConfig() {
-  const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+  const connectionString = process.env.DATABASE_URL;
 
   return {
     connectionString,
+    provider: DATABASE_PROVIDER,
     configured: Boolean(connectionString),
   };
 }
@@ -231,6 +233,7 @@ module.exports = async function handler(request, response) {
         vagas_restantes: MAX_VAGAS,
         vagas_esgotadas: false,
         backend_configured: false,
+        database_provider: config.provider,
       });
       return;
     }
@@ -242,6 +245,7 @@ module.exports = async function handler(request, response) {
         vagas_restantes: Math.max(0, MAX_VAGAS - total),
         vagas_esgotadas: total >= MAX_VAGAS,
         backend_configured: true,
+        database_provider: config.provider,
       });
       return;
     } catch (error) {
@@ -259,7 +263,7 @@ module.exports = async function handler(request, response) {
     if (!config.configured) {
       sendJson(response, 503, {
         status: 'erro',
-        mensagem: 'O formulario ja foi publicado, mas o banco de dados ainda nao foi configurado na Vercel.',
+        mensagem: 'O formulario ja foi publicado, mas o DATABASE_URL oficial do Neon ainda nao foi configurado na Vercel.',
       });
       return;
     }

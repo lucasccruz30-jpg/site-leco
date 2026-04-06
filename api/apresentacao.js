@@ -2,6 +2,7 @@ const { Pool, neonConfig } = require('@neondatabase/serverless');
 const { Resend } = require('resend');
 const ws = require('ws');
 
+const DATABASE_PROVIDER = 'neon';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CELULAR_REGEX = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
 const ESTADOS = new Set([
@@ -51,7 +52,7 @@ function escapeHtml(value) {
 }
 
 function getConfig() {
-  const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+  const connectionString = process.env.DATABASE_URL;
   const resendApiKey = process.env.RESEND_API_KEY || '';
   const contactEmail = process.env.LECO_CONTACT_EMAIL || 'contato@lecoapp.com.br';
   const fromEmail = process.env.LECO_MAIL_FROM || 'LECO <onboarding@resend.dev>';
@@ -63,6 +64,7 @@ function getConfig() {
     contactEmail,
     fromEmail,
     replyToEmail,
+    provider: DATABASE_PROVIDER,
     backendConfigured: Boolean(connectionString),
     emailConfigured: Boolean(resendApiKey),
   };
@@ -400,6 +402,7 @@ module.exports = async function handler(request, response) {
     sendJson(response, 200, {
       backend_configured: config.backendConfigured,
       email_configured: config.emailConfigured,
+      database_provider: config.provider,
     });
     return;
   }
@@ -413,7 +416,7 @@ module.exports = async function handler(request, response) {
   if (!config.backendConfigured) {
     sendJson(response, 503, {
       status: 'erro',
-      mensagem: 'O banco de dados ainda nao foi configurado para receber solicitacoes.',
+      mensagem: 'O DATABASE_URL oficial do Neon ainda nao foi configurado para receber solicitacoes.',
     });
     return;
   }
