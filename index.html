@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LECO - Transforme a rotina da criança em evolução real</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="container">
+            <a href="#" class="logo">
+                <img src="Logo/Logo.png.jpeg" alt="LECO Logo">
+                <span class="logo-name">LECO</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#benefits">Benefícios</a></li>
+                <li><a href="#how-it-works">Como funciona</a></li>
+                <li><a href="#features">Funcionalidades</a></li>
+                <li><a href="#plans">Planos</a></li>
+                <li><a href="#schools">Para Escolas</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <div class="header-buttons">
+                <a href="#plans" class="btn btn-secondary">Ver planos</a>
+                <a href="#schools" class="btn btn-primary">Levar para minha escola</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- BANNER CAMPANHA: 50 vagas grátis — aparece abaixo do cabeçalho -->
+    <div id="banner-campanha" style="background:linear-gradient(90deg,#1E5EFF 0%,#1749E5 100%);color:#fff;padding:8px 20px;text-align:center;position:relative;">
+        <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+            <span style="font-size:15px;">🎁</span>
+            <span style="font-weight:700;font-size:13px;letter-spacing:-.01em;">Apenas 50 vagas: ganhe 3 meses grátis de LECO</span>
+            <span style="font-size:13px;opacity:.85;">As primeiras 50 famílias cadastradas ganham acesso gratuito por 3 meses.</span>
+            <!-- PRODUÇÃO: troque a URL abaixo pela URL real do formulário -->
+            <a href="#plans"
+               style="background:#fff;color:#1E5EFF;font-weight:700;font-size:12px;padding:5px 14px;border-radius:6px;text-decoration:none;white-space:nowrap;transition:opacity .2s;"
+               onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                Garantir vaga →
+            </a>
+        </div>
+        <button onclick="document.getElementById('banner-campanha').style.display='none'"
+            style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.7);font-size:18px;cursor:pointer;line-height:1;padding:4px;"
+            aria-label="Fechar banner">×</button>
+    </div>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Transforme a rotina da criança em evolução real</h1>
+                    <p class="subtitle">Com tarefas, objetivos, recompensas, rotina e acompanhamento em uma experiência prática, educativa e envolvente para famílias e instituições.</p>
+                    <div class="hero-buttons">
+                        <a href="#plans" class="btn btn-primary">Ver planos</a>
+                        <a href="#schools" class="btn btn-secondary">Levar para minha escola</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://placehold.co/600x400/ECEDEF/10172A?text=Mockup+do+App+LECO" alt="Mockup ilustrativo da interface do aplicativo LECO">
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO CAMPANHA 50 VAGAS -->
+        <section id="campanha" style="background:linear-gradient(135deg,#f0f4ff 0%,#e8f0fe 100%);padding:60px 0;border-top:1px solid #D0D8DA;border-bottom:1px solid #D0D8DA;">
+            <div class="container" style="text-align:center;">
+                <div style="display:inline-flex;align-items:center;gap:8px;background:#fff3cd;border:1px solid #F3A860;color:#92400e;font-weight:600;font-size:13px;padding:6px 16px;border-radius:20px;margin-bottom:20px;">
+                    <span>⏳</span> Oferta por tempo limitado — apenas 50 vagas
+                </div>
+                <h2 style="font-size:32px;font-weight:800;color:#10172A;margin-bottom:16px;line-height:1.2;">
+                    Ganhe 3 meses grátis de LECO
+                </h2>
+                <p style="font-size:17px;color:#878A8E;max-width:560px;margin:0 auto 32px;line-height:1.6;">
+                    As primeiras <strong style="color:#10172A;">50 famílias</strong> a se cadastrarem ganham acesso gratuito por 3 meses — sem cartão de crédito, sem compromisso.
+                </p>
+                <div style="display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:32px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:40px;height:40px;background:#1E5EFF15;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">✓</div>
+                        <span style="font-size:14px;font-weight:600;color:#10172A;">Acesso completo à plataforma</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:40px;height:40px;background:#17C47F15;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">✓</div>
+                        <span style="font-size:14px;font-weight:600;color:#10172A;">3 meses gratuitos</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:40px;height:40px;background:#F3A86015;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">✓</div>
+                        <span style="font-size:14px;font-weight:600;color:#10172A;">Sem cartão de crédito</span>
+                    </div>
+                </div>
+                <!-- PRODUÇÃO: troque a URL abaixo pela URL real do formulário -->
+                <a href="#plans"
+                   style="display:inline-block;background:#1E5EFF;color:#fff;font-weight:700;font-size:16px;padding:16px 40px;border-radius:10px;text-decoration:none;transition:background .2s,transform .2s;"
+                   onmouseover="this.style.background='#1749E5';this.style.transform='translateY(-2px)'"
+                   onmouseout="this.style.background='#1E5EFF';this.style.transform='translateY(0)'">
+                    🎁 Quero minha vaga gratuita →
+                </a>
+                <p style="font-size:12px;color:#878A8E;margin-top:12px;">
+                    Vagas limitadas. Cadastro apenas por ordem de chegada.
+                </p>
+            </div>
+        </section>
+
+        <section id="benefits" class="benefits-section">
+            <div class="container">
+                <h2>Mais clareza para a rotina. Mais evolução de verdade.</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <h3>Desenvolvimento de responsabilidade</h3>
+                        <p>Crie tarefas e incentive a criança a assumir pequenos compromissos diários.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                        <h3>Organização da rotina</h3>
+                        <p>Visualize a semana, estabeleça horários e ajude a criança a se organizar.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9.5a4 4 0 1 1-8 0"/> <path d="M18 11.5a4 4 0 1 1-8 0"/><path d="M12 12.5a4 4 0 1 1-8 0"/><path d="M16 13.5a4 4 0 1 1-8 0"/></svg>
+                        </div>
+                        <h3>Autonomia infantil</h3>
+                        <p>Dê liberdade para a criança gerenciar suas tarefas e colher os resultados.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                        </div>
+                        <h3>Acompanhamento da evolução</h3>
+                        <p>Receba relatórios e veja de perto o progresso em cada área de desenvolvimento.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </div>
+                        <h3>Gamificação com propósito</h3>
+                        <p>Use moedas, medalhas e XP para motivar e recompensar o esforço de forma divertida.</p>
+                    </div>
+                    <div class="benefit-card">
+                         <div class="benefit-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <h3>Conexão entre família e criança</h3>
+                        <p>Fortaleça o diálogo e o trabalho em equipe com objetivos e combinados claros.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="how-it-works-section">
+            <div class="container">
+                <h2>Um jeito simples de transformar combinados em conquistas</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
+                        <h3>Defina tarefas e objetivos</h3>
+                        <p>Personalize as atividades de acordo com a idade e as necessidades da criança.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                        </div>
+                        <h3>Acompanhe a evolução</h3>
+                        <p>Monitore o cumprimento de tarefas e o progresso em tempo real.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+                        </div>
+                        <h3>Use bônus, multas e recompensas</h3>
+                        <p>Crie um sistema de consequências positivas e negativas para guiar o comportamento.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6c-2.2 0-4 1.8-4 4 0 .9.3 1.7.9 2.4l3.1 3.1 3.1-3.1c.6-.7.9-1.5.9-2.4 0-2.2-1.8-4-4-4z"></path></svg>
+                        </div>
+                        <h3>Engaje com LeCoins, XP e medalhas</h3>
+                        <p>Transforme o esforço em recompensas visíveis e motive a criança a continuar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financial-education" class="financial-education-section">
+            <div class="container">
+                <span class="section-tag">EDUCAÇÃO FINANCEIRA</span>
+                <h2>A criança aprende o valor do dinheiro na prática</h2>
+                <p class="section-subtitle">Com o sistema de LeCoins, a criança vivencia conceitos reais de finanças — ganhar, poupar e gastar com consciência — tudo no contexto seguro da família.</p>
+                <div class="finance-grid">
+                    <div class="finance-card">
+                        <div class="finance-icon-wrapper finance-earn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <h3>Ganhar com esforço</h3>
+                        <p>Cada tarefa concluída gera LeCoins. A criança aprende desde cedo que recompensas vêm do trabalho e da dedicação — não de graça.</p>
+                    </div>
+                    <div class="finance-card">
+                        <div class="finance-icon-wrapper finance-save">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                        </div>
+                        <h3>Poupar para conquistar</h3>
+                        <p>A carteira de LeCoins mostra o saldo acumulado em tempo real. A criança aprende a poupar e vê o resultado do próprio esforço crescer.</p>
+                    </div>
+                    <div class="finance-card">
+                        <div class="finance-icon-wrapper finance-spend">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        </div>
+                        <h3>Gastar com consciência</h3>
+                        <p>A criança decide como usar seus LeCoins em recompensas definidas pela família. Aprende a escolher com responsabilidade e entender consequências.</p>
+                    </div>
+                    <div class="finance-card">
+                        <div class="finance-icon-wrapper finance-goal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                        </div>
+                        <h3>Estabelecer metas financeiras</h3>
+                        <p>Crie objetivos financeiros junto com a criança — do presente desejado à experiência especial — e ensine planejamento de forma concreta e motivadora.</p>
+                    </div>
+                </div>
+                <div class="finance-highlight">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <p>O sistema de LeCoins não é entretenimento passivo. É uma ferramenta pedagógica que conecta <strong>esforço, recompensa e escolha</strong> — ensinando educação financeira de forma natural, no dia a dia da criança.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="plans" class="plans-section">
+            <div class="container">
+                <h2>Escolha o plano ideal para sua família ou instituição</h2>
+                <div class="plans-container">
+                    <div class="plan-card">
+                        <h3>LECO</h3>
+                        <p>Para 1 criança, com tarefas, objetivos, rotina e recompensas.</p>
+                        <div class="price">R$ 29,90<span>/mês</span></div>
+                        <p class="anual-price">ou R$ 322,92/ano por criança</p>
+                        <span class="anual-savings">Economize 10% no plano anual</span>
+                        <ul class="plan-features">
+                            <li><span class="check-icon"></span>Gestão de tarefas</li>
+                            <li><span class="check-icon"></span>Objetivos personalizados</li>
+                            <li><span class="check-icon"></span>Bônus e multas</li>
+                            <li><span class="check-icon"></span>Rotina personalizada</li>
+                            <li><span class="check-icon"></span>Carteira de LeCoins</li>
+                            <li><span class="check-icon"></span>Acesso ao ecossistema LECO</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Assinar LECO</a>
+                    </div>
+                    <div class="plan-card featured">
+                        <span class="featured-badge">Melhor custo-benefício</span>
+                        <h3>LECO Família</h3>
+                        <p>Mais praticidade e economia para famílias com até 4 crianças em um único plano anual.</p>
+                        <div class="price">R$ 999,90<span>/ano</span></div>
+                        <p class="anual-price">para até 4 crianças</p>
+                        <ul class="plan-features">
+                            <li><span class="check-icon"></span>Tudo do plano LECO</li>
+                            <li><span class="check-icon"></span>Uso para até 4 crianças</li>
+                            <li><span class="check-icon"></span>Gestão centralizada da família</li>
+                            <li><span class="check-icon"></span>Melhor custo-benefício familiar</li>
+                            <li><span class="check-icon"></span>Experiência completa do ecossistema LECO</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Escolher LECO Família</a>
+                    </div>
+                    <div class="plan-card">
+                        <h3>LECO Escolas</h3>
+                        <p>Leve o LECO para sua escola, rede ou programa educacional com uma solução leve, moderna e conectada às famílias.</p>
+                        <div class="price">Sob consulta</div>
+                        <ul class="plan-features">
+                             <li><span class="check-icon"></span>Acompanhamento formativo e comportamental</li>
+                            <li><span class="check-icon"></span>Avaliação periódica do aluno</li>
+                            <li><span class="check-icon"></span>Relatórios para responsáveis</li>
+                            <li><span class="check-icon"></span>Carteira de XP escolar</li>
+                            <li><span class="check-icon"></span>Gamificação com evolução, medalhas e conquistas</li>
+                            <li><span class="check-icon"></span>Conexão escola-família</li>
+                            <li><span class="check-icon"></span>Modelo complementar</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary">Falar com especialista</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2>Tudo que o LECO entrega</h2>
+                <div class="features-grid">
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Gestão de tarefas</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Objetivos personalizados</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Bônus por conclusão</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Multas por descumprimento</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Vencimentos diários, semanais e mensais</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Rotina da criança</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Acompanhamento da evolução</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Carteira de LeCoins</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Acesso ao ecossistema LECO</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Gamificação com medalhas e conquistas</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Gestão centralizada da família</div>
+                    <div class="feature-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Relatórios e acompanhamento institucional</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="comparison-section">
+            <div class="container">
+                <h2>Compare os planos</h2>
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Funcionalidade</th>
+                                <th>LECO</th>
+                                <th>LECO Família</th>
+                                <th>LECO Escolas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Quantidade de crianças</td>
+                                <td>1</td>
+                                <td>Até 4</td>
+                                <td>Ilimitado</td>
+                            </tr>
+                            <tr>
+                                <td>Cobrança</td>
+                                <td>Mensal ou Anual</td>
+                                <td>Anual</td>
+                                <td>Sob consulta</td>
+                            </tr>
+                            <tr>
+                                <td>Tarefas e objetivos</td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Bônus e multas</td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                            </tr>
+                             <tr>
+                                <td>Rotina personalizada</td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Carteira de LeCoins</td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-cross"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Gestão centralizada</td>
+                                <td><span class="comp-icon comp-cross"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Relatórios</td>
+                                <td>Básico</td>
+                                <td>Completo</td>
+                                <td>Avançado</td>
+                            </tr>
+                            <tr>
+                                <td>XP escolar</td>
+                                <td><span class="comp-icon comp-cross"></span></td>
+                                <td><span class="comp-icon comp-cross"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Contratação institucional</td>
+                                <td><span class="comp-icon comp-cross"></span></td>
+                                <td><span class="comp-icon comp-cross"></span></td>
+                                <td><span class="comp-icon comp-check"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="schools" class="schools-section">
+            <div class="container schools-content">
+                <div class="schools-text">
+                    <h2>Uma solução complementar para escolas e instituições</h2>
+                    <p>O LECO ajuda escolas, redes de ensino e programas educacionais a acompanhar comportamento, participação, responsabilidade e convivência dos alunos, fortalecendo a conexão com as famílias sem substituir os sistemas escolares existentes.</p>
+                    <a href="#" class="btn btn-primary">Solicitar apresentação</a>
+                </div>
+                 <div class="schools-image">
+                    <img src="https://placehold.co/500x350/ECEDEF/10172A?text=Escolas+e+Famílias" alt="Ilustração para escolas">
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <h2>Perguntas Frequentes</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>O LECO é indicado para qual idade?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>O LECO é ideal para crianças de 6 a 12 anos, fase em que o desenvolvimento de noções de responsabilidade, rotina e valor do dinheiro está em alta. No entanto, a plataforma é flexível e pode ser adaptada para crianças um pouco mais novas ou mais velhas, dependendo do nível de maturidade e dos objetivos da família.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Posso usar com mais de uma criança?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim! O plano LECO Família foi desenhado para isso, permitindo gerenciar até 4 crianças em uma única conta, com perfis e acompanhamentos individuais, mas dentro de uma gestão familiar centralizada.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Como funciona o plano família?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>O plano LECO Família é uma assinatura anual que dá acesso a todos os recursos do LECO para até 4 crianças. Ele oferece um painel de gestão centralizado para os responsáveis, permitindo uma visão unificada do progresso de todos, além de ter o melhor custo-benefício para a família.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>O LECO substitui agenda escolar?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Não. O LECO é uma ferramenta focada no desenvolvimento comportamental, de responsabilidades e rotinas dentro do ambiente familiar. Ele é um complemento, fortalecendo a conexão casa-escola, mas não substitui as funções de comunicação e registro de atividades pedagógicas de uma agenda ou sistema escolar.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>O que são LeCoins e XP?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>LeCoins são as moedas virtuais que a criança ganha ao completar tarefas. Elas podem ser trocadas por recompensas definidas pela família. XP (Pontos de Experiência) é um sistema usado no ambiente escolar para medir o progresso e o engajamento do aluno em atividades de desenvolvimento comportamental propostas pela instituição.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Como funciona para escolas?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>O LECO Escolas é uma plataforma parceira que permite à instituição acompanhar o desenvolvimento comportamental e de habilidades socioemocionais dos alunos. A escola pode criar objetivos, acompanhar a evolução, gerar relatórios e fortalecer a comunicação com as famílias sobre o desenvolvimento integral do aluno.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>O LECO realmente ensina educação financeira?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim. O sistema de LeCoins é projetado para ensinar conceitos financeiros reais de forma prática: a criança ganha moedas completando tarefas (aprende a ganhar), acumula saldo na carteira (aprende a poupar) e decide como gastar em recompensas definidas pela família (aprende a escolher e priorizar). Não é um jogo — é uma experiência financeira dentro de um ambiente seguro e controlado pelos responsáveis.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Como os responsáveis controlam os gastos de LeCoins?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Os responsáveis definem as recompensas disponíveis e seus custos em LeCoins. A criança pode ver o catálogo e escolher o que deseja, mas o resgate depende da aprovação dos pais. Isso garante que o aprendizado financeiro seja guiado e alinhado aos valores da família.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Posso cancelar o plano mensal?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim, o plano mensal pode ser cancelado a qualquer momento, sem taxas ou multas. Você continuará com acesso até o final do período já pago. O plano anual também pode ser cancelado, seguindo as regras e prazos estabelecidos nos termos de serviço.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="cta-section">
+            <div class="container">
+                <h2>Comece agora a transformar rotina em evolução</h2>
+                <p>Escolha o plano ideal e leve mais clareza, constância e motivação para a jornada da criança.</p>
+                <div class="cta-buttons">
+                    <a href="#plans" class="btn btn-primary">Ver planos</a>
+                    <a href="#" class="btn btn-secondary">Falar com o time LECO</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer-bottom">
+        <div class="container footer-container">
+            <div class="footer-left">
+                <p>&copy; 2026 LECO. Todos os direitos reservados.</p>
+            </div>
+            <div class="footer-right">
+                <a href="#" aria-label="Instagram" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="#" aria-label="Facebook" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
