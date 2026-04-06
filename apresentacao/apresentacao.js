@@ -140,11 +140,8 @@ function validateForm(data) {
     if (!ESTADOS.has(data.estado)) {
         errors.estado = ['Selecione um estado valido.'];
     }
-    if (!data.mensagem || data.mensagem.length < 20) {
-        errors.mensagem = ['Descreva o contexto da solicitacao com pelo menos 20 caracteres.'];
-    }
-    if (data.mensagem.length > 1500) {
-        errors.mensagem = ['Resuma a mensagem em ate 1500 caracteres.'];
+    if (!data.mensagem) {
+        errors.mensagem = ['Preencha este campo para continuar.'];
     }
     if (!data.aceite_contato) {
         errors.aceite_contato = ['Voce precisa autorizar o contato para continuar.'];
