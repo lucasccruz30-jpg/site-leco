@@ -1,4 +1,8 @@
+const { Pool, neonConfig } = require('@neondatabase/serverless');
+const ws = require('ws');
+
 const MAX_VAGAS = 50;
+const LOCK_KEY = 42050;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CELULAR_REGEX = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
 const ESTADOS = new Set([
@@ -7,6 +11,11 @@ const ESTADOS = new Set([
   'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
 ]);
 
+neonConfig.webSocketConstructor = ws;
+
+let pool;
+let schemaReady;
+
 function sendJson(response, status, payload) {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
   response.setHeader('Cache-Control', 'no-store');
@@ -14,68 +23,140 @@ function sendJson(response, status, payload) {
 }
 
 function getConfig() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL;
 
   return {
-    url,
-    serviceRoleKey,
-    configured: Boolean(url && serviceRoleKey),
+    connectionString,
+    configured: Boolean(connectionString),
   };
 }
 
-function getHeaders(serviceRoleKey, extraHeaders = {}) {
-  return {
-    apikey: serviceRoleKey,
-    Authorization: `Bearer ${serviceRoleKey}`,
-    ...extraHeaders,
-  };
+function getPool(connectionString) {
+  if (!pool) {
+    pool = new Pool({
+      connectionString,
+      max: 3,
+    });
+  }
+
+  return pool;
+}
+
+async function ensureSchema(connectionString) {
+  if (!schemaReady) {
+    schemaReady = (async () => {
+      const db = getPool(connectionString);
+      await db.query(`
+        CREATE TABLE IF NOT EXISTS inscricoes (
+          id BIGSERIAL PRIMARY KEY,
+          nome TEXT NOT NULL,
+          email TEXT NOT NULL UNIQUE,
+          celular TEXT NOT NULL,
+          quantidade_criancas INTEGER NOT NULL CHECK (quantidade_criancas >= 1 AND quantidade_criancas <= 20),
+          cidade TEXT NOT NULL,
+          estado CHAR(2) NOT NULL,
+          paga_mesada BOOLEAN NOT NULL,
+          valor_mesada TEXT,
+          pretende_investir TEXT,
+          numero_inscricao INTEGER NOT NULL UNIQUE,
+          criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_inscricoes_email ON inscricoes (email);
+        CREATE INDEX IF NOT EXISTS idx_inscricoes_criado_em ON inscricoes (criado_em DESC);
+        CREATE INDEX IF NOT EXISTS idx_inscricoes_numero ON inscricoes (numero_inscricao);
+      `);
+    })().catch((error) => {
+      schemaReady = null;
+      throw error;
+    });
+  }
+
+  return schemaReady;
 }
 
 async function fetchInscricoesCount(config) {
-  const requestUrl = `${config.url}/rest/v1/inscricoes?select=id&limit=1`;
-  const supabaseResponse = await fetch(requestUrl, {
-    headers: getHeaders(config.serviceRoleKey, { Prefer: 'count=exact' }),
-  });
-
-  if (!supabaseResponse.ok) {
-    throw new Error(`Falha ao consultar inscricoes (${supabaseResponse.status})`);
-  }
-
-  const contentRange = supabaseResponse.headers.get('content-range') || '';
-  const total = Number(contentRange.split('/')[1] || 0);
-
-  return Number.isFinite(total) ? total : 0;
+  await ensureSchema(config.connectionString);
+  const db = getPool(config.connectionString);
+  const result = await db.query('SELECT COUNT(*)::int AS total FROM inscricoes');
+  return result.rows[0]?.total ?? 0;
 }
 
-async function callRegistrarInscricao(config, payload) {
-  const requestUrl = `${config.url}/rest/v1/rpc/registrar_inscricao`;
-  const supabaseResponse = await fetch(requestUrl, {
-    method: 'POST',
-    headers: getHeaders(config.serviceRoleKey, {
-      'Content-Type': 'application/json',
-    }),
-    body: JSON.stringify(payload),
-  });
+async function registrarInscricao(config, payload) {
+  await ensureSchema(config.connectionString);
+  const db = getPool(config.connectionString);
+  const client = await db.connect();
 
-  const rawText = await supabaseResponse.text();
-  let json = null;
+  try {
+    await client.query('BEGIN');
+    await client.query('SELECT pg_advisory_xact_lock($1)', [LOCK_KEY]);
 
-  if (rawText) {
-    try {
-      json = JSON.parse(rawText);
-    } catch {
-      json = null;
-    }
-  }
-
-  if (!supabaseResponse.ok) {
-    throw new Error(
-      (json && json.message) || `Falha ao registrar inscricao (${supabaseResponse.status})`
+    const email = payload.email.toLowerCase();
+    const duplicate = await client.query(
+      'SELECT numero_inscricao FROM inscricoes WHERE email = $1 LIMIT 1',
+      [email]
     );
-  }
 
-  return json;
+    if (duplicate.rowCount > 0) {
+      await client.query('ROLLBACK');
+      return { status: 'email_duplicado' };
+    }
+
+    const countResult = await client.query('SELECT COUNT(*)::int AS total FROM inscricoes');
+    const total = countResult.rows[0]?.total ?? 0;
+
+    if (total >= MAX_VAGAS) {
+      await client.query('ROLLBACK');
+      return { status: 'vagas_esgotadas' };
+    }
+
+    const numero = total + 1;
+    await client.query(
+      `
+        INSERT INTO inscricoes (
+          nome,
+          email,
+          celular,
+          quantidade_criancas,
+          cidade,
+          estado,
+          paga_mesada,
+          valor_mesada,
+          pretende_investir,
+          numero_inscricao
+        ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+      `,
+      [
+        payload.nome,
+        email,
+        payload.celular,
+        payload.quantidade_criancas,
+        payload.cidade,
+        payload.estado,
+        payload.paga_mesada === 'sim',
+        payload.paga_mesada === 'sim' ? payload.valor_mesada : null,
+        payload.paga_mesada === 'nao' ? payload.pretende_investir : null,
+        numero,
+      ]
+    );
+
+    await client.query('COMMIT');
+    return { status: 'sucesso', numero };
+  } catch (error) {
+    try {
+      await client.query('ROLLBACK');
+    } catch {
+      // ignore rollback failures
+    }
+
+    if (error && error.code === '23505') {
+      return { status: 'email_duplicado' };
+    }
+
+    throw error;
+  } finally {
+    client.release();
+  }
 }
 
 function normalizeBody(body) {
@@ -190,17 +271,7 @@ module.exports = async function handler(request, response) {
     }
 
     try {
-      const result = await callRegistrarInscricao(config, {
-        p_nome: data.nome,
-        p_email: data.email.toLowerCase(),
-        p_celular: data.celular,
-        p_quantidade_criancas: data.quantidade_criancas,
-        p_cidade: data.cidade,
-        p_estado: data.estado,
-        p_paga_mesada: data.paga_mesada === 'sim',
-        p_valor_mesada: data.paga_mesada === 'sim' ? data.valor_mesada : null,
-        p_pretende_investir: data.paga_mesada === 'nao' ? data.pretende_investir : null,
-      });
+      const result = await registrarInscricao(config, data);
 
       sendJson(response, 200, result);
       return;

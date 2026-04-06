@@ -182,7 +182,7 @@ async function loadStatus() {
         const data = await response.json();
 
         if (data.backend_configured === false) {
-            showBackendNotice('A pagina de inscricao ja esta publicada. Para liberar os envios, configure na Vercel as variaveis <strong>NEXT_PUBLIC_SUPABASE_URL</strong> e <strong>SUPABASE_SERVICE_ROLE_KEY</strong>.');
+            showBackendNotice('A pagina de inscricao ja esta publicada. Para liberar os envios, configure na Vercel a variavel <strong>DATABASE_URL</strong> do Neon.');
         }
 
         if (!response.ok) {

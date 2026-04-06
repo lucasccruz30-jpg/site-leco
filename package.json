@@ -1,0 +1,14 @@
+{
+  "name": "leco-antigravity-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "vercel-build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "ws": "^8.18.2"
+  }
+}
