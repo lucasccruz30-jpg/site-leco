@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LECO - Garanta sua vaga gratuita</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/inscricao/inscricao.css">
+</head>
+<body>
+    <main class="signup-page">
+        <header class="signup-header">
+            <a href="/" class="brand-link" aria-label="Voltar para o site LECO">
+                <img src="/Logo/Logo.png.jpeg" alt="LECO">
+            </a>
+        </header>
+
+        <section class="hero">
+            <div class="eyebrow">
+                <span class="eyebrow-icon">🎁</span>
+                <span>Oferta exclusiva - apenas 50 vagas</span>
+            </div>
+            <h1>Ganhe 3 meses gratis de LECO</h1>
+            <p class="hero-copy">
+                As primeiras <strong>50 familias</strong> cadastradas ganham acesso gratuito por 3 meses.
+            </p>
+        </section>
+
+        <section id="backend-notice" class="backend-notice is-hidden" aria-live="polite"></section>
+
+        <section id="progress-card" class="card progress-card">
+            <div class="progress-header">
+                <span>Vagas preenchidas</span>
+                <strong id="progress-count">0 / 50</strong>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <p id="progress-caption" class="progress-caption">Carregando disponibilidade...</p>
+        </section>
+
+        <section id="form-state" class="card form-card">
+            <div class="form-heading">
+                <h2>Preencha seus dados</h2>
+                <p>Todos os campos com * sao obrigatorios.</p>
+            </div>
+
+            <div id="form-feedback" class="feedback is-hidden" aria-live="polite"></div>
+
+            <form id="signup-form" novalidate>
+                <div class="field">
+                    <label for="nome">Nome completo <span>*</span></label>
+                    <input id="nome" name="nome" type="text" placeholder="Seu nome completo" autocomplete="name">
+                    <p class="field-error" data-error-for="nome"></p>
+                </div>
+
+                <div class="field">
+                    <label for="email">E-mail <span>*</span></label>
+                    <input id="email" name="email" type="email" placeholder="seu@email.com" autocomplete="email">
+                    <p class="field-error" data-error-for="email"></p>
+                </div>
+
+                <div class="field">
+                    <label for="celular">Celular <span>*</span></label>
+                    <input id="celular" name="celular" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel">
+                    <p class="field-error" data-error-for="celular"></p>
+                </div>
+
+                <div class="grid">
+                    <div class="field">
+                        <label for="quantidade_criancas">Criancas (6 a 14 anos) <span>*</span></label>
+                        <input id="quantidade_criancas" name="quantidade_criancas" type="number" min="1" max="20" placeholder="Ex: 2">
+                        <p class="field-error" data-error-for="quantidade_criancas"></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="cidade">Cidade <span>*</span></label>
+                        <input id="cidade" name="cidade" type="text" placeholder="Sua cidade" autocomplete="address-level2">
+                        <p class="field-error" data-error-for="cidade"></p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="estado">Estado <span>*</span></label>
+                    <select id="estado" name="estado" autocomplete="address-level1">
+                        <option value="">Selecione seu estado</option>
+                        <option value="AC">Acre (AC)</option>
+                        <option value="AL">Alagoas (AL)</option>
+                        <option value="AP">Amapa (AP)</option>
+                        <option value="AM">Amazonas (AM)</option>
+                        <option value="BA">Bahia (BA)</option>
+                        <option value="CE">Ceara (CE)</option>
+                        <option value="DF">Distrito Federal (DF)</option>
+                        <option value="ES">Espirito Santo (ES)</option>
+                        <option value="GO">Goias (GO)</option>
+                        <option value="MA">Maranhao (MA)</option>
+                        <option value="MT">Mato Grosso (MT)</option>
+                        <option value="MS">Mato Grosso do Sul (MS)</option>
+                        <option value="MG">Minas Gerais (MG)</option>
+                        <option value="PA">Para (PA)</option>
+                        <option value="PB">Paraiba (PB)</option>
+                        <option value="PR">Parana (PR)</option>
+                        <option value="PE">Pernambuco (PE)</option>
+                        <option value="PI">Piaui (PI)</option>
+                        <option value="RJ">Rio de Janeiro (RJ)</option>
+                        <option value="RN">Rio Grande do Norte (RN)</option>
+                        <option value="RS">Rio Grande do Sul (RS)</option>
+                        <option value="RO">Rondonia (RO)</option>
+                        <option value="RR">Roraima (RR)</option>
+                        <option value="SC">Santa Catarina (SC)</option>
+                        <option value="SP">Sao Paulo (SP)</option>
+                        <option value="SE">Sergipe (SE)</option>
+                        <option value="TO">Tocantins (TO)</option>
+                    </select>
+                    <p class="field-error" data-error-for="estado"></p>
+                </div>
+
+                <fieldset class="field">
+                    <legend>Voce paga mesada para o seu filho? <span>*</span></legend>
+                    <div class="radio-grid">
+                        <label class="radio-option">
+                            <input type="radio" name="paga_mesada" value="sim">
+                            <span>Sim</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="paga_mesada" value="nao">
+                            <span>Nao</span>
+                        </label>
+                    </div>
+                    <p class="field-error" data-error-for="paga_mesada"></p>
+                </fieldset>
+
+                <div id="valor-mesada-group" class="field conditional is-hidden">
+                    <label for="valor_mesada">Qual o valor da mesada? <span>*</span></label>
+                    <input id="valor_mesada" name="valor_mesada" type="text" placeholder="Ex: R$ 50,00 por semana">
+                    <p class="field-error" data-error-for="valor_mesada"></p>
+                </div>
+
+                <div id="pretende-investir-group" class="field conditional is-hidden">
+                    <label for="pretende_investir">Quanto pretende investir em mesada? <span>*</span></label>
+                    <input id="pretende_investir" name="pretende_investir" type="text" placeholder="Ex: R$ 30,00 por mes">
+                    <p class="field-error" data-error-for="pretende_investir"></p>
+                </div>
+
+                <div class="terms">
+                    <label class="checkbox-row" for="aceite_termos">
+                        <input id="aceite_termos" name="aceite_termos" type="checkbox">
+                        <span>
+                            Concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Politica de Privacidade</a> do LECO.
+                        </span>
+                    </label>
+                    <p class="field-error" data-error-for="aceite_termos"></p>
+                </div>
+
+                <button id="submit-button" type="submit" class="submit-button">
+                    Garantir minha vaga gratuita
+                </button>
+
+                <p class="security-note">Seus dados estao seguros e nao serao compartilhados com terceiros.</p>
+            </form>
+        </section>
+
+        <section id="success-state" class="card state-card is-hidden" aria-live="polite">
+            <div class="state-icon success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h2 id="success-title">Vaga garantida!</h2>
+            <p id="success-copy">Seu cadastro foi recebido com sucesso.</p>
+            <a class="state-link" href="/">Voltar para o site LECO</a>
+        </section>
+
+        <section id="closed-state" class="card state-card is-hidden" aria-live="polite">
+            <div class="state-icon closed-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+            </div>
+            <h2>Vagas encerradas</h2>
+            <p>As vagas desta campanha ja foram preenchidas. As 50 primeiras familias ja garantiram seus 3 meses gratuitos.</p>
+            <a class="state-button" href="/#plans">Conhecer os planos do LECO</a>
+        </section>
+    </main>
+
+    <script src="/inscricao/inscricao.js"></script>
+</body>
+</html>
