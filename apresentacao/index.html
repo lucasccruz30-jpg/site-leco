@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LECO</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
+    <link rel="shortcut icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
+    <link rel="apple-touch-icon" href="/Logo/Logo.png.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/apresentacao/apresentacao.css">
+</head>
+<body>
+    <main class="request-page">
+        <header class="request-header">
+            <a href="/" class="brand-link" aria-label="Voltar para o site LECO">
+                <img src="/Logo/Logo.png.jpeg" alt="LECO">
+            </a>
+        </header>
+
+        <section class="hero">
+            <div class="eyebrow">
+                <span class="eyebrow-icon">+</span>
+                <span>Para escolas, redes e instituicoes</span>
+            </div>
+            <h1>Solicite uma apresentacao do LECO</h1>
+            <p class="hero-copy">
+                Preencha seus dados para receber uma conversa comercial, uma apresentacao personalizada e um orcamento alinhado ao contexto da sua instituicao.
+            </p>
+        </section>
+
+        <section class="info-grid" aria-label="O que voce recebe">
+            <article class="info-card">
+                <strong>Apresentacao personalizada</strong>
+                <p>Mostramos como o LECO pode apoiar comportamento, rotina, participacao e conexao com familias.</p>
+            </article>
+            <article class="info-card">
+                <strong>Orcamento sob medida</strong>
+                <p>Consideramos o porte da instituicao, o perfil de uso e o formato mais adequado para a operacao.</p>
+            </article>
+            <article class="info-card">
+                <strong>Retorno do time LECO</strong>
+                <p>Assim que a solicitacao entrar, nossa equipe analisa o contexto e responde pelos canais informados.</p>
+            </article>
+        </section>
+
+        <section id="backend-notice" class="backend-notice is-hidden" aria-live="polite"></section>
+
+        <section id="form-state" class="card form-card">
+            <div class="form-heading">
+                <h2>Conte um pouco sobre sua instituicao</h2>
+                <p>Todos os campos com * sao obrigatorios.</p>
+            </div>
+
+            <div id="form-feedback" class="feedback is-hidden" aria-live="polite"></div>
+
+            <form id="request-form" novalidate>
+                <div class="grid">
+                    <div class="field">
+                        <label for="nome">Seu nome <span class="required-marker">*</span></label>
+                        <input id="nome" name="nome" type="text" placeholder="Nome do responsavel" autocomplete="name">
+                        <p class="field-error" data-error-for="nome"></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="cargo">Cargo <span class="required-marker">*</span></label>
+                        <input id="cargo" name="cargo" type="text" placeholder="Ex: Direcao, Coordenacao" autocomplete="organization-title">
+                        <p class="field-error" data-error-for="cargo"></p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="instituicao">Instituicao <span class="required-marker">*</span></label>
+                    <input id="instituicao" name="instituicao" type="text" placeholder="Nome da escola ou instituicao" autocomplete="organization">
+                    <p class="field-error" data-error-for="instituicao"></p>
+                </div>
+
+                <div class="grid">
+                    <div class="field">
+                        <label for="email">E-mail <span class="required-marker">*</span></label>
+                        <input id="email" name="email" type="email" placeholder="voce@instituicao.com.br" autocomplete="email">
+                        <p class="field-error" data-error-for="email"></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="celular">Celular <span class="required-marker">*</span></label>
+                        <input id="celular" name="celular" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel">
+                        <p class="field-error" data-error-for="celular"></p>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="field">
+                        <label for="tipo_instituicao">Tipo de instituicao <span class="required-marker">*</span></label>
+                        <select id="tipo_instituicao" name="tipo_instituicao">
+                            <option value="">Selecione uma opcao</option>
+                            <option value="escola-privada">Escola privada</option>
+                            <option value="escola-publica">Escola publica</option>
+                            <option value="rede-de-ensino">Rede de ensino</option>
+                            <option value="instituicao-social">Instituicao social</option>
+                            <option value="outro">Outro formato</option>
+                        </select>
+                        <p class="field-error" data-error-for="tipo_instituicao"></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="quantidade_alunos">Quantidade de alunos <span class="required-marker">*</span></label>
+                        <input id="quantidade_alunos" name="quantidade_alunos" type="number" min="1" max="50000" placeholder="Ex: 350">
+                        <p class="field-error" data-error-for="quantidade_alunos"></p>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="field">
+                        <label for="cidade">Cidade <span class="required-marker">*</span></label>
+                        <input id="cidade" name="cidade" type="text" placeholder="Cidade da instituicao" autocomplete="address-level2">
+                        <p class="field-error" data-error-for="cidade"></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="estado">Estado <span class="required-marker">*</span></label>
+                        <select id="estado" name="estado" autocomplete="address-level1">
+                            <option value="">Selecione o estado</option>
+                            <option value="AC">Acre (AC)</option>
+                            <option value="AL">Alagoas (AL)</option>
+                            <option value="AP">Amapa (AP)</option>
+                            <option value="AM">Amazonas (AM)</option>
+                            <option value="BA">Bahia (BA)</option>
+                            <option value="CE">Ceara (CE)</option>
+                            <option value="DF">Distrito Federal (DF)</option>
+                            <option value="ES">Espirito Santo (ES)</option>
+                            <option value="GO">Goias (GO)</option>
+                            <option value="MA">Maranhao (MA)</option>
+                            <option value="MT">Mato Grosso (MT)</option>
+                            <option value="MS">Mato Grosso do Sul (MS)</option>
+                            <option value="MG">Minas Gerais (MG)</option>
+                            <option value="PA">Para (PA)</option>
+                            <option value="PB">Paraiba (PB)</option>
+                            <option value="PR">Parana (PR)</option>
+                            <option value="PE">Pernambuco (PE)</option>
+                            <option value="PI">Piaui (PI)</option>
+                            <option value="RJ">Rio de Janeiro (RJ)</option>
+                            <option value="RN">Rio Grande do Norte (RN)</option>
+                            <option value="RS">Rio Grande do Sul (RS)</option>
+                            <option value="RO">Rondonia (RO)</option>
+                            <option value="RR">Roraima (RR)</option>
+                            <option value="SC">Santa Catarina (SC)</option>
+                            <option value="SP">Sao Paulo (SP)</option>
+                            <option value="SE">Sergipe (SE)</option>
+                            <option value="TO">Tocantins (TO)</option>
+                        </select>
+                        <p class="field-error" data-error-for="estado"></p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="mensagem">O que voce quer apresentar ou orcar? <span class="required-marker">*</span></label>
+                    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Conte rapidamente o contexto, o desafio ou o que voce gostaria de receber na apresentacao."></textarea>
+                    <p class="field-error" data-error-for="mensagem"></p>
+                </div>
+
+                <div class="terms">
+                    <label class="checkbox-row" for="aceite_contato">
+                        <input id="aceite_contato" name="aceite_contato" type="checkbox">
+                        <span>Autorizo o time LECO a entrar em contato pelos dados informados para responder esta solicitacao.</span>
+                    </label>
+                    <p class="field-error" data-error-for="aceite_contato"></p>
+                </div>
+
+                <button id="submit-button" type="submit" class="submit-button">
+                    Solicitar apresentacao
+                </button>
+
+                <p class="security-note">Seus dados serao usados somente para retorno comercial relacionado a esta solicitacao.</p>
+            </form>
+        </section>
+
+        <section id="success-state" class="card state-card is-hidden" aria-live="polite">
+            <div class="state-icon success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h2>Solicitacao recebida</h2>
+            <p id="success-copy">Nossa equipe recebeu seus dados e em breve vai entrar em contato com voce.</p>
+            <a class="state-link" href="/">Voltar para o site LECO</a>
+        </section>
+    </main>
+
+    <script src="/apresentacao/apresentacao.js"></script>
+</body>
+</html>

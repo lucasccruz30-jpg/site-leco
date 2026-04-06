@@ -8,6 +8,7 @@ const itemsToCopy = [
   'style.css',
   'script.js',
   'Logo',
+  'apresentacao',
   'inscricao',
 ];
 
