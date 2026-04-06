@@ -210,8 +210,7 @@ a {
     font-size: 14px;
 }
 
-.field label > span,
-.field legend > span {
+.required-marker {
     color: #ff4d4f;
 }
 

@@ -52,39 +52,39 @@
 
             <form id="signup-form" novalidate>
                 <div class="field">
-                    <label for="nome">Nome completo <span>*</span></label>
+                    <label for="nome">Nome completo <span class="required-marker">*</span></label>
                     <input id="nome" name="nome" type="text" placeholder="Seu nome completo" autocomplete="name">
                     <p class="field-error" data-error-for="nome"></p>
                 </div>
 
                 <div class="field">
-                    <label for="email">E-mail <span>*</span></label>
+                    <label for="email">E-mail <span class="required-marker">*</span></label>
                     <input id="email" name="email" type="email" placeholder="seu@email.com" autocomplete="email">
                     <p class="field-error" data-error-for="email"></p>
                 </div>
 
                 <div class="field">
-                    <label for="celular">Celular <span>*</span></label>
+                    <label for="celular">Celular <span class="required-marker">*</span></label>
                     <input id="celular" name="celular" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel">
                     <p class="field-error" data-error-for="celular"></p>
                 </div>
 
                 <div class="grid">
                     <div class="field">
-                        <label for="quantidade_criancas">Criancas (6 a 14 anos) <span>*</span></label>
+                        <label for="quantidade_criancas">Criancas (6 a 14 anos) <span class="required-marker">*</span></label>
                         <input id="quantidade_criancas" name="quantidade_criancas" type="number" min="1" max="20" placeholder="Ex: 2">
                         <p class="field-error" data-error-for="quantidade_criancas"></p>
                     </div>
 
                     <div class="field">
-                        <label for="cidade">Cidade <span>*</span></label>
+                        <label for="cidade">Cidade <span class="required-marker">*</span></label>
                         <input id="cidade" name="cidade" type="text" placeholder="Sua cidade" autocomplete="address-level2">
                         <p class="field-error" data-error-for="cidade"></p>
                     </div>
                 </div>
 
                 <div class="field">
-                    <label for="estado">Estado <span>*</span></label>
+                    <label for="estado">Estado <span class="required-marker">*</span></label>
                     <select id="estado" name="estado" autocomplete="address-level1">
                         <option value="">Selecione seu estado</option>
                         <option value="AC">Acre (AC)</option>
@@ -119,7 +119,7 @@
                 </div>
 
                 <fieldset class="field">
-                    <legend>Voce paga mesada para o seu filho? <span>*</span></legend>
+                    <legend>Voce paga mesada para o seu filho? <span class="required-marker">*</span></legend>
                     <div class="radio-grid">
                         <label class="radio-option">
                             <input type="radio" name="paga_mesada" value="sim">
@@ -134,13 +134,13 @@
                 </fieldset>
 
                 <div id="valor-mesada-group" class="field conditional is-hidden">
-                    <label for="valor_mesada">Qual o valor da mesada? <span>*</span></label>
+                    <label for="valor_mesada">Qual o valor da mesada? <span class="required-marker">*</span></label>
                     <input id="valor_mesada" name="valor_mesada" type="text" placeholder="Ex: R$ 50,00 por semana">
                     <p class="field-error" data-error-for="valor_mesada"></p>
                 </div>
 
                 <div id="pretende-investir-group" class="field conditional is-hidden">
-                    <label for="pretende_investir">Quanto pretende investir em mesada? <span>*</span></label>
+                    <label for="pretende_investir">Quanto pretende investir em mesada? <span class="required-marker">*</span></label>
                     <input id="pretende_investir" name="pretende_investir" type="text" placeholder="Ex: R$ 30,00 por mes">
                     <p class="field-error" data-error-for="pretende_investir"></p>
                 </div>
