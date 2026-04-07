@@ -433,7 +433,7 @@ p {
 
 .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 30px;
 }
 
@@ -443,6 +443,7 @@ p {
     border-radius: 12px;
     border: 1px solid var(--borders);
     text-align: center;
+    height: 100%;
 }
 
 .benefit-icon-wrapper {
@@ -1103,6 +1104,10 @@ p {
 
 /* --- RESPONSIVE STYLES --- */
 @media (max-width: 1024px) {
+    .benefits-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .plans-container {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -1157,6 +1162,10 @@ p {
     }
     .hero-image {
         width: 100%;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
     }
     
     .steps-container {
