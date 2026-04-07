@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LECO</title>
+    <title>LECO | Privacidade</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
     <link rel="shortcut icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/privacidade/excluir-dados.css">
 </head>
 <body>
-    <main class="delete-page">
+    <main class="delete-page privacy-page">
         <header class="delete-header">
             <a href="/" class="brand-link" aria-label="Voltar para o site LECO">
                 <img src="/Logo/Logo.png.jpeg" alt="LECO">
@@ -23,14 +23,63 @@
 
         <section class="hero">
             <div class="eyebrow">
-                <span class="eyebrow-icon">-</span>
-                <span>Canal reservado para exclusão de dados</span>
+                <span class="eyebrow-icon">i</span>
+                <span>Privacidade e documentos legais</span>
             </div>
-            <h1>Solicite a exclusão da sua conta e dos seus dados</h1>
+            <h1>Privacidade, termos oficiais e exclusão de dados</h1>
             <p class="hero-copy">
-                Esta página pode ser usada por usuários do app LECO que desejam solicitar a exclusão da conta
-                e dos dados pessoais associados. A solicitação entra no nosso fluxo interno, e o time confirma os próximos passos por e-mail.
+                Nesta página você encontra os documentos oficiais do LECO e o canal para solicitar a exclusão de dados da sua conta.
             </p>
+        </section>
+
+        <section class="docs-section card" aria-label="Documentos oficiais do LECO">
+            <div class="section-heading">
+                <span class="section-tag">Documentos oficiais</span>
+                <h2>Consulte os termos corretos do LECO</h2>
+                <p>Ao clicar em qualquer documento abaixo, você abre a página oficial correspondente com acesso ao PDF final.</p>
+            </div>
+
+            <div class="docs-grid">
+                <article class="doc-card">
+                    <div class="doc-card-icon">PP</div>
+                    <h3>Política de Privacidade</h3>
+                    <p>Regras oficiais sobre coleta, uso, armazenamento e proteção de dados pessoais no LECO.</p>
+                    <div class="doc-card-actions">
+                        <a href="/politica-de-privacidade/" class="doc-link-primary">Abrir documento</a>
+                        <a href="/politica_privacidade_leco_final.pdf" class="doc-link-secondary" target="_blank" rel="noopener noreferrer">PDF</a>
+                    </div>
+                </article>
+
+                <article class="doc-card">
+                    <div class="doc-card-icon">TU</div>
+                    <h3>Termos de Uso</h3>
+                    <p>Condições oficiais de uso do site, formulários, campanhas e serviços vinculados ao LECO.</p>
+                    <div class="doc-card-actions">
+                        <a href="/termos-de-uso/" class="doc-link-primary">Abrir documento</a>
+                        <a href="/termos_uso_leco_final.pdf" class="doc-link-secondary" target="_blank" rel="noopener noreferrer">PDF</a>
+                    </div>
+                </article>
+
+                <article class="doc-card">
+                    <div class="doc-card-icon">ED</div>
+                    <h3>Termo de Exclusão de Dados</h3>
+                    <p>Documento que disciplina a solicitação de exclusão de dados e o encerramento de conta.</p>
+                    <div class="doc-card-actions">
+                        <a href="/termo-exclusao-de-dados/" class="doc-link-primary">Abrir documento</a>
+                        <a href="/termo_exclusao_dados_leco.pdf" class="doc-link-secondary" target="_blank" rel="noopener noreferrer">PDF</a>
+                    </div>
+                </article>
+
+                <article class="doc-card">
+                    <div class="doc-card-icon">RC</div>
+                    <h3>Regulamento da Campanha</h3>
+                    <p>Regras oficiais da campanha de bônus de 2 meses, incluindo elegibilidade e condições aplicáveis.</p>
+                    <div class="doc-card-actions">
+                        <a href="/regulamento-campanha-bonus-2-meses/" class="doc-link-primary">Abrir documento</a>
+                        <a href="/regulamento_campanha_bonus_2_meses_leco.pdf" class="doc-link-secondary" target="_blank" rel="noopener noreferrer">PDF</a>
+                    </div>
+                </article>
+            </div>
         </section>
 
         <section class="info-grid" aria-label="Como funciona a exclusão">
@@ -48,97 +97,105 @@
             </article>
         </section>
 
-        <section id="backend-notice" class="backend-notice is-hidden" aria-live="polite"></section>
-
-        <section id="form-state" class="card form-card">
-            <div class="form-heading">
-                <h2>Preencha os dados da conta</h2>
-                <p>Use os dados principais da conta do app que deve ser excluída.</p>
+        <section class="card delete-request-shell">
+            <div class="section-heading">
+                <span class="section-tag">Excluir dados</span>
+                <h2>Solicite a exclusão da sua conta</h2>
+                <p>Use este formulário para pedir a exclusão da sua conta e dos dados pessoais associados ao app LECO.</p>
             </div>
 
-            <div id="form-feedback" class="feedback is-hidden" aria-live="polite"></div>
+            <section id="backend-notice" class="backend-notice is-hidden" aria-live="polite"></section>
 
-            <form id="delete-form" novalidate>
-                <div class="grid">
-                    <div class="field">
-                        <label for="nome">Nome completo <span class="required-marker">*</span></label>
-                        <input id="nome" name="nome" type="text" placeholder="Nome do titular da conta" autocomplete="name">
-                        <p class="field-error" data-error-for="nome"></p>
+            <section id="form-state" class="form-card form-card-embedded">
+                <div class="form-heading">
+                    <h3>Preencha os dados da conta</h3>
+                    <p>Use os dados principais da conta do app que deve ser excluída.</p>
+                </div>
+
+                <div id="form-feedback" class="feedback is-hidden" aria-live="polite"></div>
+
+                <form id="delete-form" novalidate>
+                    <div class="grid">
+                        <div class="field">
+                            <label for="nome">Nome completo <span class="required-marker">*</span></label>
+                            <input id="nome" name="nome" type="text" placeholder="Nome do titular da conta" autocomplete="name">
+                            <p class="field-error" data-error-for="nome"></p>
+                        </div>
+
+                        <div class="field">
+                            <label for="email">E-mail da conta LECO <span class="required-marker">*</span></label>
+                            <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email">
+                            <p class="field-error" data-error-for="email"></p>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+                        <div class="field">
+                            <label for="cpf">CPF do titular <span class="required-marker">*</span></label>
+                            <input id="cpf" name="cpf" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" autocomplete="off">
+                            <p class="field-hint">Usamos esse dado apenas para validar a identidade do solicitante.</p>
+                            <p class="field-error" data-error-for="cpf"></p>
+                        </div>
+
+                        <div class="field">
+                            <label for="celular">Celular para contato</label>
+                            <input id="celular" name="celular" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel">
+                            <p class="field-hint">Opcional, mas ajuda o time a validar a solicitação, se necessário.</p>
+                            <p class="field-error" data-error-for="celular"></p>
+                        </div>
                     </div>
 
                     <div class="field">
-                        <label for="email">E-mail da conta LECO <span class="required-marker">*</span></label>
-                        <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email">
-                        <p class="field-error" data-error-for="email"></p>
-                    </div>
-                </div>
-
-                <div class="grid">
-                    <div class="field">
-                        <label for="cpf">CPF do titular <span class="required-marker">*</span></label>
-                        <input id="cpf" name="cpf" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" autocomplete="off">
-                        <p class="field-hint">Usamos esse dado apenas para validar a identidade do solicitante.</p>
-                        <p class="field-error" data-error-for="cpf"></p>
+                        <label for="perfil">Perfil da conta <span class="required-marker">*</span></label>
+                        <select id="perfil" name="perfil">
+                            <option value="">Selecione uma opção</option>
+                            <option value="familia">Família / responsável</option>
+                            <option value="escola">Escola / instituição</option>
+                            <option value="outro">Outro perfil</option>
+                        </select>
+                        <p class="field-error" data-error-for="perfil"></p>
                     </div>
 
                     <div class="field">
-                        <label for="celular">Celular para contato</label>
-                        <input id="celular" name="celular" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel">
-                        <p class="field-hint">Opcional, mas ajuda o time a validar a solicitação, se necessário.</p>
-                        <p class="field-error" data-error-for="celular"></p>
+                        <label for="referencia">Nome da criança, instituição ou outra referência</label>
+                        <input id="referencia" name="referencia" type="text" placeholder="Opcional, para ajudar a localizar a conta">
+                        <p class="field-hint">Se quiser, informe um dado adicional que ajude a identificar a conta no app.</p>
+                        <p class="field-error" data-error-for="referencia"></p>
                     </div>
+
+                    <div class="field">
+                        <label for="mensagem">Observações adicionais</label>
+                        <textarea id="mensagem" name="mensagem" rows="5" placeholder="Se quiser, descreva algo que ajude nosso time a localizar e processar a exclusão."></textarea>
+                        <p class="field-error" data-error-for="mensagem"></p>
+                    </div>
+
+                    <div class="terms">
+                        <label class="checkbox-row" for="confirmacao_exclusao">
+                            <input id="confirmacao_exclusao" name="confirmacao_exclusao" type="checkbox">
+                            <span>Confirmo que li e estou ciente do <a href="/termo-exclusao-de-dados/" target="_blank" rel="noopener noreferrer">Termo de Exclusão de Dados e Encerramento de Conta</a> e desejo solicitar a exclusão da minha conta e dos meus dados associados ao app LECO.</span>
+                        </label>
+                        <p class="field-error" data-error-for="confirmacao_exclusao"></p>
+                    </div>
+
+                    <button id="submit-button" type="submit" class="submit-button">
+                        Solicitar exclusão de dados
+                    </button>
+
+                    <p class="security-note">Esta área é destinada somente ao tratamento de pedidos de exclusão de dados do app LECO.</p>
+                </form>
+            </section>
+
+            <section id="success-state" class="state-card state-card-embedded is-hidden" aria-live="polite">
+                <div class="state-icon success-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
                 </div>
-
-                <div class="field">
-                    <label for="perfil">Perfil da conta <span class="required-marker">*</span></label>
-                    <select id="perfil" name="perfil">
-                        <option value="">Selecione uma opção</option>
-                        <option value="familia">Família / responsável</option>
-                        <option value="escola">Escola / instituição</option>
-                        <option value="outro">Outro perfil</option>
-                    </select>
-                    <p class="field-error" data-error-for="perfil"></p>
-                </div>
-
-                <div class="field">
-                    <label for="referencia">Nome da criança, instituição ou outra referência</label>
-                    <input id="referencia" name="referencia" type="text" placeholder="Opcional, para ajudar a localizar a conta">
-                    <p class="field-hint">Se quiser, informe um dado adicional que ajude a identificar a conta no app.</p>
-                    <p class="field-error" data-error-for="referencia"></p>
-                </div>
-
-                <div class="field">
-                    <label for="mensagem">Observações adicionais</label>
-                    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Se quiser, descreva algo que ajude nosso time a localizar e processar a exclusão."></textarea>
-                    <p class="field-error" data-error-for="mensagem"></p>
-                </div>
-
-                <div class="terms">
-                    <label class="checkbox-row" for="confirmacao_exclusao">
-                        <input id="confirmacao_exclusao" name="confirmacao_exclusao" type="checkbox">
-                        <span>Confirmo que li e estou ciente do <a href="/termo-exclusao-de-dados/" target="_blank" rel="noopener noreferrer">Termo de Exclusão de Dados e Encerramento de Conta</a> e desejo solicitar a exclusão da minha conta e dos meus dados associados ao app LECO.</span>
-                    </label>
-                    <p class="field-error" data-error-for="confirmacao_exclusao"></p>
-                </div>
-
-                <button id="submit-button" type="submit" class="submit-button">
-                    Solicitar exclusão de dados
-                </button>
-
-                <p class="security-note">Esta página é destinada somente ao tratamento de pedidos de exclusão de dados do app LECO.</p>
-            </form>
-        </section>
-
-        <section id="success-state" class="card state-card is-hidden" aria-live="polite">
-            <div class="state-icon success-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-            </div>
-            <h2>Solicitação recebida</h2>
-            <p id="success-copy">Recebemos seu pedido de exclusão de dados e vamos analisar as informações enviadas.</p>
-            <a class="state-link" href="/">Voltar para o site LECO</a>
+                <h3>Solicitação recebida</h3>
+                <p id="success-copy">Recebemos seu pedido de exclusão de dados e vamos analisar as informações enviadas.</p>
+                <a class="state-link" href="/">Voltar para o site LECO</a>
+            </section>
         </section>
     </main>
 
