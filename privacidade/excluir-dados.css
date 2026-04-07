@@ -285,6 +285,17 @@ a {
     margin-top: 18px;
 }
 
+.delete-request-cta {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.request-button {
+    width: auto;
+    min-width: 280px;
+    text-decoration: none;
+}
+
 .form-card-embedded,
 .state-card-embedded {
     padding: 0;
@@ -567,6 +578,15 @@ a {
     .form-card-embedded,
     .state-card-embedded {
         padding: 0;
+    }
+
+    .delete-request-cta {
+        justify-content: stretch;
+    }
+
+    .request-button {
+        width: 100%;
+        min-width: 0;
     }
 
     .hero h1 {
