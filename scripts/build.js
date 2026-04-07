@@ -13,6 +13,7 @@ const itemsToCopy = [
   'Logo',
   'apresentacao',
   'excluir-dados',
+  'privacidade',
   'inscricao',
   'termos-de-uso',
   'politica-de-privacidade',

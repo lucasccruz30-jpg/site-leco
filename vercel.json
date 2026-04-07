@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/excluir-dados",
+      "destination": "/privacidade",
+      "permanent": true
+    },
+    {
+      "source": "/excluir-dados/",
+      "destination": "/privacidade/",
+      "permanent": true
+    }
+  ]
+}
