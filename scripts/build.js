@@ -8,6 +8,8 @@ const itemsToCopy = [
   'style.css',
   'legal.css',
   'script.js',
+  'robots.txt',
+  'sitemap.xml',
   'Logo',
   'apresentacao',
   'excluir-dados',
