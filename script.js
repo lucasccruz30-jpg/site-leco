@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuClose = document.querySelector('.mobile-menu-close');
     const mobileMenuLinks = document.querySelectorAll('.mobile-menu-nav a, .mobile-menu-actions a');
     const billingToggleButtons = document.querySelectorAll('[data-billing-toggle]');
-    const familyCountButtons = document.querySelectorAll('[data-family-count]');
+    const familyCountSelect = document.getElementById('family-count-select');
     const lecoPrice = document.getElementById('leco-price');
     const lecoSubline = document.getElementById('leco-subline');
     const lecoNote = document.getElementById('leco-note');
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (
         billingToggleButtons.length > 0 &&
-        familyCountButtons.length > 0 &&
+        familyCountSelect &&
         lecoPrice &&
         lecoSubline &&
         lecoNote &&
@@ -142,11 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
 
-            familyCountButtons.forEach((button) => {
-                const isActive = button.dataset.familyCount === String(selectedCount);
-                button.classList.toggle('is-active', isActive);
-                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-            });
+            familyCountSelect.value = String(selectedCount);
         };
 
         billingToggleButtons.forEach((button) => {
@@ -156,11 +152,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        familyCountButtons.forEach((button) => {
-            button.addEventListener('click', () => {
-                currentFamilyCount = button.dataset.familyCount;
-                applyPricingState();
-            });
+        familyCountSelect.addEventListener('change', () => {
+            currentFamilyCount = familyCountSelect.value;
+            applyPricingState();
         });
 
         applyPricingState();

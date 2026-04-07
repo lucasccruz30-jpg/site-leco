@@ -286,12 +286,14 @@
                     <button type="button" class="billing-toggle-button is-active" data-billing-toggle="anual" aria-pressed="true">Anual</button>
                 </div>
                 <p class="billing-toggle-note">Escolha como prefere pagar e ajuste o plano família conforme a quantidade de crianças.</p>
-                <div class="plans-children-switch" aria-label="Quantidade de crianças no plano família">
-                    <span class="children-toggle-label">Plano família:</span>
-                    <div class="children-toggle-group">
-                        <button type="button" class="children-toggle-button" data-family-count="2" aria-pressed="false">2 crianças</button>
-                        <button type="button" class="children-toggle-button" data-family-count="3" aria-pressed="false">3 crianças</button>
-                        <button type="button" class="children-toggle-button is-active" data-family-count="4" aria-pressed="true">4 crianças</button>
+                <div class="plans-children-control">
+                    <label class="children-select-label" for="family-count-select">Plano família</label>
+                    <div class="children-select-wrap">
+                        <select id="family-count-select" class="children-count-select" aria-label="Quantidade de crianças no plano família">
+                            <option value="2">2 crianças</option>
+                            <option value="3">3 crianças</option>
+                            <option value="4" selected>4 crianças</option>
+                        </select>
                     </div>
                 </div>
                 <div class="plans-container">
@@ -309,7 +311,7 @@
                             <li><span class="check-icon"></span>Carteira de LeCoins</li>
                             <li><span class="check-icon"></span>Acesso ao ecossistema LECO</li>
                         </ul>
-                        <a href="#" class="btn btn-primary">Assinar LECO</a>
+                        <a href="/inscricao/" class="btn btn-primary">Assinar LECO</a>
                     </div>
                     <div class="plan-card featured">
                         <span class="featured-badge">Melhor custo-benefício</span>
@@ -326,7 +328,7 @@
                             <li><span class="check-icon"></span>Melhor custo-benefício familiar</li>
                             <li><span class="check-icon"></span>Experiência completa do ecossistema LECO</li>
                         </ul>
-                        <a href="#" class="btn btn-primary">Escolher LECO Família</a>
+                        <a href="/inscricao/" class="btn btn-primary">Escolher LECO Família</a>
                     </div>
                     <div class="plan-card">
                         <h3>LECO Escolas</h3>
