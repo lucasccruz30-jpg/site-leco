@@ -75,22 +75,29 @@
 
                 <div class="grid">
                     <div class="field">
+                        <label for="cpf">CPF do titular <span class="required-marker">*</span></label>
+                        <input id="cpf" name="cpf" type="text" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" autocomplete="off">
+                        <p class="field-hint">Usamos esse dado apenas para validar a identidade do solicitante.</p>
+                        <p class="field-error" data-error-for="cpf"></p>
+                    </div>
+
+                    <div class="field">
                         <label for="celular">Celular para contato</label>
                         <input id="celular" name="celular" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel">
                         <p class="field-hint">Opcional, mas ajuda o time a validar a solicitação, se necessário.</p>
                         <p class="field-error" data-error-for="celular"></p>
                     </div>
+                </div>
 
-                    <div class="field">
-                        <label for="perfil">Perfil da conta <span class="required-marker">*</span></label>
-                        <select id="perfil" name="perfil">
-                            <option value="">Selecione uma opção</option>
-                            <option value="familia">Família / responsável</option>
-                            <option value="escola">Escola / instituição</option>
-                            <option value="outro">Outro perfil</option>
-                        </select>
-                        <p class="field-error" data-error-for="perfil"></p>
-                    </div>
+                <div class="field">
+                    <label for="perfil">Perfil da conta <span class="required-marker">*</span></label>
+                    <select id="perfil" name="perfil">
+                        <option value="">Selecione uma opção</option>
+                        <option value="familia">Família / responsável</option>
+                        <option value="escola">Escola / instituição</option>
+                        <option value="outro">Outro perfil</option>
+                    </select>
+                    <p class="field-error" data-error-for="perfil"></p>
                 </div>
 
                 <div class="field">
@@ -109,7 +116,7 @@
                 <div class="terms">
                     <label class="checkbox-row" for="confirmacao_exclusao">
                         <input id="confirmacao_exclusao" name="confirmacao_exclusao" type="checkbox">
-                        <span>Confirmo que desejo solicitar a exclusão da minha conta e dos meus dados associados ao app LECO.</span>
+                        <span>Confirmo que li e estou ciente do <a href="/termo-exclusao-de-dados/" target="_blank" rel="noopener noreferrer">Termo de Exclusão de Dados e Encerramento de Conta</a> e desejo solicitar a exclusão da minha conta e dos meus dados associados ao app LECO.</span>
                     </label>
                     <p class="field-error" data-error-for="confirmacao_exclusao"></p>
                 </div>

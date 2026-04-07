@@ -284,6 +284,16 @@ a {
     line-height: 1.7;
 }
 
+.checkbox-row a {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.checkbox-row a:hover {
+    text-decoration: underline;
+}
+
 .submit-button {
     display: inline-flex;
     align-items: center;

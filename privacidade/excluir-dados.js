@@ -10,8 +10,17 @@ const successState = document.getElementById('success-state');
 const successCopy = document.getElementById('success-copy');
 const feedback = document.getElementById('form-feedback');
 const submitButton = document.getElementById('submit-button');
+const cpfInput = document.getElementById('cpf');
 const celularInput = document.getElementById('celular');
 const backendNotice = document.getElementById('backend-notice');
+
+function formatCpf(value) {
+    const digits = value.replace(/\D/g, '').slice(0, 11);
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `${digits.slice(0, 3)}.${digits.slice(3)}`;
+    if (digits.length <= 9) return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6)}`;
+    return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6, 9)}-${digits.slice(9)}`;
+}
 
 function formatCelular(value) {
     const digits = value.replace(/\D/g, '').slice(0, 11);
@@ -21,10 +30,33 @@ function formatCelular(value) {
     return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
 }
 
+function isValidCpf(value) {
+    const digits = value.replace(/\D/g, '');
+    if (digits.length !== 11 || /^(\d)\1{10}$/.test(digits)) {
+        return false;
+    }
+
+    const calculateDigit = (base, factor) => {
+        let total = 0;
+        for (const digit of base) {
+            total += Number(digit) * factor;
+            factor -= 1;
+        }
+        const remainder = (total * 10) % 11;
+        return remainder === 10 ? 0 : remainder;
+    };
+
+    const firstDigit = calculateDigit(digits.slice(0, 9), 10);
+    const secondDigit = calculateDigit(digits.slice(0, 10), 11);
+
+    return firstDigit === Number(digits[9]) && secondDigit === Number(digits[10]);
+}
+
 function collectFormData() {
     return {
         nome: document.getElementById('nome').value.trim(),
         email: document.getElementById('email').value.trim(),
+        cpf: document.getElementById('cpf').value.trim(),
         celular: document.getElementById('celular').value.trim(),
         perfil: document.getElementById('perfil').value,
         referencia: document.getElementById('referencia').value.trim(),
@@ -106,6 +138,9 @@ function validateForm(data) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
         errors.email = ['Informe um e-mail válido.'];
     }
+    if (!isValidCpf(data.cpf)) {
+        errors.cpf = ['Informe um CPF válido.'];
+    }
     if (data.celular && !/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(data.celular)) {
         errors.celular = ['Use o formato (11) 99999-9999.'];
     }
@@ -113,7 +148,7 @@ function validateForm(data) {
         errors.perfil = ['Selecione o perfil da conta.'];
     }
     if (!data.confirmacao_exclusao) {
-        errors.confirmacao_exclusao = ['Você precisa confirmar a solicitação de exclusão.'];
+        errors.confirmacao_exclusao = ['Você precisa confirmar a leitura do termo e a solicitação de exclusão.'];
     }
 
     return errors;
@@ -125,11 +160,11 @@ async function loadStatus() {
         const data = await response.json();
 
         if (!response.ok || data.backend_configured === false) {
-            showBackendNotice('No momento estamos finalizando este canal. Se precisar, envie um e-mail para contato@lecoapp.com.br.');
+            showBackendNotice('No momento estamos finalizando este canal. Se precisar, envie um e-mail para privacidade@lecoapp.com.br.');
         }
     } catch (error) {
         console.error(error);
-        showBackendNotice('No momento estamos finalizando este canal. Se precisar, envie um e-mail para contato@lecoapp.com.br.');
+        showBackendNotice('No momento estamos finalizando este canal. Se precisar, envie um e-mail para privacidade@lecoapp.com.br.');
     }
 }
 
@@ -177,6 +212,10 @@ async function handleSubmit(event) {
         setLoading(false);
     }
 }
+
+cpfInput.addEventListener('input', (event) => {
+    event.target.value = formatCpf(event.target.value);
+});
 
 celularInput.addEventListener('input', (event) => {
     event.target.value = formatCelular(event.target.value);

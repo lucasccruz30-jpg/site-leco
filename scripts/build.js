@@ -10,11 +10,13 @@ const itemsToCopy = [
   'script.js',
   'robots.txt',
   'sitemap.xml',
+  'termo_exclusao_dados_leco.pdf',
   'Logo',
   'apresentacao',
   'excluir-dados',
   'privacidade',
   'inscricao',
+  'termo-exclusao-de-dados',
   'termos-de-uso',
   'politica-de-privacidade',
 ];

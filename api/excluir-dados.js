@@ -4,6 +4,7 @@ const ws = require('ws');
 
 const DATABASE_PROVIDER = 'neon';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CPF_REGEX = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 const CELULAR_REGEX = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
 const PERFIS = new Map([
   ['familia', 'Família / responsável'],
@@ -42,6 +43,28 @@ function escapeHtml(value) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function isValidCpf(value) {
+  const digits = String(value || '').replace(/\D/g, '');
+  if (digits.length !== 11 || /^(\d)\1{10}$/.test(digits)) {
+    return false;
+  }
+
+  const calculateDigit = (base, factor) => {
+    let total = 0;
+    for (const digit of base) {
+      total += Number(digit) * factor;
+      factor -= 1;
+    }
+    const remainder = (total * 10) % 11;
+    return remainder === 10 ? 0 : remainder;
+  };
+
+  const firstDigit = calculateDigit(digits.slice(0, 9), 10);
+  const secondDigit = calculateDigit(digits.slice(0, 10), 11);
+
+  return firstDigit === Number(digits[9]) && secondDigit === Number(digits[10]);
 }
 
 function getConfig() {
@@ -95,6 +118,7 @@ async function ensureSchema(connectionString) {
           id BIGSERIAL PRIMARY KEY,
           nome TEXT NOT NULL,
           email TEXT NOT NULL,
+          cpf TEXT,
           celular TEXT,
           perfil TEXT NOT NULL,
           referencia TEXT,
@@ -107,6 +131,9 @@ async function ensureSchema(connectionString) {
           email_error TEXT,
           criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
+
+        ALTER TABLE solicitacoes_exclusao_dados
+          ADD COLUMN IF NOT EXISTS cpf TEXT;
 
         CREATE INDEX IF NOT EXISTS idx_solicitacoes_exclusao_dados_criado_em
           ON solicitacoes_exclusao_dados (criado_em DESC);
@@ -126,6 +153,7 @@ function validate(body) {
   const data = {
     nome: String(body.nome || '').trim(),
     email: String(body.email || '').trim().toLowerCase(),
+    cpf: String(body.cpf || '').trim(),
     celular: String(body.celular || '').trim(),
     perfil: String(body.perfil || '').trim(),
     referencia: String(body.referencia || '').trim(),
@@ -141,6 +169,9 @@ function validate(body) {
   if (!EMAIL_REGEX.test(data.email)) {
     errors.email = ['Informe um e-mail válido.'];
   }
+  if (!CPF_REGEX.test(data.cpf) || !isValidCpf(data.cpf)) {
+    errors.cpf = ['Informe um CPF válido.'];
+  }
   if (data.celular && !CELULAR_REGEX.test(data.celular)) {
     errors.celular = ['Use o formato (11) 99999-9999.'];
   }
@@ -148,7 +179,7 @@ function validate(body) {
     errors.perfil = ['Selecione o perfil da conta.'];
   }
   if (!data.confirmacao_exclusao) {
-    errors.confirmacao_exclusao = ['Você precisa confirmar a solicitação de exclusão.'];
+    errors.confirmacao_exclusao = ['Você precisa confirmar a leitura do termo e a solicitação de exclusão.'];
   }
 
   return { data, errors };
@@ -163,17 +194,19 @@ async function insertSolicitacao(config, payload) {
       INSERT INTO solicitacoes_exclusao_dados (
         nome,
         email,
+        cpf,
         celular,
         perfil,
         referencia,
         mensagem,
         confirmacao_exclusao
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7)
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
       RETURNING id, criado_em
     `,
     [
       payload.nome,
       payload.email,
+      payload.cpf,
       payload.celular || null,
       payload.perfil,
       payload.referencia || null,
@@ -218,6 +251,7 @@ function buildInternalEmailHtml(payload) {
       <table style="width:100%;border-collapse:collapse;">
         <tr><td style="padding:8px 0;font-weight:700;">Nome</td><td style="padding:8px 0;">${escapeHtml(payload.nome)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">E-mail da conta</td><td style="padding:8px 0;">${escapeHtml(payload.email)}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">CPF</td><td style="padding:8px 0;">${escapeHtml(payload.cpf)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">Celular</td><td style="padding:8px 0;">${escapeHtml(payload.celular || 'Não informado')}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">Perfil</td><td style="padding:8px 0;">${escapeHtml(perfil)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">Referência adicional</td><td style="padding:8px 0;">${escapeHtml(payload.referencia || 'Não informada')}</td></tr>
@@ -238,6 +272,7 @@ function buildInternalEmailText(payload) {
     '',
     `Nome: ${payload.nome}`,
     `E-mail da conta: ${payload.email}`,
+    `CPF: ${payload.cpf}`,
     `Celular: ${payload.celular || 'Não informado'}`,
     `Perfil: ${perfil}`,
     `Referência adicional: ${payload.referencia || 'Não informada'}`,
@@ -259,6 +294,7 @@ function buildConfirmationHtml(payload) {
       <div style="padding:18px;border-radius:16px;background:#f4f7fb;border:1px solid #dfe7f2;">
         <strong style="display:block;margin-bottom:8px;">Resumo enviado</strong>
         <p style="margin:0;"><strong>E-mail da conta:</strong> ${escapeHtml(payload.email)}</p>
+        <p style="margin:8px 0 0;"><strong>CPF:</strong> ${escapeHtml(payload.cpf)}</p>
         <p style="margin:8px 0 0;"><strong>Perfil:</strong> ${escapeHtml(PERFIS.get(payload.perfil) || payload.perfil)}</p>
       </div>
       <p style="margin:20px 0 0;">Obrigado,<br>Time LECO</p>
@@ -274,6 +310,7 @@ function buildConfirmationText(payload) {
     'Nosso time vai validar as informações enviadas e seguir com o atendimento pelos canais informados.',
     '',
     `E-mail da conta: ${payload.email}`,
+    `CPF: ${payload.cpf}`,
     `Perfil: ${PERFIS.get(payload.perfil) || payload.perfil}`,
     '',
     'Obrigado,',
@@ -331,7 +368,7 @@ async function sendEmails(config, payload) {
 
     confirmationId = data?.id || null;
   } catch (error) {
-    failures.push(`confirmação: ${error.message}`);
+    failures.push(`confirmacao: ${error.message}`);
   }
 
   return {
