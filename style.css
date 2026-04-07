@@ -45,6 +45,7 @@ body.menu-open {
 
 section {
     padding: 80px 0;
+    scroll-margin-top: 140px;
 }
 
 /* --- TYPOGRAPHY --- */
@@ -119,13 +120,20 @@ p {
 }
 
 /* --- HEADER --- */
+.sticky-top-shell {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    background: var(--base-bg);
+    box-shadow: 0 10px 30px rgba(16, 23, 42, 0.08);
+}
+
 .main-header {
     background-color: var(--base-bg);
     padding: 10px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 1;
+    box-shadow: none;
 }
 
 .main-header .container {
