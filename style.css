@@ -426,6 +426,94 @@ p {
     z-index: 2;
 }
 
+/* --- CAMPAIGN SECTION --- */
+#campanha .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+    column-gap: clamp(36px, 5vw, 84px);
+    row-gap: 18px;
+    align-items: center;
+    text-align: left !important;
+}
+
+#campanha .container > div:first-of-type {
+    justify-self: flex-start;
+    margin-bottom: 0 !important;
+}
+
+#campanha h2 {
+    max-width: 700px;
+    margin: 0 !important;
+    text-align: left !important;
+    font-size: clamp(2.4rem, 3.6vw, 3.9rem) !important;
+    letter-spacing: -0.05em;
+}
+
+#campanha .container > p:first-of-type {
+    max-width: 680px !important;
+    margin: 0 !important;
+    font-size: 18px !important;
+    line-height: 1.75 !important;
+}
+
+#campanha .container > div:nth-of-type(2) {
+    grid-column: 2;
+    grid-row: 1 / span 5;
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 18px !important;
+    margin: 0 !important;
+    align-self: stretch;
+}
+
+#campanha .container > div:nth-of-type(2) > div {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding: 22px 22px;
+    border-radius: 22px;
+    border: 1px solid rgba(208, 216, 218, 0.95);
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 18px 34px rgba(16, 23, 42, 0.06);
+}
+
+#campanha .container > div:nth-of-type(2) > div > div:first-child {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 14px !important;
+    flex-shrink: 0;
+    font-size: 20px !important;
+}
+
+#campanha .container > div:nth-of-type(2) > div:nth-child(1) > div:first-child {
+    background: rgba(30, 94, 255, 0.12) !important;
+}
+
+#campanha .container > div:nth-of-type(2) > div:nth-child(2) > div:first-child {
+    background: rgba(23, 196, 127, 0.12) !important;
+}
+
+#campanha .container > div:nth-of-type(2) > div:nth-child(3) > div:first-child {
+    background: rgba(243, 168, 96, 0.14) !important;
+}
+
+#campanha .container > div:nth-of-type(2) span {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: var(--navy) !important;
+    line-height: 1.45;
+}
+
+#campanha .container > a {
+    justify-self: flex-start;
+    min-width: 330px;
+}
+
+#campanha .container > p:last-of-type {
+    margin: 0 !important;
+    text-align: left !important;
+}
+
 /* --- BENEFITS SECTION --- */
 .benefits-section {
     background-color: var(--white);
@@ -1104,6 +1192,36 @@ p {
 
 /* --- RESPONSIVE STYLES --- */
 @media (max-width: 1024px) {
+    #campanha .container {
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+        text-align: center !important;
+    }
+
+    #campanha .container > div:first-of-type,
+    #campanha .container > a {
+        justify-self: center;
+    }
+
+    #campanha h2 {
+        max-width: 760px;
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+
+    #campanha .container > p:first-of-type,
+    #campanha .container > p:last-of-type {
+        max-width: 760px !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+    }
+
+    #campanha .container > div:nth-of-type(2) {
+        grid-column: auto;
+        grid-row: auto;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .benefits-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -1162,6 +1280,15 @@ p {
     }
     .hero-image {
         width: 100%;
+    }
+
+    #campanha .container > div:nth-of-type(2) {
+        grid-template-columns: 1fr;
+    }
+
+    #campanha .container > a {
+        width: 100%;
+        min-width: 0;
     }
 
     .benefits-grid {
