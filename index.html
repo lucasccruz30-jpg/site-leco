@@ -285,7 +285,15 @@
                     <button type="button" class="billing-toggle-button" data-billing-toggle="mensal" aria-pressed="false">Mensal</button>
                     <button type="button" class="billing-toggle-button is-active" data-billing-toggle="anual" aria-pressed="true">Anual</button>
                 </div>
-                <p class="billing-toggle-note">Escolha como prefere pagar e veja os valores mudarem entre mensal e anual.</p>
+                <p class="billing-toggle-note">Escolha como prefere pagar e ajuste o plano família conforme a quantidade de crianças.</p>
+                <div class="plans-children-switch" aria-label="Quantidade de crianças no plano família">
+                    <span class="children-toggle-label">Plano família:</span>
+                    <div class="children-toggle-group">
+                        <button type="button" class="children-toggle-button" data-family-count="2" aria-pressed="false">2 crianças</button>
+                        <button type="button" class="children-toggle-button" data-family-count="3" aria-pressed="false">3 crianças</button>
+                        <button type="button" class="children-toggle-button is-active" data-family-count="4" aria-pressed="true">4 crianças</button>
+                    </div>
+                </div>
                 <div class="plans-container">
                     <div class="plan-card">
                         <h3>LECO</h3>
@@ -306,14 +314,15 @@
                     <div class="plan-card featured">
                         <span class="featured-badge">Melhor custo-benefício</span>
                         <h3>LECO Família</h3>
-                        <p>Mais praticidade e economia para famílias com até 4 crianças em um único plano.</p>
-                        <div id="family-price" class="price price-installment"><span class="price-prefix">12x de</span>R$ 91,90<span>/mês</span></div>
-                        <p id="family-subline" class="anual-price">para até 4 crianças</p>
-                        <span id="family-note" class="price-note">Cobrança anual de R$ 1.102,80 no cartão.</span>
+                        <p id="family-description">Economia progressiva para famílias com 4 crianças em um único plano.</p>
+                        <div id="family-price" class="price price-installment"><span class="price-prefix">12x de</span>R$ 87,60<span>/mês</span></div>
+                        <p id="family-subline" class="anual-price">equivale a R$ 21,90 por criança para 4 crianças</p>
+                        <span id="family-note" class="price-note">Cobrança anual de R$ 1.051,20 no cartão.</span>
                         <ul class="plan-features">
                             <li><span class="check-icon"></span>Tudo do plano LECO</li>
                             <li><span class="check-icon"></span>Uso para até 4 crianças</li>
                             <li><span class="check-icon"></span>Gestão centralizada da família</li>
+                            <li><span class="check-icon"></span>Valor progressivo conforme a quantidade de crianças</li>
                             <li><span class="check-icon"></span>Melhor custo-benefício familiar</li>
                             <li><span class="check-icon"></span>Experiência completa do ecossistema LECO</li>
                         </ul>
@@ -375,13 +384,13 @@
                             <tr>
                                 <td>Quantidade de crianças</td>
                                 <td>1</td>
-                                <td>Até 4</td>
+                                <td>2 a 4</td>
                                 <td>Ilimitado</td>
                             </tr>
                             <tr>
                                 <td>Cobrança</td>
                                 <td>Mensal ou Anual</td>
-                                <td>Anual</td>
+                                <td>Mensal ou Anual</td>
                                 <td>Sob consulta</td>
                             </tr>
                             <tr>
@@ -468,7 +477,7 @@
                             <h4>Posso usar com mais de uma criança?</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>Sim! O plano LECO Família foi desenhado para isso, permitindo gerenciar até 4 crianças em uma única conta, com perfis e acompanhamentos individuais, mas dentro de uma gestão familiar centralizada.</p>
+                            <p>Sim! O plano LECO Família foi desenhado para isso, permitindo gerenciar de 2 a 4 crianças em uma única conta, com perfis e acompanhamentos individuais, mas dentro de uma gestão familiar centralizada.</p>
                         </div>
                     </div>
                      <div class="faq-item">
@@ -476,7 +485,7 @@
                             <h4>Como funciona o plano família?</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>O plano LECO Família é uma assinatura anual que dá acesso a todos os recursos do LECO para até 4 crianças. Ele oferece um painel de gestão centralizado para os responsáveis, permitindo uma visão unificada do progresso de todos, além de ter o melhor custo-benefício para a família.</p>
+                            <p>O plano LECO Família atende famílias com 2 a 4 crianças e ajusta o valor por criança conforme a quantidade escolhida e a forma de pagamento. Assim, quanto mais crianças no plano, melhor fica o custo-benefício da família, mantendo todos os recursos do ecossistema LECO em uma gestão centralizada.</p>
                         </div>
                     </div>
                     <div class="faq-item">

@@ -738,11 +738,57 @@ p {
 
 .billing-toggle-note {
     max-width: 520px;
-    margin: 0 auto 42px;
+    margin: 0 auto 18px;
     text-align: center;
     color: var(--aux-text);
     font-size: 13px;
     line-height: 1.6;
+}
+
+.plans-children-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 0 auto 34px;
+}
+
+.children-toggle-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--aux-text);
+}
+
+.children-toggle-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 999px;
+    background: rgba(16, 23, 42, 0.04);
+    border: 1px solid rgba(16, 23, 42, 0.08);
+}
+
+.children-toggle-button {
+    min-width: 92px;
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--aux-text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.children-toggle-button.is-active {
+    background: rgba(30, 94, 255, 0.12);
+    color: var(--leco-blue);
+    box-shadow: inset 0 0 0 1px rgba(30, 94, 255, 0.12);
 }
 
 .plan-card {
@@ -1335,6 +1381,24 @@ p {
 
     .billing-toggle-note {
         margin: 0 auto 32px;
+    }
+
+    .plans-children-switch {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 28px;
+    }
+
+    .children-toggle-group {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .children-toggle-button {
+        min-width: 0;
+        flex: 1;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     #campanha .container > div:nth-of-type(2) {

@@ -6,27 +6,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuClose = document.querySelector('.mobile-menu-close');
     const mobileMenuLinks = document.querySelectorAll('.mobile-menu-nav a, .mobile-menu-actions a');
     const billingToggleButtons = document.querySelectorAll('[data-billing-toggle]');
+    const familyCountButtons = document.querySelectorAll('[data-family-count]');
     const lecoPrice = document.getElementById('leco-price');
     const lecoSubline = document.getElementById('leco-subline');
     const lecoNote = document.getElementById('leco-note');
+    const familyDescription = document.getElementById('family-description');
     const familyPrice = document.getElementById('family-price');
     const familySubline = document.getElementById('family-subline');
     const familyNote = document.getElementById('family-note');
 
-    // FAQ Accordion
     const faqItems = document.querySelectorAll('.faq-item');
 
-    faqItems.forEach(item => {
+    faqItems.forEach((item) => {
         const question = item.querySelector('.faq-question');
+
         question.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
 
-            // Close all other items
-            faqItems.forEach(otherItem => {
+            faqItems.forEach((otherItem) => {
                 otherItem.classList.remove('active');
             });
 
-            // Open the clicked item if it wasn't already active
             if (!isActive) {
                 item.classList.add('active');
             }
@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         mobileMenuClose.addEventListener('click', closeMobileMenu);
         mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
         mobileMenuLinks.forEach((link) => {
             link.addEventListener('click', closeMobileMenu);
         });
@@ -76,60 +77,73 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (
         billingToggleButtons.length > 0 &&
+        familyCountButtons.length > 0 &&
         lecoPrice &&
         lecoSubline &&
         lecoNote &&
+        familyDescription &&
         familyPrice &&
         familySubline &&
         familyNote
     ) {
-        const billingPlans = {
+        const childPricing = {
             mensal: {
-                leco: {
-                    className: 'price',
-                    html: 'R$ 29,90<span>/mês</span>',
-                    subline: 'por criança',
-                    note: 'Cobrança mensal de R$ 29,90 por criança no cartão.',
-                },
-                familia: {
-                    className: 'price',
-                    html: 'R$ 26,90<span>/mês</span>',
-                    subline: 'por criança, para famílias com até 4 crianças',
-                    note: 'Cobrança mensal no cartão, conforme a quantidade de crianças no plano.',
-                },
+                1: 29.9,
+                2: 27.9,
+                3: 25.9,
+                4: 23.9,
             },
-                anual: {
-                    leco: {
-                        className: 'price',
-                        html: 'R$ 26,90<span>/mês</span>',
-                        subline: 'por criança',
-                        note: 'Cobrança anual de R$ 322,80 por criança no cartão.',
-                    },
-                    familia: {
-                        className: 'price price-installment',
-                        html: '<span class="price-prefix">12x de</span>R$ 91,90<span>/mês</span>',
-                        subline: 'para até 4 crianças',
-                        note: 'Cobrança anual de R$ 1.102,80 no cartão.',
-                    },
-                },
-            };
+            anual: {
+                1: 26.9,
+                2: 25.9,
+                3: 23.9,
+                4: 21.9,
+            },
+        };
 
-        const applyBillingMode = (mode) => {
-            const selectedMode = billingPlans[mode] ? mode : 'anual';
-            const selected = billingPlans[selectedMode];
+        const formatMoney = (value) => value.toFixed(2).replace('.', ',');
+        const formatCountLabel = (count) => `${count} ${count === 1 ? 'criança' : 'crianças'}`;
 
-            lecoPrice.className = selected.leco.className;
-            lecoPrice.innerHTML = selected.leco.html;
-            lecoSubline.textContent = selected.leco.subline;
-            lecoNote.textContent = selected.leco.note;
+        let currentBillingMode = 'anual';
+        let currentFamilyCount = '4';
 
-            familyPrice.className = selected.familia.className;
-            familyPrice.innerHTML = selected.familia.html;
-            familySubline.textContent = selected.familia.subline;
-            familyNote.textContent = selected.familia.note;
+        const applyPricingState = () => {
+            const selectedMode = childPricing[currentBillingMode] ? currentBillingMode : 'anual';
+            const selectedCount = childPricing[selectedMode][currentFamilyCount] ? Number(currentFamilyCount) : 4;
+
+            const lecoMonthlyValue = childPricing[selectedMode][1];
+            const lecoAnnualCharge = childPricing.anual[1] * 12;
+
+            lecoPrice.className = 'price';
+            lecoPrice.innerHTML = `R$ ${formatMoney(lecoMonthlyValue)}<span>/mês</span>`;
+            lecoSubline.textContent = 'por criança';
+            lecoNote.textContent = selectedMode === 'anual'
+                ? `Cobrança anual de R$ ${formatMoney(lecoAnnualCharge)} por criança no cartão.`
+                : `Cobrança mensal de R$ ${formatMoney(lecoMonthlyValue)} por criança no cartão.`;
+
+            const familyPerChildValue = childPricing[selectedMode][selectedCount];
+            const familyMonthlyEquivalent = familyPerChildValue * selectedCount;
+            const familyAnnualCharge = childPricing.anual[selectedCount] * selectedCount * 12;
+            const familyCountLabel = formatCountLabel(selectedCount);
+
+            familyDescription.textContent = `Economia progressiva para famílias com ${familyCountLabel} em um único plano.`;
+            familyPrice.className = selectedMode === 'anual' ? 'price price-installment' : 'price';
+            familyPrice.innerHTML = selectedMode === 'anual'
+                ? `<span class="price-prefix">12x de</span>R$ ${formatMoney(familyMonthlyEquivalent)}<span>/mês</span>`
+                : `R$ ${formatMoney(familyMonthlyEquivalent)}<span>/mês</span>`;
+            familySubline.textContent = `equivale a R$ ${formatMoney(familyPerChildValue)} por criança para ${familyCountLabel}`;
+            familyNote.textContent = selectedMode === 'anual'
+                ? `Cobrança anual de R$ ${formatMoney(familyAnnualCharge)} no cartão.`
+                : `Cobrança mensal de R$ ${formatMoney(familyMonthlyEquivalent)} no cartão.`;
 
             billingToggleButtons.forEach((button) => {
                 const isActive = button.dataset.billingToggle === selectedMode;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+
+            familyCountButtons.forEach((button) => {
+                const isActive = button.dataset.familyCount === String(selectedCount);
                 button.classList.toggle('is-active', isActive);
                 button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
@@ -137,11 +151,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         billingToggleButtons.forEach((button) => {
             button.addEventListener('click', () => {
-                applyBillingMode(button.dataset.billingToggle);
+                currentBillingMode = button.dataset.billingToggle;
+                applyPricingState();
             });
         });
 
-        applyBillingMode('anual');
-    }
+        familyCountButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                currentFamilyCount = button.dataset.familyCount;
+                applyPricingState();
+            });
+        });
 
+        applyPricingState();
+    }
 });
