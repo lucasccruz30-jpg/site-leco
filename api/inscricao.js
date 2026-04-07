@@ -107,11 +107,6 @@ async function registrarInscricao(config, payload) {
     const countResult = await client.query('SELECT COUNT(*)::int AS total FROM inscricoes');
     const total = countResult.rows[0]?.total ?? 0;
 
-    if (total >= MAX_VAGAS) {
-      await client.query('ROLLBACK');
-      return { status: 'vagas_esgotadas' };
-    }
-
     const numero = total + 1;
     await client.query(
       `
@@ -243,7 +238,7 @@ module.exports = async function handler(request, response) {
       sendJson(response, 200, {
         total,
         vagas_restantes: Math.max(0, MAX_VAGAS - total),
-        vagas_esgotadas: total >= MAX_VAGAS,
+        vagas_esgotadas: false,
         backend_configured: true,
         database_provider: config.provider,
       });

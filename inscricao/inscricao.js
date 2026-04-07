@@ -13,7 +13,6 @@ const progressCaption = document.getElementById('progress-caption');
 const backendNotice = document.getElementById('backend-notice');
 const formState = document.getElementById('form-state');
 const successState = document.getElementById('success-state');
-const closedState = document.getElementById('closed-state');
 const feedback = document.getElementById('form-feedback');
 const submitButton = document.getElementById('submit-button');
 const celularInput = document.getElementById('celular');
@@ -96,30 +95,22 @@ function setLoading(isLoading) {
 }
 
 function updateProgress(total) {
-    const vagasRestantes = Math.max(0, MAX_VAGAS - total);
-    const percentual = Math.min(100, (total / MAX_VAGAS) * 100);
-    progressCount.textContent = `${total} / ${MAX_VAGAS}`;
+    const totalExibicao = Math.min(total, MAX_VAGAS);
+    const vagasRestantes = Math.max(0, MAX_VAGAS - totalExibicao);
+    const percentual = Math.min(100, (totalExibicao / MAX_VAGAS) * 100);
+    progressCount.textContent = `${totalExibicao} / ${MAX_VAGAS}`;
     progressBar.style.width = `${percentual}%`;
-    progressCaption.textContent = `${vagasRestantes} ${vagasRestantes === 1 ? 'vaga restante' : 'vagas restantes'}`;
-}
-
-function renderClosedState() {
-    progressCard.classList.add('is-hidden');
-    formState.classList.add('is-hidden');
-    successState.classList.add('is-hidden');
-    closedState.classList.remove('is-hidden');
+    progressCaption.textContent = vagasRestantes > 0
+        ? `${vagasRestantes} ${vagasRestantes === 1 ? 'vaga em destaque' : 'vagas em destaque'} na campanha.`
+        : 'Campanha promocional em andamento. Cadastre-se para participar.';
 }
 
 function renderSuccessState(numero) {
-    const dentro50 = numero <= MAX_VAGAS;
     progressCard.classList.add('is-hidden');
     formState.classList.add('is-hidden');
-    closedState.classList.add('is-hidden');
     successState.classList.remove('is-hidden');
-    successTitle.textContent = dentro50 ? 'Vaga garantida!' : 'Cadastro recebido';
-    successCopy.textContent = dentro50
-        ? `Voce esta na posicao #${numero} da lista e esta entre as 50 familias que receberao 3 meses gratuitos do LECO.`
-        : `Voce esta na posicao #${numero} da lista. As vagas foram preenchidas durante o processamento, e seu cadastro ficou na espera.`;
+    successTitle.textContent = 'Cadastro recebido!';
+    successCopy.textContent = `Seu cadastro foi registrado com sucesso na posicao #${numero}. Nosso time vai validar sua entrada na campanha promocional de 2 meses gratuitos e entrar em contato com os proximos passos.`;
 }
 
 function collectFormData() {
@@ -190,9 +181,6 @@ async function loadStatus() {
         }
 
         updateProgress(data.total || 0);
-        if (data.vagas_esgotadas) {
-            renderClosedState();
-        }
     } catch (error) {
         updateProgress(0);
         showBackendNotice('Nao foi possivel consultar a disponibilidade agora. A pagina continua publicada, mas o backend precisa ser revisado antes de liberar as inscricoes.');
@@ -230,11 +218,6 @@ async function handleSubmit(event) {
 
         if (result.status === 'sucesso') {
             renderSuccessState(result.numero);
-            return;
-        }
-
-        if (result.status === 'vagas_esgotadas') {
-            renderClosedState();
             return;
         }
 
