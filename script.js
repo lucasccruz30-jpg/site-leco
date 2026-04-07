@@ -6,7 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuClose = document.querySelector('.mobile-menu-close');
     const mobileMenuLinks = document.querySelectorAll('.mobile-menu-nav a, .mobile-menu-actions a');
     const billingToggleButtons = document.querySelectorAll('[data-billing-toggle]');
-    const familyCountSelect = document.getElementById('family-count-select');
+    const familyPicker = document.querySelector('[data-family-picker]');
+    const familyCountTrigger = document.getElementById('family-count-trigger');
+    const familyCountValue = document.getElementById('family-count-value');
+    const familyCountMenu = document.getElementById('family-count-menu');
+    const familyCountOptions = document.querySelectorAll('[data-family-count]');
     const lecoPrice = document.getElementById('leco-price');
     const lecoSubline = document.getElementById('leco-subline');
     const lecoNote = document.getElementById('leco-note');
@@ -77,7 +81,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (
         billingToggleButtons.length > 0 &&
-        familyCountSelect &&
+        familyPicker &&
+        familyCountTrigger &&
+        familyCountValue &&
+        familyCountMenu &&
+        familyCountOptions.length > 0 &&
         lecoPrice &&
         lecoSubline &&
         lecoNote &&
@@ -92,17 +100,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 2: 27.9,
                 3: 25.9,
                 4: 23.9,
+                5: 23.9,
+                6: 23.9,
+                7: 23.9,
+                8: 23.9,
             },
             anual: {
                 1: 26.9,
                 2: 25.9,
                 3: 23.9,
                 4: 21.9,
+                5: 21.9,
+                6: 21.9,
+                7: 21.9,
+                8: 21.9,
             },
         };
 
         const formatMoney = (value) => value.toFixed(2).replace('.', ',');
         const formatCountLabel = (count) => `${count} ${count === 1 ? 'criança' : 'crianças'}`;
+        const closeFamilyPicker = () => {
+            familyPicker.classList.remove('is-open');
+            familyCountTrigger.setAttribute('aria-expanded', 'false');
+            familyCountMenu.hidden = true;
+        };
+
+        const openFamilyPicker = () => {
+            familyPicker.classList.add('is-open');
+            familyCountTrigger.setAttribute('aria-expanded', 'true');
+            familyCountMenu.hidden = false;
+        };
 
         let currentBillingMode = 'anual';
         let currentFamilyCount = '4';
@@ -142,7 +169,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
 
-            familyCountSelect.value = String(selectedCount);
+            familyCountValue.textContent = familyCountLabel;
+            familyCountOptions.forEach((option) => {
+                const isActive = option.dataset.familyCount === String(selectedCount);
+                option.classList.toggle('is-active', isActive);
+                option.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
         };
 
         billingToggleButtons.forEach((button) => {
@@ -152,9 +184,33 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        familyCountSelect.addEventListener('change', () => {
-            currentFamilyCount = familyCountSelect.value;
-            applyPricingState();
+        familyCountTrigger.addEventListener('click', () => {
+            if (familyPicker.classList.contains('is-open')) {
+                closeFamilyPicker();
+                return;
+            }
+
+            openFamilyPicker();
+        });
+
+        familyCountOptions.forEach((option) => {
+            option.addEventListener('click', () => {
+                currentFamilyCount = option.dataset.familyCount;
+                applyPricingState();
+                closeFamilyPicker();
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!familyPicker.contains(event.target)) {
+                closeFamilyPicker();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeFamilyPicker();
+            }
         });
 
         applyPricingState();

@@ -283,13 +283,21 @@
                 </div>
                 <p class="billing-toggle-note">Escolha como prefere pagar e ajuste o plano família conforme a quantidade de crianças.</p>
                 <div class="plans-children-control">
-                    <label class="children-select-label" for="family-count-select">Plano família</label>
-                    <div class="children-select-wrap">
-                        <select id="family-count-select" class="children-count-select" aria-label="Quantidade de crianças no plano família">
-                            <option value="2">2 crianças</option>
-                            <option value="3">3 crianças</option>
-                            <option value="4" selected>4 crianças</option>
-                        </select>
+                    <span class="children-select-label">Plano família</span>
+                    <div class="children-picker" data-family-picker>
+                        <button type="button" id="family-count-trigger" class="children-picker-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="family-count-menu">
+                            <span id="family-count-value">4 crianças</span>
+                            <span class="children-picker-icon" aria-hidden="true"></span>
+                        </button>
+                        <div id="family-count-menu" class="children-picker-menu" role="listbox" aria-labelledby="family-count-trigger" hidden>
+                            <button type="button" class="children-picker-option" data-family-count="2" role="option" aria-selected="false">2 crianças</button>
+                            <button type="button" class="children-picker-option" data-family-count="3" role="option" aria-selected="false">3 crianças</button>
+                            <button type="button" class="children-picker-option is-active" data-family-count="4" role="option" aria-selected="true">4 crianças</button>
+                            <button type="button" class="children-picker-option" data-family-count="5" role="option" aria-selected="false">5 crianças</button>
+                            <button type="button" class="children-picker-option" data-family-count="6" role="option" aria-selected="false">6 crianças</button>
+                            <button type="button" class="children-picker-option" data-family-count="7" role="option" aria-selected="false">7 crianças</button>
+                            <button type="button" class="children-picker-option" data-family-count="8" role="option" aria-selected="false">8 crianças</button>
+                        </div>
                     </div>
                 </div>
                 <div class="plans-container">
@@ -318,7 +326,7 @@
                         <span id="family-note" class="price-note">Cobrança anual de R$ 1.051,20 no cartão.</span>
                         <ul class="plan-features">
                             <li><span class="check-icon"></span>Tudo do plano LECO</li>
-                            <li><span class="check-icon"></span>Uso para até 4 crianças</li>
+                            <li><span class="check-icon"></span>Uso para 2 a 8 crianças</li>
                             <li><span class="check-icon"></span>Gestão centralizada da família</li>
                             <li><span class="check-icon"></span>Valor progressivo conforme a quantidade de crianças</li>
                             <li><span class="check-icon"></span>Melhor custo-benefício familiar</li>
@@ -382,7 +390,7 @@
                             <tr>
                                 <td>Quantidade de crianças</td>
                                 <td>1</td>
-                                <td>2 a 4</td>
+                                <td>2 a 8</td>
                                 <td>Ilimitado</td>
                             </tr>
                             <tr>
@@ -475,7 +483,7 @@
                             <h4>Posso usar com mais de uma criança?</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>Sim! O plano LECO Família foi desenhado para isso, permitindo gerenciar de 2 a 4 crianças em uma única conta, com perfis e acompanhamentos individuais, mas dentro de uma gestão familiar centralizada.</p>
+                            <p>Sim! O plano LECO Família foi desenhado para isso, permitindo gerenciar de 2 a 8 crianças em uma única conta, com perfis e acompanhamentos individuais, mas dentro de uma gestão familiar centralizada.</p>
                         </div>
                     </div>
                      <div class="faq-item">
@@ -483,7 +491,7 @@
                             <h4>Como funciona o plano família?</h4>
                         </div>
                         <div class="faq-answer">
-                            <p>O plano LECO Família atende famílias com 2 a 4 crianças e ajusta o valor por criança conforme a quantidade escolhida e a forma de pagamento. Assim, quanto mais crianças no plano, melhor fica o custo-benefício da família, mantendo todos os recursos do ecossistema LECO em uma gestão centralizada.</p>
+                            <p>O plano LECO Família atende famílias com 2 a 8 crianças e ajusta o valor por criança conforme a quantidade escolhida e a forma de pagamento. A partir de 4 crianças, o menor valor por criança já é aplicado, mantendo todos os recursos do ecossistema LECO em uma gestão centralizada.</p>
                         </div>
                     </div>
                     <div class="faq-item">
