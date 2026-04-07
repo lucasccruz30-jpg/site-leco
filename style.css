@@ -779,6 +779,9 @@ p {
     align-items: center;
     justify-content: center;
     gap: 12px;
+    grid-column: 1 / -1;
+    justify-self: center;
+    order: -1;
     margin: 0 auto 34px;
 }
 
@@ -1493,12 +1496,29 @@ p {
     .plans-children-control {
         flex-direction: column;
         gap: 10px;
-        margin-bottom: 28px;
+        order: 2;
+        justify-self: stretch;
+        width: 100%;
+        max-width: none;
+        margin: -8px 0 4px;
+        align-items: flex-start;
+    }
+
+    .leco-plan-card {
+        order: 1;
+    }
+
+    .family-plan-card {
+        order: 3;
+    }
+
+    .schools-plan-card {
+        order: 4;
     }
 
     .children-picker {
         width: 100%;
-        max-width: 320px;
+        max-width: none;
     }
 
     #campanha .container > div:nth-of-type(2) {
