@@ -98,24 +98,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     note: 'Cobrança mensal no cartão, conforme a quantidade de crianças no plano.',
                 },
             },
-            anual: {
-                leco: {
-                    className: 'price',
-                    html: 'R$ 26,90<span>/mês</span>',
-                    subline: 'por criança',
-                    note: 'Cobrança anual de R$ 322,80 por criança no cartão.',
+                anual: {
+                    leco: {
+                        className: 'price',
+                        html: 'R$ 26,90<span>/mês</span>',
+                        subline: 'por criança',
+                        note: 'Cobrança anual de R$ 322,80 por criança no cartão.',
+                    },
+                    familia: {
+                        className: 'price price-installment',
+                        html: '<span class="price-prefix">12x de</span>R$ 91,90<span>/mês</span>',
+                        subline: 'para até 4 crianças',
+                        note: 'Cobrança anual de R$ 1.102,80 no cartão.',
+                    },
                 },
-                familia: {
-                    className: 'price price-installment',
-                    html: '<span class="price-prefix">12x de</span>R$ 91,66<span>/mês</span>',
-                    subline: 'para até 4 crianças',
-                    note: 'Cobrança anual de R$ 1.099,90 no cartão.',
-                },
-            },
-        };
+            };
 
         const applyBillingMode = (mode) => {
-            const selectedMode = billingPlans[mode] ? mode : 'anual';
+            const selectedMode = billingPlans[mode] ? mode : 'mensal';
             const selected = billingPlans[selectedMode];
 
             lecoPrice.className = selected.leco.className;
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        applyBillingMode('anual');
+        applyBillingMode('mensal');
     }
 
 });
