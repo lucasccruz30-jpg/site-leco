@@ -9,6 +9,7 @@ const itemsToCopy = [
   'script.js',
   'Logo',
   'apresentacao',
+  'excluir-dados',
   'inscricao',
 ];
 
