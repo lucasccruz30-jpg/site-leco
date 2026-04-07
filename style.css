@@ -852,52 +852,42 @@ p {
 
 /* --- CTA SECTION --- */
 .cta-section {
-    padding: 36px 0 0;
-    background:
-        linear-gradient(180deg, #2558ee 0%, #2354ea 58%, #f7f9fb 58%, #f7f9fb 100%);
-    color: var(--white);
+    padding: 72px 0 0;
+    background: var(--white);
+    color: var(--navy);
 }
 
-.cta-panel {
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    padding: 72px 32px 78px;
-    border-radius: 36px;
-    background:
-        radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.12), transparent 24%),
-        linear-gradient(135deg, #1f51e8 0%, #2f66f5 55%, #2157ef 100%);
-    box-shadow: 0 30px 70px rgba(23, 73, 229, 0.28);
+.cta-shell {
+    max-width: 860px;
+    padding: 0 20px 56px;
 }
 
 .cta-eyebrow {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-    padding: 8px 16px;
+    margin-bottom: 16px;
+    padding: 7px 14px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    color: rgba(255, 255, 255, 0.92);
+    background: rgba(30, 94, 255, 0.08);
+    border: 1px solid rgba(30, 94, 255, 0.14);
+    color: var(--leco-blue);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.02em;
 }
 
 .cta-section h2 {
-    color: var(--white);
-    margin-bottom: 22px;
-    font-size: clamp(2rem, 4vw, 3.3rem);
+    color: var(--navy);
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: clamp(2rem, 4vw, 3rem);
     letter-spacing: -0.04em;
 }
 
 .cta-section p {
-    color: var(--white);
-    opacity: 0.88;
-    max-width: 660px;
-    margin: 0 auto 34px;
+    color: var(--aux-text);
+    max-width: 740px;
+    margin: 0 0 32px;
     font-size: 18px;
     line-height: 1.7;
 }
@@ -910,48 +900,49 @@ p {
 }
 
 .cta-buttons .btn-secondary {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.42);
-    color: var(--white);
-    backdrop-filter: blur(8px);
+    background-color: var(--white);
+    border-color: rgba(30, 94, 255, 0.2);
+    color: var(--leco-blue);
 }
 
 .cta-buttons .btn-secondary:hover {
-     background-color: var(--white);
+     background-color: rgba(30, 94, 255, 0.06);
      color: var(--leco-blue);
 }
 
 .cta-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
 }
 
 
 /* --- FOOTER --- */
 .main-footer-bottom {
-    padding: 28px 0 38px;
+    padding: 0 0 38px;
     background:
-        linear-gradient(180deg, #f7f9fb 0%, #eef3fb 100%);
+        linear-gradient(135deg, rgba(189, 242, 112, 0.22), rgba(30, 94, 255, 0.12));
 }
 
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 28px;
-    padding: 28px 32px;
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0.88);
-    border: 1px solid rgba(208, 216, 218, 0.9);
-    box-shadow: 0 18px 42px rgba(16, 23, 42, 0.06);
+.footer-shell {
+    padding: 34px 20px 0;
 }
 
-.footer-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    max-width: 420px;
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 0.9fr;
+    gap: 40px;
+    padding: 40px 0 30px;
+}
+
+.footer-column h4 {
+    margin: 0 0 18px;
+    font-size: 16px;
+    color: var(--navy);
+}
+
+.footer-brand-column {
+    max-width: 380px;
 }
 
 .footer-logo {
@@ -977,38 +968,44 @@ p {
 }
 
 .footer-description {
-    margin: 0;
+    margin: 18px 0 0;
     font-size: 14px;
     line-height: 1.6;
     color: var(--aux-text);
 }
 
-.footer-center {
+.footer-links,
+.footer-contact-list {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    text-align: center;
+    gap: 12px;
+}
+
+.footer-links a,
+.footer-inline-link {
+    text-decoration: none;
+    color: var(--aux-text);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover,
+.footer-inline-link:hover {
+    color: var(--leco-blue);
 }
 
 .footer-contact {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 10px 16px;
-    border-radius: 999px;
+    justify-content: flex-start;
+    padding: 0;
+    border-radius: 0;
     text-decoration: none;
     font-size: 14px;
     font-weight: 700;
-    color: var(--leco-blue);
-    background: rgba(30, 94, 255, 0.08);
-    border: 1px solid rgba(30, 94, 255, 0.14);
-}
-
-.footer-copy {
-    margin: 0;
-    font-size: 14px;
-    color: var(--aux-text);
+    color: var(--navy);
+    background: transparent;
+    border: 0;
 }
 
 .footer-right {
@@ -1085,6 +1082,17 @@ p {
 
 .social-tiktok:hover {
     border-color: rgba(16, 23, 42, 0.3);
+}
+
+.footer-bottom-bar {
+    padding: 18px 0 0;
+    border-top: 1px solid rgba(16, 23, 42, 0.08);
+}
+
+.footer-copy {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(16, 23, 42, 0.58);
 }
 
 
@@ -1197,26 +1205,28 @@ p {
 
     .cta-buttons {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
     }
 
-    .footer-container {
-        flex-direction: column;
-        gap: 18px;
-        padding: 22px 18px;
-        text-align: center;
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 30px 0 24px;
     }
 
-    .footer-left {
-        flex-direction: column;
+    .footer-brand-column {
         max-width: 100%;
     }
 
-    .footer-right {
-        justify-content: center;
+    .footer-column {
+        text-align: left;
     }
 
-    .social-link {
-        width: 52px;
+    .footer-right {
+        justify-content: flex-start;
+    }
+
+    .footer-shell {
+        padding: 18px 20px 0;
     }
 }
