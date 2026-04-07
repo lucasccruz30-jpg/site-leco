@@ -58,6 +58,12 @@ a {
     min-height: 78px;
 }
 
+.legal-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .legal-brand {
     display: inline-flex;
     align-items: center;
@@ -78,6 +84,19 @@ a {
 .legal-header-link {
     text-decoration: none;
     font-weight: 600;
+}
+
+.legal-header-back {
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid rgba(30, 94, 255, 0.14);
+    border-radius: 12px;
+    background: rgba(30, 94, 255, 0.06);
+    color: var(--leco-blue);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .legal-content {
@@ -310,6 +329,15 @@ a {
 
     .legal-header-link {
         font-size: 14px;
+    }
+
+    .legal-header-actions {
+        gap: 8px;
+    }
+
+    .legal-header-back {
+        padding: 0 12px;
+        font-size: 13px;
     }
 
     .legal-main,

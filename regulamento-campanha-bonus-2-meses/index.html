@@ -21,7 +21,10 @@
                     <img src="/Logo/Logo.png.jpeg" alt="LECO">
                     <span>LECO</span>
                 </a>
-                <a href="/privacidade/" class="legal-header-link">Central de Privacidade</a>
+                <div class="legal-header-actions">
+                    <button type="button" class="legal-header-back" onclick="if (window.history.length > 1) { window.history.back(); } else { window.location.href='/privacidade/'; }">Voltar</button>
+                    <a href="/privacidade/" class="legal-header-link">Central de Privacidade</a>
+                </div>
             </div>
         </header>
 
