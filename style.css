@@ -728,6 +728,45 @@ p {
     align-items: flex-start;
 }
 
+.plans-billing-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: -26px auto 12px;
+    padding: 6px;
+    border-radius: 999px;
+    background: rgba(30, 94, 255, 0.08);
+    border: 1px solid rgba(30, 94, 255, 0.14);
+}
+
+.billing-toggle-button {
+    min-width: 120px;
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--aux-text);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.billing-toggle-button.is-active {
+    background: var(--leco-blue);
+    color: var(--white);
+    box-shadow: 0 12px 26px rgba(30, 94, 255, 0.2);
+}
+
+.billing-toggle-note {
+    margin: 0 auto 28px;
+    text-align: center;
+    color: var(--aux-text);
+    font-size: 14px;
+}
+
 .plan-card {
     background: var(--white);
     padding: 40px;
@@ -1302,6 +1341,18 @@ p {
     }
     .hero-image {
         width: 100%;
+    }
+
+    .plans-billing-switch {
+        display: flex;
+        width: 100%;
+        max-width: 340px;
+        margin: -18px auto 12px;
+    }
+
+    .billing-toggle-button {
+        min-width: 0;
+        flex: 1;
     }
 
     #campanha .container > div:nth-of-type(2) {

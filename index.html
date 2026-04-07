@@ -283,13 +283,18 @@
         <section id="plans" class="plans-section">
             <div class="container">
                 <h2>Escolha o plano ideal para sua família ou instituição</h2>
+                <div class="plans-billing-switch" aria-label="Método de pagamento">
+                    <button type="button" class="billing-toggle-button" data-billing-toggle="mensal" aria-pressed="false">Mensal</button>
+                    <button type="button" class="billing-toggle-button is-active" data-billing-toggle="anual" aria-pressed="true">Anual</button>
+                </div>
+                <p class="billing-toggle-note">Escolha como prefere pagar e veja os valores mudarem entre mensal e anual.</p>
                 <div class="plans-container">
                     <div class="plan-card">
                         <h3>LECO</h3>
                         <p>Para 1 criança, com tarefas, objetivos, rotina e recompensas.</p>
-                        <div class="price">R$ 29,90<span>/mês</span></div>
-                        <p class="anual-price">ou R$ 322,92/ano por criança</p>
-                        <span class="anual-savings">Economize 10% no plano anual</span>
+                        <div id="leco-price" class="price">R$ 26,90<span>/mês</span></div>
+                        <p id="leco-subline" class="anual-price">por criança</p>
+                        <span id="leco-note" class="price-note">Cobrança anual de R$ 322,80 por criança no cartão.</span>
                         <ul class="plan-features">
                             <li><span class="check-icon"></span>Gestão de tarefas</li>
                             <li><span class="check-icon"></span>Objetivos personalizados</li>
@@ -303,10 +308,10 @@
                     <div class="plan-card featured">
                         <span class="featured-badge">Melhor custo-benefício</span>
                         <h3>LECO Família</h3>
-                        <p>Mais praticidade e economia para famílias com até 4 crianças em um único plano anual.</p>
-                        <div class="price price-installment"><span class="price-prefix">12x de</span>R$ 83,33<span>/mês</span></div>
-                        <p class="anual-price">para até 4 crianças</p>
-                        <span class="price-note">Cobrança anual de R$ 999,90 no cartão.</span>
+                        <p>Mais praticidade e economia para famílias com até 4 crianças em um único plano.</p>
+                        <div id="family-price" class="price price-installment"><span class="price-prefix">12x de</span>R$ 91,66<span>/mês</span></div>
+                        <p id="family-subline" class="anual-price">para até 4 crianças</p>
+                        <span id="family-note" class="price-note">Cobrança anual de R$ 1.099,90 no cartão.</span>
                         <ul class="plan-features">
                             <li><span class="check-icon"></span>Tudo do plano LECO</li>
                             <li><span class="check-icon"></span>Uso para até 4 crianças</li>
