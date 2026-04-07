@@ -756,12 +756,12 @@ p {
 .children-select-label {
     font-size: 13px;
     font-weight: 700;
-    color: var(--aux-text);
+    color: var(--leco-blue);
 }
 
 .children-picker {
     position: relative;
-    min-width: 196px;
+    min-width: 182px;
 }
 
 .children-picker-trigger {
@@ -769,18 +769,18 @@ p {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 14px;
-    padding: 12px 16px;
-    border-radius: 18px;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 16px;
     border: 1px solid rgba(30, 94, 255, 0.16);
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 247, 255, 0.96));
     color: var(--heading-text);
     font: inherit;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 14px 30px rgba(30, 94, 255, 0.1);
+    box-shadow: 0 12px 24px rgba(30, 94, 255, 0.1);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
