@@ -6,11 +6,14 @@ const outputDir = path.join(rootDir, 'public');
 const itemsToCopy = [
   'index.html',
   'style.css',
+  'legal.css',
   'script.js',
   'Logo',
   'apresentacao',
   'excluir-dados',
   'inscricao',
+  'termos-de-uso',
+  'politica-de-privacidade',
 ];
 
 function removeDirectory(targetPath) {
