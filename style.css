@@ -354,37 +354,11 @@ p {
     position: relative;
     width: min(100%, 620px);
     min-height: 580px;
-    border-radius: 36px;
-    background:
-        radial-gradient(circle at 18% 18%, rgba(30, 94, 255, 0.14), transparent 28%),
-        radial-gradient(circle at 82% 20%, rgba(243, 168, 96, 0.2), transparent 24%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(236, 237, 239, 0.92));
-    border: 1px solid rgba(208, 216, 218, 0.9);
-    box-shadow: 0 26px 60px rgba(16, 23, 42, 0.1);
-    overflow: hidden;
-}
-
-.mockup-accent {
-    position: absolute;
-    border-radius: 999px;
-    filter: blur(2px);
-    opacity: 0.95;
-}
-
-.mockup-accent-left {
-    width: 180px;
-    height: 180px;
-    left: -40px;
-    bottom: 40px;
-    background: radial-gradient(circle, rgba(30, 94, 255, 0.16), rgba(30, 94, 255, 0));
-}
-
-.mockup-accent-right {
-    width: 220px;
-    height: 220px;
-    right: -60px;
-    top: 30px;
-    background: radial-gradient(circle, rgba(243, 168, 96, 0.18), rgba(243, 168, 96, 0));
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
 }
 
 .mockup-phone {
@@ -1401,7 +1375,6 @@ p {
         min-height: 430px;
         width: 100%;
         max-width: 380px;
-        border-radius: 28px;
     }
 
     .mockup-phone {
