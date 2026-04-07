@@ -732,23 +732,23 @@ p {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    margin: -26px auto 12px;
-    padding: 6px;
+    gap: 4px;
+    margin: -10px auto 10px;
+    padding: 4px;
     border-radius: 999px;
     background: rgba(30, 94, 255, 0.08);
     border: 1px solid rgba(30, 94, 255, 0.14);
 }
 
 .billing-toggle-button {
-    min-width: 120px;
-    padding: 11px 18px;
+    min-width: 104px;
+    padding: 9px 16px;
     border: 0;
     border-radius: 999px;
     background: transparent;
     color: var(--aux-text);
     font: inherit;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -761,10 +761,11 @@ p {
 }
 
 .billing-toggle-note {
-    margin: 0 auto 28px;
+    max-width: 520px;
+    margin: 0 auto 24px;
     text-align: center;
     color: var(--aux-text);
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .plan-card {
@@ -1346,8 +1347,8 @@ p {
     .plans-billing-switch {
         display: flex;
         width: 100%;
-        max-width: 340px;
-        margin: -18px auto 12px;
+        max-width: 280px;
+        margin: -10px auto 10px;
     }
 
     .billing-toggle-button {
