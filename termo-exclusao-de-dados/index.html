@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/legal.css">
+    <script src="/legal-document.js" defer></script>
 </head>
 <body>
     <main class="legal-page">
@@ -28,19 +29,26 @@
             </div>
         </header>
 
-        <section class="legal-content">
+        <section
+            class="legal-content legal-document-page"
+            data-legal-document-page
+            data-doc-src="/termo_exclusao_dados_leco.txt"
+            data-doc-pdf="/termo_exclusao_dados_leco.pdf"
+        >
             <div class="legal-hero">
                 <div class="legal-eyebrow">Documento oficial</div>
-                <h1>Termo de Exclusão de Dados e Encerramento de Conta</h1>
-                <p>Consulte abaixo a versão oficial em PDF do termo aplicável à exclusão de dados e encerramento de conta no LECO.</p>
-                <div class="legal-actions">
-                    <a href="/termo_exclusao_dados_leco.pdf" class="legal-action-button primary" target="_blank" rel="noopener noreferrer">Abrir PDF</a>
-                </div>
+                <h1>Termo de Exclusão de Dados</h1>
+                <p>Leia abaixo o termo oficial de exclusão de dados e encerramento de conta do LECO, em formato mais limpo e com acesso ao PDF original quando necessário.</p>
             </div>
 
-            <div class="legal-viewer-card">
-                <iframe class="legal-viewer-frame" src="/termo_exclusao_dados_leco.pdf#view=FitH" title="Termo de Exclusão de Dados do LECO"></iframe>
-                <p class="legal-viewer-fallback">Se o PDF não abrir no seu navegador, use o botão acima para abrir ou baixar o arquivo oficial.</p>
+            <div class="legal-document-layout">
+                <article class="legal-text-card">
+                    <div class="legal-document-prose" data-legal-document>
+                        <p class="legal-document-loading">Carregando o conteúdo do documento...</p>
+                    </div>
+                </article>
+
+                <aside class="legal-summary-panel" data-legal-summary></aside>
             </div>
         </section>
     </main>

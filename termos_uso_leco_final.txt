@@ -1,0 +1,146 @@
+LECO Página 1
+TERMOS DE USO — LECO
+Última atualização: 07/04/2026 • Versão 1.0
+1. Apresentação
+Os presentes Termos de Uso regulam o acesso e uso da plataforma LECO, operada por DECYZION
+TECH LTDA, inscrita no CNPJ sob o nº 65.648.437/0001-81.
+Ao criar conta, acessar ou utilizar o LECO, o tutor ou responsável legal declara ter lido,
+compreendido e aceitado estes Termos de Uso e a Política de Privacidade aplicável.
+2. O que é o LECO
+O LECO é uma plataforma voltada à educação financeira infantil, organização de tarefas, hábitos,
+objetivos, recompensas, wallet interna e marketplace interno familiar. O serviço pode estar
+disponível em app e em interfaces compatíveis com Android, iOS, Web/PWA e Windows desktop.
+3. Quem pode usar
+A conta principal do LECO deve ser criada por tutor ou responsável legal com capacidade para
+praticar atos da vida civil e administrar os perfis infantis vinculados à conta familiar.
+Perfis infantis somente podem ser criados, gerenciados e supervisionados por um tutor ou
+responsável legal, que permanece responsável pelo uso da conta familiar e pela veracidade das
+informações fornecidas.
+4. Cadastro e acesso
+Para uso do LECO, poderá ser necessário criar conta com dados cadastrais válidos e atualizados.
+O tutor ou responsável legal compromete-se a:
+l fornecer informações verdadeiras, completas e atualizadas;
+l manter a confidencialidade de suas credenciais;
+l não compartilhar sua conta principal de forma indevida;
+l comunicar prontamente qualquer uso não autorizado de sua conta.
+O LECO poderá disponibilizar mecanismos de autenticação específicos para perfis infantis, inclusive
+por identificador interno e PIN, observadas as regras internas de segurança da plataforma.
+5. Perfis infantis
+O tutor ou responsável legal é exclusivamente responsável por:
+l criar e manter os perfis infantis vinculados;
+l supervisionar a utilização do LECO por crianças e adolescentes;
+l assegurar que as informações informadas em nome da criança sejam verdadeiras e adequadas;
+l decidir, nos limites da lei, pela criação, atualização e eventual exclusão dos perfis infantis.
+
+-- 1 of 4 --
+
+LECO Página 2
+6. Aceite de documentos
+O aceite destes Termos de Uso e da Política de Privacidade é condição para criação e manutenção
+da conta principal.
+O LECO poderá exigir novo aceite quando houver atualização relevante dos documentos jurídicos
+ou de regras operacionais da plataforma.
+7. Funcionalidades da plataforma
+O LECO poderá disponibilizar, entre outras, as seguintes funcionalidades:
+l organização de tarefas, hábitos e metas;
+l definição de objetivos e recompensas;
+l aprovações, ajustes e registros internos da dinâmica familiar;
+l wallet interna, extratos, poupança e XP;
+l marketplace interno familiar, com pedidos, aprovações e estornos internos;
+l notificações internas e fluxos de acompanhamento operacional.
+8. Assinatura, trial, cobrança e cancelamento
+O LECO poderá operar mediante assinatura mensal, inclusive com período de teste gratuito e
+aplicação de cupons promocionais, conforme as condições apresentadas ao usuário no momento da
+contratação.
+Salvo disposição específica em oferta promocional:
+l a cobrança terá início após o término do período de teste gratuito, quando aplicável;
+l o cancelamento poderá ser solicitado a qualquer tempo pelo tutor ou responsável legal, produzindo
+efeitos para o próximo ciclo de cobrança, salvo informação diversa apresentada no momento da
+contratação;
+l a ausência de uso da plataforma não implica cancelamento automático da assinatura;
+l eventuais pedidos de estorno ou reembolso serão analisados conforme a política comercial vigente,
+a natureza da cobrança e a legislação aplicável;
+l em caso de inadimplência, o LECO poderá aplicar restrição de acesso, suspensão parcial ou
+suspensão da conta, conforme as regras informadas ao usuário.
+9. Regras de uso
+Ao utilizar o LECO, o usuário compromete-se a não:
+l utilizar a plataforma para fins ilícitos, fraudulentos ou contrários à legislação;
+l inserir informações falsas ou em nome de terceiros sem legitimidade;
+l tentar acessar áreas, contas, perfis, dados ou recursos sem autorização;
+l interferir na segurança, estabilidade ou funcionamento da plataforma;
+l utilizar o LECO para assédio, abuso, discriminação, violência, fraude ou qualquer forma de violação
+de direitos;
+
+-- 2 of 4 --
+
+LECO Página 3
+l explorar comercialmente a plataforma, suas marcas, layout, tecnologia ou conteúdo sem
+autorização.
+10. Conteúdo inserido pelo usuário
+O tutor ou responsável legal é responsável pelos conteúdos, descrições, textos e informações
+inseridos no ambiente familiar do LECO, inclusive em tarefas, objetivos, aprovações, justificativas e
+itens do marketplace interno.
+O LECO poderá adotar medidas para restringir, suspender ou remover conteúdos que violem estes
+Termos, a legislação aplicável ou direitos de terceiros.
+11. Propriedade intelectual
+Todos os direitos sobre a plataforma LECO, incluindo software, interface, layout, funcionalidades,
+marcas, sinais distintivos, bases estruturais, textos institucionais, elementos gráficos e demais ativos
+intelectuais, pertencem à DECYZION TECH LTDA ou a terceiros licenciantes, conforme aplicável.
+Nada nestes Termos transfere ao usuário qualquer direito de propriedade intelectual além do uso
+limitado, pessoal, revogável e não exclusivo da plataforma, nos termos aqui previstos.
+12. Privacidade e proteção de dados
+O tratamento de dados pessoais relacionado ao uso do LECO é regido pela Política de Privacidade
+da plataforma, que integra estes Termos para todos os fins.
+No caso de perfis infantis, o tutor ou responsável legal reconhece que o LECO adota salvaguardas
+reforçadas e que o tratamento deve observar o melhor interesse da criança ou do adolescente.
+13. Segurança da conta
+O usuário é responsável por adotar cuidados razoáveis com seus dispositivos, credenciais e
+métodos de autenticação.
+Caso suspeite de uso indevido, acesso não autorizado ou incidente envolvendo sua conta, deverá
+entrar em contato imediatamente com o LECO pelos canais oficiais.
+14. Suspensão e encerramento
+O LECO poderá limitar, suspender ou encerrar o acesso à conta, temporária ou definitivamente,
+quando houver:
+l violação destes Termos;
+l inadimplência;
+l uso indevido ou fraudulento;
+l risco à segurança da plataforma;
+l necessidade de cumprimento legal ou regulatório;
+l proteção de direitos do LECO, de terceiros ou da própria família usuária.
+15. Exclusão de conta
+
+-- 3 of 4 --
+
+LECO Página 4
+O tutor ou responsável legal poderá solicitar a exclusão da conta principal, observadas as regras da
+Política de Privacidade e as hipóteses legais de retenção.
+A exclusão da conta principal poderá implicar impacto nos perfis infantis vinculados, nos históricos
+relacionados e nos recursos operacionais dependentes da conta familiar.
+16. Disponibilidade e alterações da plataforma
+O LECO poderá modificar, atualizar, ampliar, restringir, suspender ou descontinuar funcionalidades,
+interfaces, integrações e recursos, de forma temporária ou definitiva, por razões técnicas,
+operacionais, estratégicas, legais ou comerciais.
+17. Limitação de responsabilidade
+Na máxima extensão permitida pela legislação aplicável, o LECO não se responsabiliza por:
+l falhas decorrentes de uso inadequado da plataforma;
+l informações incorretas fornecidas pelo usuário;
+l indisponibilidades causadas por caso fortuito, força maior ou falhas de terceiros;
+l decisões familiares, pedagógicas ou financeiras tomadas pelos usuários com base nos recursos da
+plataforma;
+l danos decorrentes de violação de credenciais causada por culpa exclusiva do usuário ou de
+terceiros fora do controle razoável do LECO.
+Nada nesta cláusula exclui responsabilidade que não possa ser legalmente afastada.
+18. Comunicações
+O LECO poderá realizar comunicações relacionadas à conta, à operação do serviço, a questões
+administrativas, segurança, assinatura, documentos jurídicos e suporte por meios compatíveis com
+a plataforma e com os canais informados pelo usuário.
+19. Legislação aplicável e foro
+Estes Termos serão regidos pelas leis da República Federativa do Brasil.
+Fica eleito o foro da comarca de São Paulo/SP, salvo disposição legal em contrário, para dirimir
+controvérsias decorrentes destes Termos.
+20. Contato
+Para suporte geral: suporte@lecoapp.com.br
+Para privacidade e proteção de dados: privacidade@lecoapp.com.br
+
+-- 4 of 4 --
+

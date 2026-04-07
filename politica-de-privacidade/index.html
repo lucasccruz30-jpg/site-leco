@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/legal.css">
+    <script src="/legal-document.js" defer></script>
 </head>
 <body>
     <main class="legal-page">
@@ -28,19 +29,26 @@
             </div>
         </header>
 
-        <section class="legal-content">
+        <section
+            class="legal-content legal-document-page"
+            data-legal-document-page
+            data-doc-src="/politica_privacidade_leco_final.txt"
+            data-doc-pdf="/politica_privacidade_leco_final.pdf"
+        >
             <div class="legal-hero">
                 <div class="legal-eyebrow">Documento oficial</div>
                 <h1>Política de Privacidade</h1>
-                <p>Consulte abaixo a versão oficial em PDF da Política de Privacidade do LECO.</p>
-                <div class="legal-actions">
-                    <a href="/politica_privacidade_leco_final.pdf" class="legal-action-button primary" target="_blank" rel="noopener noreferrer">Abrir PDF</a>
-                </div>
+                <p>Leia abaixo a versão textual da Política de Privacidade do LECO, com leitura mais limpa e o PDF oficial disponível como referência.</p>
             </div>
 
-            <div class="legal-viewer-card">
-                <iframe class="legal-viewer-frame" src="/politica_privacidade_leco_final.pdf#view=FitH" title="Política de Privacidade do LECO"></iframe>
-                <p class="legal-viewer-fallback">Se o PDF não abrir no seu navegador, use o botão acima para abrir ou baixar o arquivo oficial.</p>
+            <div class="legal-document-layout">
+                <article class="legal-text-card">
+                    <div class="legal-document-prose" data-legal-document>
+                        <p class="legal-document-loading">Carregando o conteúdo do documento...</p>
+                    </div>
+                </article>
+
+                <aside class="legal-summary-panel" data-legal-summary></aside>
             </div>
         </section>
     </main>

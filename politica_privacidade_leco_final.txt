@@ -1,0 +1,215 @@
+LECO Página 1
+POLÍTICA DE PRIVACIDADE — LECO
+Última atualização: 07/04/2026 • Versão 1.0
+1. Quem somos
+Esta Política de Privacidade descreve como a DECYZION TECH LTDA, inscrita no CNPJ sob o nº
+65.648.437/0001-81, na qualidade de controladora de dados pessoais no contexto do app LECO,
+trata dados pessoais de tutores, responsáveis legais e perfis infantis vinculados à conta familiar.
+Para fins desta Política, o LECO é uma plataforma voltada à educação financeira infantil,
+organização de tarefas, hábitos, objetivos, recompensas, wallet interna e marketplace interno
+familiar.
+Canal de suporte: suporte@lecoapp.com.br
+Canal de privacidade: privacidade@lecoapp.com.br
+Endereço para contato: Av. Paulista, 1471, São Paulo/SP, CEP 01311-927
+2. A quem esta Política se aplica
+l tutores e responsáveis legais que criam e administram contas no LECO;
+l crianças e adolescentes cujos perfis sejam criados e vinculados por tutores ou responsáveis legais;
+l usuários que naveguem, utilizem recursos internos do LECO ou se relacionem conosco por canais
+de suporte e privacidade.
+3. Quais dados pessoais tratamos
+Podemos tratar, conforme o uso da plataforma, as seguintes categorias de dados:
+3.1. Dados do tutor ou responsável legal
+l nome;
+l e-mail;
+l senha;
+l CPF;
+l CEP;
+l rua;
+l bairro;
+l cidade;
+l UF;
+l número;
+l complemento;
+l telefone, quando efetivamente informado;
+l informações relacionadas à assinatura e cobrança.
+
+-- 1 of 6 --
+
+LECO Página 2
+3.2. Dados do perfil infantil
+l nome;
+l CPF, quando solicitado;
+l data de nascimento;
+l sexo;
+l avatar;
+l PIN de acesso;
+l dados relacionados ao uso pedagógico e operacional do perfil.
+3.3. Dados de uso e dados operacionais
+l tarefas, hábitos, metas, objetivos, progresso e aprovações;
+l movimentações de wallet, extratos, poupança, XP e dados de marketplace interno familiar;
+l textos livres inseridos pelos usuários, como descrições, razões de aprovação, rejeição, ajuste, multa
+e descrições de itens internos.
+3.4. Dados técnicos
+l IP;
+l origem da requisição;
+l user-agent;
+l content-type;
+l caminho acessado;
+l status;
+l duração de requisições;
+l identificadores de sessão e autenticação.
+4. Como coletamos os dados
+l diretamente do tutor ou responsável legal, no cadastro e no uso da conta;
+l no cadastro e manutenção de perfis infantis vinculados à conta familiar;
+l automaticamente, por meio do funcionamento técnico da plataforma e de seus registros
+operacionais;
+l por integração com serviços necessários ao funcionamento do produto, como billing e consulta de
+CEP.
+5. Para quais finalidades usamos os dados
+Tratamos dados pessoais para as seguintes finalidades:
+l criar, manter e gerenciar a conta principal do tutor ou responsável legal;
+l permitir a criação e administração de perfis infantis vinculados;
+
+-- 2 of 6 --
+
+LECO Página 3
+l autenticar acessos e manter a segurança da conta;
+l operar tarefas, hábitos, metas, objetivos, recompensas e recursos educacionais;
+l registrar e manter saldos, movimentações e recursos da wallet interna;
+l operar o marketplace interno familiar e seus fluxos de pedido, aprovação e estorno interno;
+l processar assinatura, cobrança, trial, cupons e cancelamentos aplicáveis;
+l melhorar a estabilidade, continuidade e segurança da plataforma;
+l cumprir obrigações legais, regulatórias e de resguardo de direitos;
+l atender solicitações de suporte, privacidade e exercício de direitos dos titulares.
+6. Bases legais do tratamento
+O tratamento de dados pessoais no LECO poderá se apoiar, conforme o caso concreto, em bases
+legais previstas na LGPD, incluindo:
+l execução de contrato e de procedimentos preliminares relacionados ao uso da plataforma;
+l cumprimento de obrigação legal ou regulatória;
+l exercício regular de direitos em processo judicial, administrativo ou arbitral;
+l consentimento, quando exigido ou adotado para finalidades específicas;
+l proteção do crédito, quando aplicável à assinatura e à cobrança;
+l legítimo interesse, quando cabível e compatível com os direitos e liberdades fundamentais do titular.
+6.1. Dados de crianças e adolescentes
+No caso de dados pessoais de crianças e adolescentes, o LECO observará o melhor interesse da
+criança ou do adolescente, bem como as salvaguardas aplicáveis à legislação brasileira. Quando
+necessário, o tratamento será vinculado ao consentimento específico e em destaque do tutor ou
+responsável legal.
+7. CPF da criança
+O CPF da criança, quando solicitado no LECO, é tratado como dado cadastral vinculado ao núcleo
+familiar e à conta do tutor ou responsável legal.
+Embora o CPF da criança seja o mesmo documento civil utilizado por adultos, seu tratamento no
+LECO recebe proteção mais rigorosa, considerando a condição de pessoa em desenvolvimento e a
+necessidade de salvaguardas reforçadas. O CPF infantil não deve ser utilizado como identificador
+visível no uso cotidiano do app quando houver alternativa operacional menos invasiva. No uso
+rotineiro, o LECO poderá privilegiar identificadores internos do perfil infantil, combinados com
+mecanismos próprios de autenticação.
+8. Compartilhamento de dados
+Poderemos compartilhar dados pessoais, conforme necessário e de acordo com a finalidade
+aplicável, com:
+l Asaas, para billing, assinatura, cobrança e webhooks;
+l ViaCEP, para consulta de CEP no cadastro;
+
+-- 3 of 6 --
+
+LECO Página 4
+l fornecedores de infraestrutura, banco de dados, armazenamento, mensageria e notificações,
+quando efetivamente ativos em produção;
+l autoridades públicas, órgãos reguladores ou judiciais, quando exigido por lei ou por determinação
+legítima;
+l prestadores de serviço e parceiros operacionais estritamente necessários para funcionamento,
+suporte, segurança e continuidade da plataforma.
+Quando houver integração com terceiros, o compartilhamento será limitado ao mínimo necessário
+para a execução da finalidade correspondente.
+9. Cartão e cobrança
+No contexto da assinatura, determinados dados de cobrança podem transitar pelos sistemas
+necessários ao processamento do pagamento. O LECO adota a diretriz de minimizar a exposição
+desses dados, restringindo seu uso ao necessário para a finalidade de billing e contratação do
+serviço.
+10. Comunicações e notificações
+O LECO poderá exibir notificações internas relacionadas ao uso da conta, fluxos operacionais,
+tarefas, aprovações, recursos da plataforma e assuntos administrativos.
+11. Cookies e tecnologias semelhantes
+Na auditoria técnica inicial não houve evidência expressa de gestão explícita de cookies no app
+auditado. Caso existam cookies, identificadores equivalentes ou tecnologias semelhantes na versão
+publicada, esta Política deverá ser atualizada para refletir com precisão as finalidades
+correspondentes.
+12. Segurança da informação
+O LECO adota medidas técnicas e administrativas aptas a proteger dados pessoais contra acessos
+não autorizados, destruição, perda, alteração, comunicação ou qualquer forma de tratamento
+inadequado ou ilícito.
+Entre as medidas aplicáveis, poderão estar incluídas:
+l controle de acesso;
+l proteção de sessão;
+l registro de eventos técnicos;
+l uso de mecanismos de autenticação;
+l segregação de perfis;
+l revisão de exposição de dados sensíveis;
+l medidas reforçadas para dados de crianças.
+13. Por quanto tempo mantemos os dados
+O LECO adota retenção baseada na natureza do dado, na finalidade do tratamento, na necessidade
+operacional, na segurança da plataforma e no cumprimento de obrigações legais e regulatórias.
+
+-- 4 of 6 --
+
+LECO Página 5
+Como diretriz geral:
+l dados cadastrais poderão ser mantidos enquanto a conta estiver ativa e por período adicional
+necessário ao cumprimento de obrigações legais, prevenção a fraudes, segurança e resguardo de
+direitos;
+l dados operacionais poderão ser mantidos enquanto necessários à prestação do serviço e à
+integridade da experiência familiar;
+l logs técnicos e registros de segurança poderão ser mantidos pelo período necessário à investigação
+de incidentes, prevenção de fraudes e exercício regular de direitos;
+l dados submetidos a pedido de exclusão poderão ser excluídos, anonimizados, bloqueados ou
+retidos na medida legalmente aplicável;
+l dados mantidos em backup seguirão ciclo técnico próprio de retenção e sobrescrita.
+14. Direitos dos titulares
+Nos termos da LGPD, o titular de dados pessoais — ou, quando aplicável, seu representante legal
+— poderá solicitar, conforme o caso:
+l confirmação da existência de tratamento;
+l acesso aos dados;
+l correção de dados incompletos, inexatos ou desatualizados;
+l anonimização, bloqueio ou eliminação de dados desnecessários, excessivos ou tratados em
+desconformidade;
+l portabilidade, quando aplicável;
+l eliminação dos dados tratados com consentimento, observadas as hipóteses legais;
+l informação sobre compartilhamento;
+l informação sobre a possibilidade de não fornecer consentimento e suas consequências;
+l revogação do consentimento, quando essa for a base aplicável.
+15. Como exercer seus direitos
+Solicitações relacionadas a dados pessoais, privacidade e direitos do titular podem ser enviadas
+para:
+E-mail/canal de privacidade: privacidade@lecoapp.com.br
+Para proteger a conta e os dados, poderemos solicitar informações razoáveis para confirmação da
+identidade do solicitante ou da legitimidade do responsável legal.
+16. Exclusão de conta
+O tutor ou responsável legal poderá solicitar a exclusão da conta principal e dos perfis vinculados,
+observadas as hipóteses de retenção legal, segurança e resguardo de direitos aplicáveis.
+A solicitação poderá ser feita:
+l dentro do app, na área de privacidade/conta; e/ou
+l pelo canal público disponibilizado pelo LECO.
+
+-- 5 of 6 --
+
+LECO Página 6
+Ao solicitar a exclusão:
+l a conta principal poderá ser desativada;
+l perfis infantis vinculados poderão ser encerrados junto com a conta principal;
+l dados poderão ser excluídos, anonimizados, bloqueados ou retidos conforme sua natureza e a
+legislação aplicável.
+17. Transferência internacional
+Caso o LECO utilize serviços, infraestrutura ou fornecedores localizados fora do Brasil, ou que
+envolvam processamento internacional de dados, serão adotadas as medidas contratuais e
+operacionais cabíveis para a proteção adequada das informações, nos termos da legislação
+aplicável.
+18. Alterações desta Política
+Esta Política poderá ser atualizada a qualquer tempo para refletir mudanças legais, regulatórias,
+operacionais ou técnicas. Quando aplicável, o LECO poderá exigir novo aceite do tutor ou
+responsável legal em caso de alterações relevantes.
+19. Foro e disposições finais
+Fica eleito o foro da comarca de São Paulo/SP, salvo disposição legal em contrário, para dirimir
+controvérsias relacionadas a esta Política, quando cabível.
+
+-- 6 of 6 --
+

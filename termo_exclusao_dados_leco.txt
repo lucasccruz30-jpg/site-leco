@@ -1,0 +1,74 @@
+LECO - Exclusão de Dados Pagina 1
+TERMO DE EXCLUSÃO DE DADOS E
+ENCERRAMENTO DE CONTA - LECO
+Documento público que disciplina a solicitação de exclusão de dados pessoais, encerramento de conta e
+retenções legais aplicáveis.
+Empresa DECYZION TECH LTDA
+CNPJ 65.648.437/0001-81
+Versão 1.0
+Atualização 07/04/2026
+Contato suporte@lecoapp.com.br
+Privacidade privacidade@lecoapp.com.br
+Resumo prático: a exclusão de dados pode ser solicitada pelos canais oficiais, depende de
+validação mínima de identidade e não impede a retenção de registros que precisem ser mantidos
+por obrigação legal, segurança ou resguardo de direitos.
+1. Apresentação
+Este Termo de Exclusão de Dados e Encerramento de Conta estabelece como o usuário do LECO pode
+solicitar a exclusão de dados pessoais e, quando aplicável, o encerramento da conta principal e dos perfis
+infantis vinculados, observadas as regras legais e operacionais pertinentes.
+2. Objeto
+O presente termo tem por objetivo disciplinar o procedimento de solicitação de exclusão de dados, o
+encerramento da conta, a verificação de identidade do solicitante e as hipóteses em que determinados
+dados poderão ser mantidos, bloqueados, anonimizados ou eliminados conforme a legislação aplicável.
+3. Quem pode solicitar
+A solicitação pode ser apresentada pelo tutor, responsável legal ou titular legitimado da conta principal,
+conforme a estrutura do LECO.
+No caso de perfis infantis vinculados à conta familiar, a solicitação deverá ser realizada pelo responsável
+legal ou por quem detenha legitimidade para praticar atos relacionados à administração da conta.
+4. Canais de solicitação
+A solicitação de exclusão de dados ou encerramento de conta poderá ser realizada pelo formulário
+público disponibilizado no site, pelos recursos disponibilizados no aplicativo ou pelo canal oficial de
+privacidade do LECO, conforme a orientação vigente informada ao usuário.
+5. Validação da solicitação
+Para proteger a conta e evitar exclusões indevidas, o LECO poderá solicitar informações razoáveis para
+confirmar a identidade do solicitante, sua legitimidade ou seu vínculo com a conta objeto do pedido.
+Sem a validação mínima necessária, o LECO poderá suspender a conclusão do pedido até que haja
+confirmação suficiente.
+
+-- 1 of 2 --
+
+LECO - Exclusão de Dados Pagina 2
+6. Efeitos da exclusão e do encerramento
+Uma vez validado o pedido, o LECO poderá, conforme o caso:
+- desativar a conta principal;
+- encerrar perfis infantis vinculados;
+- excluir, anonimizar ou bloquear dados pessoais, conforme a natureza do dado e a base legal aplicável;
+- restringir o acesso a históricos, funcionalidades e registros dependentes da conta familiar.
+7. Hipóteses de retenção
+Nem todo dado será necessariamente eliminado de forma imediata ou integral. O LECO poderá manter
+determinados dados quando isso for necessário para:
+- cumprimento de obrigação legal ou regulatória;
+- exercício regular de direitos em processo judicial, administrativo ou arbitral;
+- prevenção a fraudes, investigação de incidentes e segurança da plataforma;
+- preservação de registros mínimos indispensáveis ao resguardo de direitos e à continuidade técnica de
+backups.
+8. Backups e registros técnicos
+Dados armazenados em mecanismos de backup ou rotinas técnicas de contingência poderão permanecer
+pelo prazo necessário ao ciclo normal de sobrescrita e segurança operacional, mesmo após o deferimento
+do pedido principal de exclusão.
+9. Exclusão de dados e cancelamento da assinatura
+A exclusão de dados e o encerramento da conta não substituem automaticamente o cancelamento da
+assinatura, quando houver plano ativo vinculado ao usuário.
+Sempre que houver cobrança recorrente em andamento, o usuário deverá observar também a Política de
+Cancelamento do LECO e utilizar o fluxo oficial do aplicativo para interromper futuras renovações, quando
+aplicável.
+10. Disposições finais e contato
+Este termo deve ser interpretado em conjunto com os Termos de Uso e a Política de Privacidade do LECO.
+Canais oficiais:
+- suporte geral: suporte@lecoapp.com.br
+- privacidade e dados pessoais: privacidade@lecoapp.com.br
+Este documento entra em vigor em 07/04/2026, versão 1.0, podendo ser atualizado para refletir alterações
+legais, operacionais ou técnicas.
+
+-- 2 of 2 --
+
