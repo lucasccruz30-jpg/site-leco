@@ -188,22 +188,22 @@ function validate(body) {
     errors.nome = ['Informe um nome com pelo menos 3 caracteres.'];
   }
   if (!EMAIL_REGEX.test(data.email)) {
-    errors.email = ['Informe um e-mail valido.'];
+    errors.email = ['Informe um e-mail válido.'];
   }
   if (!CELULAR_REGEX.test(data.celular)) {
     errors.celular = ['Use o formato (11) 99999-9999.'];
   }
   if (!Number.isInteger(data.quantidade_criancas) || data.quantidade_criancas < 1 || data.quantidade_criancas > 20) {
-    errors.quantidade_criancas = ['Informe um numero inteiro entre 1 e 20.'];
+    errors.quantidade_criancas = ['Informe um número inteiro entre 1 e 20.'];
   }
   if (data.cidade.length < 2) {
-    errors.cidade = ['Informe uma cidade valida.'];
+    errors.cidade = ['Informe uma cidade válida.'];
   }
   if (!ESTADOS.has(data.estado)) {
-    errors.estado = ['Selecione um estado valido.'];
+    errors.estado = ['Selecione um estado válido.'];
   }
   if (!['sim', 'nao'].includes(data.paga_mesada)) {
-    errors.paga_mesada = ['Selecione uma opcao.'];
+    errors.paga_mesada = ['Selecione uma opção.'];
   }
   if (data.paga_mesada === 'sim' && !data.valor_mesada) {
     errors.valor_mesada = ['Informe o valor da mesada.'];
@@ -212,7 +212,7 @@ function validate(body) {
     errors.pretende_investir = ['Informe quanto pretende investir em mesada.'];
   }
   if (!data.aceite_termos) {
-    errors.aceite_termos = ['Voce deve aceitar os termos para continuar.'];
+    errors.aceite_termos = ['Você deve aceitar os termos para continuar.'];
   }
 
   return { data, errors };
@@ -247,7 +247,7 @@ module.exports = async function handler(request, response) {
       console.error('[GET /api/inscricao]', error);
       sendJson(response, 500, {
         status: 'erro',
-        mensagem: 'Nao foi possivel consultar a disponibilidade agora.',
+        mensagem: 'Não foi possível consultar a disponibilidade agora.',
         backend_configured: true,
       });
       return;
@@ -258,7 +258,7 @@ module.exports = async function handler(request, response) {
     if (!config.configured) {
       sendJson(response, 503, {
         status: 'erro',
-        mensagem: 'O formulario ja foi publicado, mas o DATABASE_URL oficial do Neon ainda nao foi configurado na Vercel.',
+        mensagem: 'O formulário já foi publicado, mas o DATABASE_URL oficial do Neon ainda não foi configurado na Vercel.',
       });
       return;
     }
@@ -285,5 +285,5 @@ module.exports = async function handler(request, response) {
   }
 
   response.setHeader('Allow', 'GET, POST');
-  sendJson(response, 405, { status: 'erro', mensagem: 'Metodo nao permitido.' });
+  sendJson(response, 405, { status: 'erro', mensagem: 'Método não permitido.' });
 };

@@ -82,7 +82,7 @@ function showBackendNotice(message) {
 
 function setLoading(isLoading) {
     submitButton.disabled = isLoading;
-    submitButton.textContent = isLoading ? 'Enviando...' : 'Solicitar exclusao de dados';
+    submitButton.textContent = isLoading ? 'Enviando...' : 'Solicitar exclusão de dados';
 }
 
 function renderSuccessState(emailStatus) {
@@ -90,11 +90,11 @@ function renderSuccessState(emailStatus) {
     successState.classList.remove('is-hidden');
 
     if (emailStatus === 'enviado') {
-        successCopy.textContent = 'Seu pedido foi recebido e um e-mail de confirmacao ja foi enviado. Nosso time vai validar a solicitacao e seguir com o atendimento.';
+        successCopy.textContent = 'Seu pedido foi recebido, e um e-mail de confirmação já foi enviado. Nosso time vai validar a solicitação e seguir com o atendimento.';
         return;
     }
 
-    successCopy.textContent = 'Seu pedido foi recebido com sucesso. Nosso time vai validar a solicitacao e seguir com o atendimento.';
+    successCopy.textContent = 'Seu pedido foi recebido com sucesso. Nosso time vai validar a solicitação e seguir com o atendimento.';
 }
 
 function validateForm(data) {
@@ -104,7 +104,7 @@ function validateForm(data) {
         errors.nome = ['Informe um nome com pelo menos 3 caracteres.'];
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-        errors.email = ['Informe um e-mail valido.'];
+        errors.email = ['Informe um e-mail válido.'];
     }
     if (data.celular && !/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(data.celular)) {
         errors.celular = ['Use o formato (11) 99999-9999.'];
@@ -113,7 +113,7 @@ function validateForm(data) {
         errors.perfil = ['Selecione o perfil da conta.'];
     }
     if (!data.confirmacao_exclusao) {
-        errors.confirmacao_exclusao = ['Voce precisa confirmar a solicitacao de exclusao.'];
+        errors.confirmacao_exclusao = ['Você precisa confirmar a solicitação de exclusão.'];
     }
 
     return errors;
@@ -165,14 +165,14 @@ async function handleSubmit(event) {
         }
 
         if (!response.ok) {
-            showFeedback(result.mensagem || 'Nao foi possivel concluir sua solicitacao agora.', 'error');
+            showFeedback(result.mensagem || 'Não foi possível concluir sua solicitação agora.', 'error');
             return;
         }
 
         renderSuccessState(result.email_status);
     } catch (error) {
         console.error(error);
-        showFeedback('Falha de conexao. Tente novamente em alguns instantes.', 'error');
+        showFeedback('Falha de conexão. Tente novamente em alguns instantes.', 'error');
     } finally {
         setLoading(false);
     }

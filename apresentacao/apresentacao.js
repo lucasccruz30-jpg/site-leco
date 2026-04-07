@@ -94,7 +94,7 @@ function showBackendNotice(message) {
 
 function setLoading(isLoading) {
     submitButton.disabled = isLoading;
-    submitButton.textContent = isLoading ? 'Enviando...' : 'Solicitar apresentacao';
+    submitButton.textContent = isLoading ? 'Enviando...' : 'Solicitar apresentação';
 }
 
 function renderSuccessState(emailStatus) {
@@ -102,11 +102,11 @@ function renderSuccessState(emailStatus) {
     successState.classList.remove('is-hidden');
 
     if (emailStatus === 'enviado') {
-        successCopy.textContent = 'Sua solicitacao foi recebida e um e-mail de confirmacao ja foi enviado. Em breve nosso time entrara em contato.';
+        successCopy.textContent = 'Sua solicitação foi recebida, e um e-mail de confirmação já foi enviado. Em breve, nosso time entrará em contato.';
         return;
     }
 
-    successCopy.textContent = 'Sua solicitacao foi recebida com sucesso. Em breve nosso time entrara em contato.';
+    successCopy.textContent = 'Sua solicitação foi recebida com sucesso. Em breve, nosso time entrará em contato.';
 }
 
 function validateForm(data) {
@@ -117,34 +117,34 @@ function validateForm(data) {
         errors.nome = ['Informe um nome com pelo menos 3 caracteres.'];
     }
     if (!data.cargo || data.cargo.length < 2) {
-        errors.cargo = ['Informe o cargo ou funcao responsavel pela solicitacao.'];
+        errors.cargo = ['Informe o cargo ou função responsável pela solicitação.'];
     }
     if (!data.instituicao || data.instituicao.length < 2) {
-        errors.instituicao = ['Informe o nome da instituicao.'];
+        errors.instituicao = ['Informe o nome da instituição.'];
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-        errors.email = ['Informe um e-mail valido.'];
+        errors.email = ['Informe um e-mail válido.'];
     }
     if (!/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(data.celular)) {
         errors.celular = ['Use o formato (11) 99999-9999.'];
     }
     if (!TIPOS_INSTITUICAO.has(data.tipo_instituicao)) {
-        errors.tipo_instituicao = ['Selecione o tipo de instituicao.'];
+        errors.tipo_instituicao = ['Selecione o tipo de instituição.'];
     }
     if (!Number.isInteger(quantidadeAlunos) || quantidadeAlunos < 1 || quantidadeAlunos > 50000) {
-        errors.quantidade_alunos = ['Informe um numero inteiro entre 1 e 50000.'];
+        errors.quantidade_alunos = ['Informe um número inteiro entre 1 e 50000.'];
     }
     if (!data.cidade || data.cidade.length < 2) {
-        errors.cidade = ['Informe a cidade da instituicao.'];
+        errors.cidade = ['Informe a cidade da instituição.'];
     }
     if (!ESTADOS.has(data.estado)) {
-        errors.estado = ['Selecione um estado valido.'];
+        errors.estado = ['Selecione um estado válido.'];
     }
     if (!data.mensagem) {
         errors.mensagem = ['Preencha este campo para continuar.'];
     }
     if (!data.aceite_contato) {
-        errors.aceite_contato = ['Voce precisa autorizar o contato para continuar.'];
+        errors.aceite_contato = ['Você precisa autorizar o contato para continuar.'];
     }
 
     return errors;
@@ -199,14 +199,14 @@ async function handleSubmit(event) {
         }
 
         if (!response.ok) {
-            showFeedback(result.mensagem || 'Nao foi possivel concluir sua solicitacao agora.', 'error');
+            showFeedback(result.mensagem || 'Não foi possível concluir sua solicitação agora.', 'error');
             return;
         }
 
         renderSuccessState(result.email_status);
     } catch (error) {
         console.error(error);
-        showFeedback('Falha de conexao. Tente novamente em alguns instantes.', 'error');
+        showFeedback('Falha de conexão. Tente novamente em alguns instantes.', 'error');
     } finally {
         setLoading(false);
     }

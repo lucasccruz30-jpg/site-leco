@@ -12,9 +12,9 @@ const ESTADOS = new Set([
 ]);
 const TIPOS_INSTITUICAO = new Map([
   ['escola-privada', 'Escola privada'],
-  ['escola-publica', 'Escola publica'],
+  ['escola-publica', 'Escola pública'],
   ['rede-de-ensino', 'Rede de ensino'],
-  ['instituicao-social', 'Instituicao social'],
+  ['instituicao-social', 'Instituição social'],
   ['outro', 'Outro formato'],
 ]);
 
@@ -156,34 +156,34 @@ function validate(body) {
     errors.nome = ['Informe um nome com pelo menos 3 caracteres.'];
   }
   if (data.cargo.length < 2) {
-    errors.cargo = ['Informe o cargo ou funcao responsavel pela solicitacao.'];
+    errors.cargo = ['Informe o cargo ou função responsável pela solicitação.'];
   }
   if (data.instituicao.length < 2) {
-    errors.instituicao = ['Informe o nome da instituicao.'];
+    errors.instituicao = ['Informe o nome da instituição.'];
   }
   if (!EMAIL_REGEX.test(data.email)) {
-    errors.email = ['Informe um e-mail valido.'];
+    errors.email = ['Informe um e-mail válido.'];
   }
   if (!CELULAR_REGEX.test(data.celular)) {
     errors.celular = ['Use o formato (11) 99999-9999.'];
   }
   if (!TIPOS_INSTITUICAO.has(data.tipo_instituicao)) {
-    errors.tipo_instituicao = ['Selecione o tipo de instituicao.'];
+    errors.tipo_instituicao = ['Selecione o tipo de instituição.'];
   }
   if (!Number.isInteger(data.quantidade_alunos) || data.quantidade_alunos < 1 || data.quantidade_alunos > 50000) {
-    errors.quantidade_alunos = ['Informe um numero inteiro entre 1 e 50000.'];
+    errors.quantidade_alunos = ['Informe um número inteiro entre 1 e 50000.'];
   }
   if (data.cidade.length < 2) {
-    errors.cidade = ['Informe a cidade da instituicao.'];
+    errors.cidade = ['Informe a cidade da instituição.'];
   }
   if (!ESTADOS.has(data.estado)) {
-    errors.estado = ['Selecione um estado valido.'];
+    errors.estado = ['Selecione um estado válido.'];
   }
   if (!data.mensagem) {
     errors.mensagem = ['Preencha este campo para continuar.'];
   }
   if (!data.aceite_contato) {
-    errors.aceite_contato = ['Voce precisa autorizar o contato para continuar.'];
+    errors.aceite_contato = ['Você precisa autorizar o contato para continuar.'];
   }
 
   return { data, errors };
@@ -256,12 +256,12 @@ function buildInternalEmailHtml(payload) {
 
   return `
     <div style="font-family:Arial,sans-serif;color:#10172a;line-height:1.6;">
-      <h1 style="margin:0 0 16px;font-size:24px;">Nova solicitacao de apresentacao</h1>
-      <p style="margin:0 0 20px;">Uma nova solicitacao chegou pelo site da LECO.</p>
+      <h1 style="margin:0 0 16px;font-size:24px;">Nova solicitação de apresentação</h1>
+      <p style="margin:0 0 20px;">Uma nova solicitação chegou pelo site da LECO.</p>
       <table style="width:100%;border-collapse:collapse;">
         <tr><td style="padding:8px 0;font-weight:700;">Nome</td><td style="padding:8px 0;">${escapeHtml(payload.nome)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">Cargo</td><td style="padding:8px 0;">${escapeHtml(payload.cargo)}</td></tr>
-        <tr><td style="padding:8px 0;font-weight:700;">Instituicao</td><td style="padding:8px 0;">${escapeHtml(payload.instituicao)}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Instituição</td><td style="padding:8px 0;">${escapeHtml(payload.instituicao)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">E-mail</td><td style="padding:8px 0;">${escapeHtml(payload.email)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">Celular</td><td style="padding:8px 0;">${escapeHtml(payload.celular)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">Tipo</td><td style="padding:8px 0;">${escapeHtml(tipoInstituicao)}</td></tr>
@@ -269,7 +269,7 @@ function buildInternalEmailHtml(payload) {
         <tr><td style="padding:8px 0;font-weight:700;">Cidade / Estado</td><td style="padding:8px 0;">${escapeHtml(payload.cidade)} - ${escapeHtml(payload.estado)}</td></tr>
       </table>
       <div style="margin-top:20px;padding:18px;border-radius:16px;background:#f4f7fb;border:1px solid #dfe7f2;">
-        <strong style="display:block;margin-bottom:8px;">Contexto da solicitacao</strong>
+        <strong style="display:block;margin-bottom:8px;">Contexto da solicitação</strong>
         <p style="margin:0;white-space:pre-line;">${escapeHtml(payload.mensagem)}</p>
       </div>
     </div>
@@ -280,18 +280,18 @@ function buildInternalEmailText(payload) {
   const tipoInstituicao = TIPOS_INSTITUICAO.get(payload.tipo_instituicao) || payload.tipo_instituicao;
 
   return [
-    'Nova solicitacao de apresentacao',
+    'Nova solicitação de apresentação',
     '',
     `Nome: ${payload.nome}`,
     `Cargo: ${payload.cargo}`,
-    `Instituicao: ${payload.instituicao}`,
+    `Instituição: ${payload.instituicao}`,
     `E-mail: ${payload.email}`,
     `Celular: ${payload.celular}`,
-    `Tipo de instituicao: ${tipoInstituicao}`,
+    `Tipo de instituição: ${tipoInstituicao}`,
     `Quantidade de alunos: ${payload.quantidade_alunos}`,
     `Cidade / Estado: ${payload.cidade} - ${payload.estado}`,
     '',
-    'Contexto da solicitacao:',
+    'Contexto da solicitação:',
     payload.mensagem,
   ].join('\n');
 }
@@ -299,16 +299,16 @@ function buildInternalEmailText(payload) {
 function buildConfirmationHtml(payload) {
   return `
     <div style="font-family:Arial,sans-serif;color:#10172a;line-height:1.6;">
-      <h1 style="margin:0 0 16px;font-size:24px;">Recebemos sua solicitacao</h1>
+      <h1 style="margin:0 0 16px;font-size:24px;">Recebemos sua solicitação</h1>
       <p style="margin:0 0 16px;">Oi, ${escapeHtml(payload.nome)}.</p>
       <p style="margin:0 0 16px;">
-        Sua solicitacao de apresentacao da LECO foi recebida com sucesso.
-        Em breve nosso time entrara em contato para entender melhor o contexto da sua instituicao
+        Sua solicitação de apresentação da LECO foi recebida com sucesso.
+        Em breve, nosso time entrará em contato para entender melhor o contexto da sua instituição
         e compartilhar a proposta mais adequada.
       </p>
       <div style="padding:18px;border-radius:16px;background:#f4f7fb;border:1px solid #dfe7f2;">
         <strong style="display:block;margin-bottom:8px;">Resumo enviado</strong>
-        <p style="margin:0;"><strong>Instituicao:</strong> ${escapeHtml(payload.instituicao)}</p>
+        <p style="margin:0;"><strong>Instituição:</strong> ${escapeHtml(payload.instituicao)}</p>
         <p style="margin:8px 0 0;"><strong>Quantidade de alunos:</strong> ${escapeHtml(payload.quantidade_alunos)}</p>
       </div>
       <p style="margin:20px 0 0;">Obrigado,<br>Time LECO</p>
@@ -320,10 +320,10 @@ function buildConfirmationText(payload) {
   return [
     `Oi, ${payload.nome}.`,
     '',
-    'Sua solicitacao de apresentacao da LECO foi recebida com sucesso.',
-    'Em breve nosso time entrara em contato para entender melhor o contexto da sua instituicao e compartilhar a proposta mais adequada.',
+    'Sua solicitação de apresentação da LECO foi recebida com sucesso.',
+    'Em breve, nosso time entrará em contato para entender melhor o contexto da sua instituição e compartilhar a proposta mais adequada.',
     '',
-    `Instituicao: ${payload.instituicao}`,
+    `Instituição: ${payload.instituicao}`,
     `Quantidade de alunos: ${payload.quantidade_alunos}`,
     '',
     'Obrigado,',
@@ -351,13 +351,13 @@ async function sendEmails(config, payload) {
       from: config.fromEmail,
       to: [config.contactEmail],
       replyTo: payload.email,
-      subject: `Nova solicitacao de apresentacao - ${payload.instituicao}`,
+      subject: `Nova solicitação de apresentação - ${payload.instituicao}`,
       html: buildInternalEmailHtml(payload),
       text: buildInternalEmailText(payload),
     });
 
     if (error) {
-      throw new Error(error.message || 'Falha ao enviar notificacao interna.');
+      throw new Error(error.message || 'Falha ao enviar notificação interna.');
     }
 
     notificationId = data?.id || null;
@@ -370,18 +370,18 @@ async function sendEmails(config, payload) {
       from: config.fromEmail,
       to: [payload.email],
       replyTo: config.replyToEmail,
-      subject: 'Recebemos sua solicitacao de apresentacao',
+      subject: 'Recebemos sua solicitação de apresentação',
       html: buildConfirmationHtml(payload),
       text: buildConfirmationText(payload),
     });
 
     if (error) {
-      throw new Error(error.message || 'Falha ao enviar confirmacao ao solicitante.');
+      throw new Error(error.message || 'Falha ao enviar confirmação ao solicitante.');
     }
 
     confirmationId = data?.id || null;
   } catch (error) {
-    failures.push(`confirmacao: ${error.message}`);
+    failures.push(`confirmação: ${error.message}`);
   }
 
   return {
@@ -406,14 +406,14 @@ module.exports = async function handler(request, response) {
 
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'GET, POST');
-    sendJson(response, 405, { status: 'erro', mensagem: 'Metodo nao permitido.' });
+    sendJson(response, 405, { status: 'erro', mensagem: 'Método não permitido.' });
     return;
   }
 
   if (!config.backendConfigured) {
     sendJson(response, 503, {
       status: 'erro',
-      mensagem: 'O DATABASE_URL oficial do Neon ainda nao foi configurado para receber solicitacoes.',
+      mensagem: 'O DATABASE_URL oficial do Neon ainda não foi configurado para receber solicitações.',
     });
     return;
   }
@@ -438,7 +438,7 @@ module.exports = async function handler(request, response) {
     console.error('[POST /api/apresentacao]', error);
     sendJson(response, 500, {
       status: 'erro',
-      mensagem: 'Nao foi possivel registrar sua solicitacao agora. Tente novamente em instantes.',
+      mensagem: 'Não foi possível registrar sua solicitação agora. Tente novamente em instantes.',
     });
   }
 };

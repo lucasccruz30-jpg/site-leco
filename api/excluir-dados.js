@@ -6,8 +6,8 @@ const DATABASE_PROVIDER = 'neon';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CELULAR_REGEX = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
 const PERFIS = new Map([
-  ['familia', 'Familia / responsavel'],
-  ['escola', 'Escola / instituicao'],
+  ['familia', 'Família / responsável'],
+  ['escola', 'Escola / instituição'],
   ['outro', 'Outro perfil'],
 ]);
 
@@ -139,7 +139,7 @@ function validate(body) {
     errors.nome = ['Informe um nome com pelo menos 3 caracteres.'];
   }
   if (!EMAIL_REGEX.test(data.email)) {
-    errors.email = ['Informe um e-mail valido.'];
+    errors.email = ['Informe um e-mail válido.'];
   }
   if (data.celular && !CELULAR_REGEX.test(data.celular)) {
     errors.celular = ['Use o formato (11) 99999-9999.'];
@@ -148,7 +148,7 @@ function validate(body) {
     errors.perfil = ['Selecione o perfil da conta.'];
   }
   if (!data.confirmacao_exclusao) {
-    errors.confirmacao_exclusao = ['Voce precisa confirmar a solicitacao de exclusao.'];
+    errors.confirmacao_exclusao = ['Você precisa confirmar a solicitação de exclusão.'];
   }
 
   return { data, errors };
@@ -213,18 +213,18 @@ function buildInternalEmailHtml(payload) {
 
   return `
     <div style="font-family:Arial,sans-serif;color:#10172a;line-height:1.6;">
-      <h1 style="margin:0 0 16px;font-size:24px;">Nova solicitacao de exclusao de dados</h1>
-      <p style="margin:0 0 20px;">Um novo pedido chegou pela pagina reservada do app LECO.</p>
+      <h1 style="margin:0 0 16px;font-size:24px;">Nova solicitação de exclusão de dados</h1>
+      <p style="margin:0 0 20px;">Um novo pedido chegou pela página reservada do app LECO.</p>
       <table style="width:100%;border-collapse:collapse;">
         <tr><td style="padding:8px 0;font-weight:700;">Nome</td><td style="padding:8px 0;">${escapeHtml(payload.nome)}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">E-mail da conta</td><td style="padding:8px 0;">${escapeHtml(payload.email)}</td></tr>
-        <tr><td style="padding:8px 0;font-weight:700;">Celular</td><td style="padding:8px 0;">${escapeHtml(payload.celular || 'Nao informado')}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Celular</td><td style="padding:8px 0;">${escapeHtml(payload.celular || 'Não informado')}</td></tr>
         <tr><td style="padding:8px 0;font-weight:700;">Perfil</td><td style="padding:8px 0;">${escapeHtml(perfil)}</td></tr>
-        <tr><td style="padding:8px 0;font-weight:700;">Referencia adicional</td><td style="padding:8px 0;">${escapeHtml(payload.referencia || 'Nao informada')}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Referência adicional</td><td style="padding:8px 0;">${escapeHtml(payload.referencia || 'Não informada')}</td></tr>
       </table>
       <div style="margin-top:20px;padding:18px;border-radius:16px;background:#f4f7fb;border:1px solid #dfe7f2;">
-        <strong style="display:block;margin-bottom:8px;">Observacoes</strong>
-        <p style="margin:0;white-space:pre-line;">${escapeHtml(payload.mensagem || 'Sem observacoes adicionais.')}</p>
+        <strong style="display:block;margin-bottom:8px;">Observações</strong>
+        <p style="margin:0;white-space:pre-line;">${escapeHtml(payload.mensagem || 'Sem observações adicionais.')}</p>
       </div>
     </div>
   `;
@@ -234,27 +234,27 @@ function buildInternalEmailText(payload) {
   const perfil = PERFIS.get(payload.perfil) || payload.perfil;
 
   return [
-    'Nova solicitacao de exclusao de dados',
+    'Nova solicitação de exclusão de dados',
     '',
     `Nome: ${payload.nome}`,
     `E-mail da conta: ${payload.email}`,
-    `Celular: ${payload.celular || 'Nao informado'}`,
+    `Celular: ${payload.celular || 'Não informado'}`,
     `Perfil: ${perfil}`,
-    `Referencia adicional: ${payload.referencia || 'Nao informada'}`,
+    `Referência adicional: ${payload.referencia || 'Não informada'}`,
     '',
-    'Observacoes:',
-    payload.mensagem || 'Sem observacoes adicionais.',
+    'Observações:',
+    payload.mensagem || 'Sem observações adicionais.',
   ].join('\n');
 }
 
 function buildConfirmationHtml(payload) {
   return `
     <div style="font-family:Arial,sans-serif;color:#10172a;line-height:1.6;">
-      <h1 style="margin:0 0 16px;font-size:24px;">Recebemos sua solicitacao</h1>
+      <h1 style="margin:0 0 16px;font-size:24px;">Recebemos sua solicitação</h1>
       <p style="margin:0 0 16px;">Oi, ${escapeHtml(payload.nome)}.</p>
       <p style="margin:0 0 16px;">
-        Sua solicitacao de exclusao de dados do app LECO foi recebida com sucesso.
-        Nosso time vai validar as informacoes enviadas e seguir com o atendimento pelos canais informados.
+        Sua solicitação de exclusão de dados do app LECO foi recebida com sucesso.
+        Nosso time vai validar as informações enviadas e seguir com o atendimento pelos canais informados.
       </p>
       <div style="padding:18px;border-radius:16px;background:#f4f7fb;border:1px solid #dfe7f2;">
         <strong style="display:block;margin-bottom:8px;">Resumo enviado</strong>
@@ -270,8 +270,8 @@ function buildConfirmationText(payload) {
   return [
     `Oi, ${payload.nome}.`,
     '',
-    'Sua solicitacao de exclusao de dados do app LECO foi recebida com sucesso.',
-    'Nosso time vai validar as informacoes enviadas e seguir com o atendimento pelos canais informados.',
+    'Sua solicitação de exclusão de dados do app LECO foi recebida com sucesso.',
+    'Nosso time vai validar as informações enviadas e seguir com o atendimento pelos canais informados.',
     '',
     `E-mail da conta: ${payload.email}`,
     `Perfil: ${PERFIS.get(payload.perfil) || payload.perfil}`,
@@ -301,13 +301,13 @@ async function sendEmails(config, payload) {
       from: config.fromEmail,
       to: [config.contactEmail],
       replyTo: payload.email,
-      subject: `Solicitacao de exclusao de dados - ${payload.nome}`,
+      subject: `Solicitação de exclusão de dados - ${payload.nome}`,
       html: buildInternalEmailHtml(payload),
       text: buildInternalEmailText(payload),
     });
 
     if (error) {
-      throw new Error(error.message || 'Falha ao enviar notificacao interna.');
+      throw new Error(error.message || 'Falha ao enviar notificação interna.');
     }
 
     notificationId = data?.id || null;
@@ -320,18 +320,18 @@ async function sendEmails(config, payload) {
       from: config.fromEmail,
       to: [payload.email],
       replyTo: config.replyToEmail,
-      subject: 'Recebemos sua solicitacao de exclusao de dados',
+      subject: 'Recebemos sua solicitação de exclusão de dados',
       html: buildConfirmationHtml(payload),
       text: buildConfirmationText(payload),
     });
 
     if (error) {
-      throw new Error(error.message || 'Falha ao enviar confirmacao ao solicitante.');
+      throw new Error(error.message || 'Falha ao enviar confirmação ao solicitante.');
     }
 
     confirmationId = data?.id || null;
   } catch (error) {
-    failures.push(`confirmacao: ${error.message}`);
+    failures.push(`confirmação: ${error.message}`);
   }
 
   return {
@@ -356,14 +356,14 @@ module.exports = async function handler(request, response) {
 
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'GET, POST');
-    sendJson(response, 405, { status: 'erro', mensagem: 'Metodo nao permitido.' });
+    sendJson(response, 405, { status: 'erro', mensagem: 'Método não permitido.' });
     return;
   }
 
   if (!config.backendConfigured) {
     sendJson(response, 503, {
       status: 'erro',
-      mensagem: 'O DATABASE_URL oficial do Neon ainda nao foi configurado para receber solicitacoes.',
+      mensagem: 'O DATABASE_URL oficial do Neon ainda não foi configurado para receber solicitações.',
     });
     return;
   }
@@ -388,7 +388,7 @@ module.exports = async function handler(request, response) {
     console.error('[POST /api/excluir-dados]', error);
     sendJson(response, 500, {
       status: 'erro',
-      mensagem: 'Nao foi possivel registrar sua solicitacao agora. Tente novamente em instantes.',
+      mensagem: 'Não foi possível registrar sua solicitação agora. Tente novamente em instantes.',
     });
   }
 };

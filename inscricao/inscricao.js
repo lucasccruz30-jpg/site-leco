@@ -110,7 +110,7 @@ function renderSuccessState(numero) {
     formState.classList.add('is-hidden');
     successState.classList.remove('is-hidden');
     successTitle.textContent = 'Cadastro recebido!';
-    successCopy.textContent = `Seu cadastro foi registrado com sucesso na posicao #${numero}. Nosso time vai validar sua entrada na campanha promocional de 2 meses gratuitos e entrar em contato com os proximos passos.`;
+    successCopy.textContent = `Seu cadastro foi registrado com sucesso na posição #${numero}. Nosso time vai validar sua entrada na campanha promocional de 2 meses gratuitos e entrar em contato com os próximos passos.`;
 }
 
 function collectFormData() {
@@ -135,7 +135,7 @@ function validateForm(data) {
         errors.nome = ['Informe um nome com pelo menos 3 caracteres.'];
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-        errors.email = ['Informe um e-mail valido.'];
+        errors.email = ['Informe um e-mail válido.'];
     }
     if (!/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(data.celular)) {
         errors.celular = ['Use o formato (11) 99999-9999.'];
@@ -143,16 +143,16 @@ function validateForm(data) {
 
     const quantidade = Number(data.quantidade_criancas);
     if (!Number.isInteger(quantidade) || quantidade < 1 || quantidade > 20) {
-        errors.quantidade_criancas = ['Informe um numero inteiro entre 1 e 20.'];
+        errors.quantidade_criancas = ['Informe um número inteiro entre 1 e 20.'];
     }
     if (!data.cidade || data.cidade.length < 2) {
-        errors.cidade = ['Informe uma cidade valida.'];
+        errors.cidade = ['Informe uma cidade válida.'];
     }
     if (!ESTADOS.has(data.estado)) {
-        errors.estado = ['Selecione um estado valido.'];
+        errors.estado = ['Selecione um estado válido.'];
     }
     if (!['sim', 'nao'].includes(data.paga_mesada)) {
-        errors.paga_mesada = ['Selecione uma opcao.'];
+        errors.paga_mesada = ['Selecione uma opção.'];
     }
     if (data.paga_mesada === 'sim' && !data.valor_mesada) {
         errors.valor_mesada = ['Informe o valor da mesada.'];
@@ -161,7 +161,7 @@ function validateForm(data) {
         errors.pretende_investir = ['Informe quanto pretende investir em mesada.'];
     }
     if (!data.aceite_termos) {
-        errors.aceite_termos = ['Voce deve aceitar os termos para continuar.'];
+        errors.aceite_termos = ['Você deve aceitar os termos para continuar.'];
     }
 
     return errors;
@@ -173,17 +173,17 @@ async function loadStatus() {
         const data = await response.json();
 
         if (data.backend_configured === false) {
-            showBackendNotice('A pagina de inscricao ja esta publicada. Para liberar os envios, configure na Vercel a variavel <strong>DATABASE_URL</strong> do Neon.');
+            showBackendNotice('A página de inscrição já está publicada. Para liberar os envios, configure na Vercel a variável <strong>DATABASE_URL</strong> do Neon.');
         }
 
         if (!response.ok) {
-            throw new Error(data.mensagem || 'Nao foi possivel carregar a disponibilidade.');
+            throw new Error(data.mensagem || 'Não foi possível carregar a disponibilidade.');
         }
 
         updateProgress(data.total || 0);
     } catch (error) {
         updateProgress(0);
-        showBackendNotice('Nao foi possivel consultar a disponibilidade agora. A pagina continua publicada, mas o backend precisa ser revisado antes de liberar as inscricoes.');
+        showBackendNotice('Não foi possível consultar a disponibilidade agora. A página continua publicada, mas o backend precisa ser revisado antes de liberar as inscrições.');
         console.error(error);
     }
 }
@@ -222,7 +222,7 @@ async function handleSubmit(event) {
         }
 
         if (result.status === 'email_duplicado') {
-            showFeedback('Este e-mail ja esta cadastrado na campanha.', 'warning');
+            showFeedback('Este e-mail já está cadastrado na campanha.', 'warning');
             return;
         }
 
@@ -232,10 +232,10 @@ async function handleSubmit(event) {
             return;
         }
 
-        showFeedback(result.mensagem || 'Nao foi possivel concluir seu cadastro agora.', 'error');
+        showFeedback(result.mensagem || 'Não foi possível concluir seu cadastro agora.', 'error');
     } catch (error) {
         console.error(error);
-        showFeedback('Falha de conexao. Tente novamente em alguns instantes.', 'error');
+        showFeedback('Falha de conexão. Tente novamente em alguns instantes.', 'error');
     } finally {
         setLoading(false);
     }
