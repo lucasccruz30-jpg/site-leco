@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
         const applyBillingMode = (mode) => {
-            const selectedMode = billingPlans[mode] ? mode : 'mensal';
+            const selectedMode = billingPlans[mode] ? mode : 'anual';
             const selected = billingPlans[selectedMode];
 
             lecoPrice.className = selected.leco.className;
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        applyBillingMode('mensal');
+        applyBillingMode('anual');
     }
 
 });
