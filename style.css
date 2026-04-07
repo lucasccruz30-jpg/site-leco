@@ -726,14 +726,16 @@ p {
     grid-template-columns: repeat(3, 1fr);
     gap: 34px;
     align-items: flex-start;
+    margin-top: 14px;
 }
 
 .plans-billing-switch {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
     align-items: center;
     justify-content: center;
     gap: 4px;
-    margin: -10px auto 10px;
+    margin: -6px auto 14px;
     padding: 4px;
     border-radius: 999px;
     background: rgba(30, 94, 255, 0.08);
@@ -762,10 +764,11 @@ p {
 
 .billing-toggle-note {
     max-width: 520px;
-    margin: 0 auto 24px;
+    margin: 0 auto 42px;
     text-align: center;
     color: var(--aux-text);
     font-size: 13px;
+    line-height: 1.6;
 }
 
 .plan-card {
@@ -1354,6 +1357,10 @@ p {
     .billing-toggle-button {
         min-width: 0;
         flex: 1;
+    }
+
+    .billing-toggle-note {
+        margin: 0 auto 32px;
     }
 
     #campanha .container > div:nth-of-type(2) {
