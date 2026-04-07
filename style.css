@@ -769,6 +769,20 @@ p {
     margin: 20px 0 5px;
 }
 
+.plan-card .price.price-installment {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+    line-height: 1.05;
+}
+
+.price-prefix {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--aux-text);
+}
+
 .plan-card .price span {
     font-size: 16px;
     font-weight: 400;
@@ -778,6 +792,14 @@ p {
 .plan-card .anual-price {
     font-size: 14px;
     margin-bottom: 5px;
+}
+
+.price-note {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--aux-text);
 }
 
 .plan-card .anual-savings {
