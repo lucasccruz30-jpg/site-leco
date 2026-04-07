@@ -64,8 +64,10 @@ a {
 
 .brand-link img {
     height: 48px;
-    width: auto;
+    width: 48px;
     display: block;
+    object-fit: cover;
+    border-radius: 14px;
 }
 
 .hero {
