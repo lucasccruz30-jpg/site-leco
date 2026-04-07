@@ -32,8 +32,39 @@
                 <a href="#plans" class="btn btn-secondary">Ver planos</a>
                 <a href="/apresentacao/" class="btn btn-primary">Levar para minha escola</a>
             </div>
+            <button class="mobile-menu-toggle" type="button" aria-label="Abrir menu" aria-controls="mobile-menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
+
+    <div class="mobile-menu-overlay" aria-hidden="true"></div>
+    <aside id="mobile-menu" class="mobile-menu-drawer" aria-hidden="true" aria-label="Menu principal">
+        <div class="mobile-menu-head">
+            <a href="#" class="mobile-menu-brand" aria-label="Voltar para o início">
+                <img src="Logo/Logo.png.jpeg" alt="LECO Logo">
+                <span>LECO</span>
+            </a>
+            <button class="mobile-menu-close" type="button" aria-label="Fechar menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <nav class="mobile-menu-nav" aria-label="Navegação mobile">
+            <a href="#benefits">Benefícios</a>
+            <a href="#how-it-works">Como funciona</a>
+            <a href="#plans">Planos</a>
+            <a href="#features">Funcionalidades</a>
+            <a href="#schools">Para Escolas</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+        <div class="mobile-menu-actions">
+            <a href="#plans" class="btn btn-secondary">Ver planos</a>
+            <a href="/apresentacao/" class="btn btn-primary">Levar para minha escola</a>
+        </div>
+    </aside>
 
     <!-- BANNER CAMPANHA: 50 vagas grátis — aparece abaixo do cabeçalho -->
     <div id="banner-campanha" style="background:linear-gradient(90deg,#1E5EFF 0%,#1749E5 100%);color:#fff;padding:8px 20px;text-align:center;position:relative;">
