@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formatMoney = (value) => value.toFixed(2).replace('.', ',');
         const formatCountLabel = (count) => `${count} ${count === 1 ? 'criança' : 'crianças'}`;
+
         const closeFamilyPicker = () => {
             familyPicker.classList.remove('is-open');
             familyCountTrigger.setAttribute('aria-expanded', 'false');
@@ -154,11 +155,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const familyCountLabel = formatCountLabel(selectedCount);
 
             familyDescription.textContent = `Economia progressiva para famílias com ${familyCountLabel} em um único plano.`;
-            familyPrice.className = selectedMode === 'anual' ? 'price price-installment' : 'price';
-            familyPrice.innerHTML = selectedMode === 'anual'
-                ? `<span class="price-prefix">12x de</span>R$ ${formatMoney(familyMonthlyEquivalent)}<span>/mês</span>`
-                : `R$ ${formatMoney(familyMonthlyEquivalent)}<span>/mês</span>`;
-            familySubline.textContent = `equivale a R$ ${formatMoney(familyPerChildValue)} por criança para ${familyCountLabel}`;
+            familyPrice.className = 'price';
+            familyPrice.innerHTML = `R$ ${formatMoney(familyPerChildValue)}<span>/mês</span>`;
+            familySubline.textContent = selectedMode === 'anual'
+                ? `por criança · total de 12x de R$ ${formatMoney(familyMonthlyEquivalent)}/mês para ${familyCountLabel}`
+                : `por criança · total de R$ ${formatMoney(familyMonthlyEquivalent)}/mês para ${familyCountLabel}`;
             familyNote.textContent = selectedMode === 'anual'
                 ? `Cobrança anual de R$ ${formatMoney(familyAnnualCharge)} no cartão.`
                 : `Cobrança mensal de R$ ${formatMoney(familyMonthlyEquivalent)} no cartão.`;
