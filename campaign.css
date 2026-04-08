@@ -210,6 +210,7 @@ body.campaign-modal-open {
     align-items: center;
     justify-content: center;
     align-self: flex-start;
+    gap: 4px;
     min-height: 34px;
     padding: 0 14px;
     border-radius: 999px;
@@ -220,6 +221,10 @@ body.campaign-modal-open {
     font-weight: 800;
     letter-spacing: 0.03em;
     text-transform: uppercase;
+}
+
+.leco-campaign-modal-badge span {
+    color: #c83b3b;
 }
 
 .leco-campaign-modal h2 {
