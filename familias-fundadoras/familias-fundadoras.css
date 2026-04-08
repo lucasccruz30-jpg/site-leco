@@ -1,43 +1,5 @@
 .fundadoras-page main {
-    display: flex;
-    flex-direction: column;
     overflow: clip;
-}
-
-.fundadoras-page .hero-section {
-    order: 1;
-}
-
-.fundadoras-page #campanha-formulario {
-    order: 2;
-}
-
-.fundadoras-page #o-que-e-leco {
-    order: 3;
-}
-
-.fundadoras-page #beneficios-pratica {
-    order: 4;
-}
-
-.fundadoras-page #como-participar {
-    order: 5;
-}
-
-.fundadoras-page #para-quem-e {
-    order: 6;
-}
-
-.fundadoras-page #regras-campanha {
-    order: 7;
-}
-
-.fundadoras-page #faq-campanha {
-    order: 8;
-}
-
-.fundadoras-page .fundadoras-final-cta {
-    order: 9;
 }
 
 .fundadoras-page .mobile-menu-nav a,
@@ -95,11 +57,20 @@
     color: var(--aux-text);
 }
 
-.fundadoras-hero-support {
+.fundadoras-hero-reinforcement {
     max-width: 620px;
-    margin: 18px 0 0;
+    margin: 16px 0 0;
+    color: var(--navy);
     font-size: 17px;
-    line-height: 1.75;
+    font-weight: 700;
+    line-height: 1.7;
+}
+
+.fundadoras-hero-support {
+    max-width: 600px;
+    margin: 14px 0 0;
+    font-size: 16px;
+    line-height: 1.7;
     color: var(--aux-text);
 }
 
@@ -436,7 +407,7 @@
 }
 
 .fundadoras-form-section {
-    padding: 56px 0 92px;
+    padding: 40px 0 92px;
 }
 
 .fundadoras-form-shell {
@@ -815,6 +786,7 @@
     }
 
     .fundadoras-hero-copy .subtitle,
+    .fundadoras-hero-reinforcement,
     .fundadoras-hero-support,
     .fundadoras-split-copy p,
     .fundadoras-steps-intro,
@@ -879,6 +851,10 @@
     .fundadoras-final-shell {
         padding: 24px 20px;
         border-radius: 24px;
+    }
+
+    .fundadoras-form-section {
+        padding: 32px 0 88px;
     }
 
     .fundadoras-final-shell .cta-buttons,
