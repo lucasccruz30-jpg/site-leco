@@ -153,8 +153,8 @@ body.campaign-modal-open {
 
 .leco-campaign-modal-dialog {
     position: relative;
-    width: min(100%, 760px);
-    padding: 34px 34px 30px;
+    width: min(100%, 720px);
+    padding: 32px 32px 28px;
     border-radius: 28px;
     border: 1px solid rgba(223, 231, 242, 0.92);
     background:
@@ -180,33 +180,28 @@ body.campaign-modal-open {
 
 .leco-campaign-modal-body {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
-    gap: 24px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
+    gap: 20px;
     align-items: center;
 }
 
 .leco-campaign-modal-copy {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-}
-
-.leco-campaign-modal-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    gap: 14px;
 }
 
 .leco-campaign-modal-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 34px;
-    padding: 0 14px;
+    align-self: flex-start;
+    min-height: 36px;
+    padding: 0 16px;
     border-radius: 999px;
-    border: 1px solid rgba(30, 94, 255, 0.14);
-    background: rgba(30, 94, 255, 0.08);
-    color: #1e5eff;
+    border: 1px solid rgba(243, 168, 96, 0.24);
+    background: rgba(243, 168, 96, 0.14);
+    color: #9a5b15;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
@@ -228,36 +223,99 @@ body.campaign-modal-open {
     line-height: 1.7;
 }
 
+.leco-campaign-modal-subtitle {
+    max-width: 460px;
+    color: #475467 !important;
+    font-size: 17px !important;
+    font-weight: 600;
+    line-height: 1.65 !important;
+}
+
 .leco-campaign-modal-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+    margin-top: 6px;
+}
+
+.leco-campaign-modal-primary {
+    min-width: 220px;
+    min-height: 56px;
+    padding: 0 22px;
+    font-size: 16px;
+    font-weight: 800;
+    box-shadow: 0 16px 32px rgba(30, 94, 255, 0.18);
+}
+
+.leco-campaign-modal-secondary {
+    min-height: 56px;
+    padding: 0 18px;
+}
+
+.leco-campaign-modal-legal {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    color: #667085 !important;
 }
 
 .leco-campaign-modal-visual {
-    padding: 22px;
+    padding: 18px;
     border-radius: 24px;
     background: linear-gradient(135deg, rgba(30, 94, 255, 0.14), rgba(23, 196, 127, 0.08));
     border: 1px solid rgba(30, 94, 255, 0.12);
 }
 
 .leco-campaign-modal-visual-card {
-    padding: 20px;
+    padding: 18px;
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.94);
     border: 1px solid rgba(223, 231, 242, 0.9);
     box-shadow: 0 18px 34px rgba(16, 23, 42, 0.08);
 }
 
+.leco-campaign-modal-kicker {
+    display: inline-flex;
+    margin-bottom: 10px;
+    color: #1e5eff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
 .leco-campaign-modal-visual-card strong {
     display: block;
     color: #10172a;
     font-size: 18px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    line-height: 1.35;
 }
 
-.leco-campaign-modal-visual-card p {
+.leco-campaign-modal-points {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+}
+
+.leco-campaign-modal-points li {
+    position: relative;
+    padding-left: 18px;
+    color: #667085;
     font-size: 14px;
+    line-height: 1.55;
+}
+
+.leco-campaign-modal-points li::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #1e5eff 0%, #17c47f 100%);
 }
 
 .leco-campaign-modal-rule {
@@ -295,6 +353,10 @@ body.campaign-modal-open {
 
     .leco-campaign-modal-body {
         grid-template-columns: 1fr;
+    }
+
+    .leco-campaign-modal-visual {
+        order: 2;
     }
 }
 
@@ -362,7 +424,12 @@ body.campaign-modal-open {
         width: 100%;
     }
 
+    .leco-campaign-modal-primary,
+    .leco-campaign-modal-secondary {
+        min-height: 52px;
+    }
+
     .leco-campaign-modal-visual {
-        padding: 16px;
+        display: none;
     }
 }

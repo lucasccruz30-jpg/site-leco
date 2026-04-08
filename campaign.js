@@ -3,7 +3,7 @@
     const CAMPAIGN_FORM_HASH = '#campanha-formulario';
     const MODAL_DELAY_MIN = 1500;
     const MODAL_DELAY_RANGE = 1500;
-    const MODAL_FREQUENCY_MS = 24 * 60 * 60 * 1000;
+    const MODAL_FREQUENCY_MS = 8 * 60 * 60 * 1000;
     const STORAGE_KEYS = {
         modalSeenAt: 'leco_campaign_modal_seen_at',
         leadSubmitted: 'leco_campaign_lead_submitted',
@@ -59,6 +59,10 @@
 
     function hasLeadSubmitted() {
         return Boolean(getStorage(STORAGE_KEYS.leadSubmitted));
+    }
+
+    function markModalInteraction() {
+        setStorage(STORAGE_KEYS.modalSeenAt, String(Date.now()));
     }
 
     function markLeadSubmitted(payload) {
@@ -193,23 +197,24 @@
                 <button type="button" class="leco-campaign-modal-close" aria-label="Fechar campanha" data-campaign-modal-close>×</button>
                 <div class="leco-campaign-modal-body">
                     <div class="leco-campaign-modal-copy">
-                        <div class="leco-campaign-modal-badges">
-                            <span class="leco-campaign-modal-badge">50 vagas</span>
-                            <span class="leco-campaign-modal-badge">2 meses grátis</span>
-                            <span class="leco-campaign-modal-badge">Lançamento</span>
-                        </div>
-                        <h2 id="campaign-modal-title">50 famílias vão ganhar 2 meses de LECO grátis</h2>
-                        <p>Participe do lançamento e conheça a plataforma que ajuda no desenvolvimento da rotina, da autonomia e da responsabilidade das crianças.</p>
+                        <span class="leco-campaign-modal-badge">Somente 50 vagas</span>
+                        <h2 id="campaign-modal-title">Ganhe 2 meses grátis no LECO</h2>
+                        <p class="leco-campaign-modal-subtitle">Mais rotina, autonomia e menos cobrança no dia a dia da sua família.</p>
                         <div class="leco-campaign-modal-actions">
-                            <a href="${CAMPAIGN_PATH}" class="btn btn-primary" data-campaign-modal-primary>Garantir minha vaga</a>
-                            <a href="${CAMPAIGN_PATH}#o-que-e-leco" class="btn btn-secondary" data-campaign-modal-secondary>Entender como funciona</a>
+                            <a href="${CAMPAIGN_PATH}" class="btn btn-primary leco-campaign-modal-primary" data-campaign-modal-primary>Quero minha vaga</a>
+                            <a href="${CAMPAIGN_PATH}#o-que-e-leco" class="btn btn-secondary leco-campaign-modal-secondary" data-campaign-modal-secondary>Entender como funciona</a>
                         </div>
+                        <p class="leco-campaign-modal-legal">Campanha válida para novos usuários elegíveis, sujeita às regras da promoção. <a href="/regulamento-campanha-bonus-2-meses/" class="leco-campaign-modal-rule">Ver regulamento</a></p>
                     </div>
                     <div class="leco-campaign-modal-visual">
                         <div class="leco-campaign-modal-visual-card">
-                            <strong>Lançamento LECO</strong>
-                            <p>Campanha válida para novos usuários elegíveis, sujeita às regras da promoção.</p>
-                            <a href="/regulamento-campanha-bonus-2-meses/" class="leco-campaign-modal-rule">Ver regulamento completo</a>
+                            <span class="leco-campaign-modal-kicker">LECO para famílias</span>
+                            <strong>Uma experiência prática para rotina, autonomia e responsabilidade.</strong>
+                            <ul class="leco-campaign-modal-points">
+                                <li>Mais clareza na rotina</li>
+                                <li>Mais autonomia com acompanhamento</li>
+                                <li>Uma entrada especial no lançamento</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -224,6 +229,7 @@
         const secondaryButton = modal.querySelector('[data-campaign-modal-secondary]');
 
         const closeAndTrack = (reason) => {
+            markModalInteraction();
             trackEvent('campaign_modal_close', { reason });
             closeModal(modal);
         };
@@ -238,6 +244,7 @@
         });
 
         primaryButton.addEventListener('click', function () {
+            markModalInteraction();
             trackEvent('campaign_modal_cta_click', {
                 cta: 'primary',
                 destination: CAMPAIGN_PATH,
@@ -246,6 +253,7 @@
         });
 
         secondaryButton.addEventListener('click', function () {
+            markModalInteraction();
             trackEvent('campaign_modal_cta_click', {
                 cta: 'secondary',
                 destination: `${CAMPAIGN_PATH}#o-que-e-leco`,
@@ -261,7 +269,7 @@
             return;
         }
 
-        setStorage(STORAGE_KEYS.modalSeenAt, String(Date.now()));
+        markModalInteraction();
         modal.hidden = false;
         document.body.classList.add('campaign-modal-open');
         trackEvent('campaign_modal_view', { location: 'home' });
