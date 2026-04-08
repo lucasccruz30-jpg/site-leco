@@ -1269,6 +1269,22 @@ p {
     gap: 12px;
 }
 
+.footer-subsection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+}
+
+.footer-subsection-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: rgba(16, 23, 42, 0.52);
+}
+
 .footer-links a,
 .footer-inline-link {
     text-decoration: none;
