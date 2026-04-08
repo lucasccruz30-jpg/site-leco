@@ -202,7 +202,7 @@
                         <p>Participe do lançamento e conheça a plataforma que ajuda no desenvolvimento da rotina, da autonomia e da responsabilidade das crianças.</p>
                         <div class="leco-campaign-modal-actions">
                             <a href="${CAMPAIGN_PATH}" class="btn btn-primary" data-campaign-modal-primary>Garantir minha vaga</a>
-                            <a href="${CAMPAIGN_PATH}#como-participar" class="btn btn-secondary" data-campaign-modal-secondary>Entender como funciona</a>
+                            <a href="${CAMPAIGN_PATH}#o-que-e-leco" class="btn btn-secondary" data-campaign-modal-secondary>Entender como funciona</a>
                         </div>
                     </div>
                     <div class="leco-campaign-modal-visual">
@@ -248,7 +248,7 @@
         secondaryButton.addEventListener('click', function () {
             trackEvent('campaign_modal_cta_click', {
                 cta: 'secondary',
-                destination: `${CAMPAIGN_PATH}#como-participar`,
+                destination: `${CAMPAIGN_PATH}#o-que-e-leco`,
             });
             closeModal(modal);
         });
