@@ -26,15 +26,19 @@
         try {
             const storage = window[type];
             if (!storage) return null;
+
             if (action === 'get') return storage.getItem(key);
+
             if (action === 'set') {
                 storage.setItem(key, value);
                 return value;
             }
+
             if (action === 'remove') {
                 storage.removeItem(key);
                 return null;
             }
+
             return null;
         } catch (error) {
             return null;
@@ -132,7 +136,7 @@
                     </div>
                 </div>
                 <a href="${targetHref}" class="leco-campaign-topbar-button" data-campaign-topbar-cta>Garantir minha vaga</a>
-                <button type="button" class="leco-campaign-topbar-close" aria-label="Fechar aviso da campanha">×</button>
+                <button type="button" class="leco-campaign-topbar-close" aria-label="Fechar aviso da campanha">&times;</button>
             </div>
         `;
 
@@ -170,7 +174,6 @@
         }
 
         const seenAt = Number(getStorage(STORAGE_KEYS.modalSeenAt) || 0);
-
         if (seenAt && Date.now() - seenAt < MODAL_FREQUENCY_MS) {
             return false;
         }
@@ -194,35 +197,30 @@
         modal.innerHTML = `
             <div class="leco-campaign-modal-overlay" data-campaign-modal-overlay></div>
             <div class="leco-campaign-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="campaign-modal-title">
-                <button type="button" class="leco-campaign-modal-close" aria-label="Fechar campanha" data-campaign-modal-close>×</button>
+                <button type="button" class="leco-campaign-modal-close" aria-label="Fechar campanha" data-campaign-modal-close>&times;</button>
                 <div class="leco-campaign-modal-body">
                     <div class="leco-campaign-modal-copy">
                         <span class="leco-campaign-modal-badge">Somente 50 vagas</span>
                         <h2 id="campaign-modal-title">Ganhe 2 meses grátis no LECO</h2>
                         <p class="leco-campaign-modal-subtitle">Mais rotina, autonomia e menos cobrança no dia a dia da sua família.</p>
-                        <div class="leco-campaign-modal-highlights" aria-label="Destaques da campanha">
-                            <span>2 meses grátis</span>
-                            <span>Rotina mais clara</span>
-                            <span>Vagas limitadas</span>
-                        </div>
                         <div class="leco-campaign-modal-actions">
                             <a href="${CAMPAIGN_PATH}" class="btn btn-primary leco-campaign-modal-primary" data-campaign-modal-primary>Quero minha vaga</a>
                             <a href="${CAMPAIGN_PATH}#o-que-e-leco" class="leco-campaign-modal-secondary" data-campaign-modal-secondary>Entender como funciona</a>
                         </div>
-                        <p class="leco-campaign-modal-legal">Campanha válida para novos usuários elegíveis, sujeita às regras da promoção. <a href="/regulamento-campanha-bonus-2-meses/" class="leco-campaign-modal-rule">Ver regulamento</a></p>
+                        <p class="leco-campaign-modal-legal">Campanha válida para novos usuários elegíveis, sujeita às regras da promoção.</p>
                     </div>
-                    <div class="leco-campaign-modal-visual">
-                        <div class="leco-campaign-modal-visual-card">
-                            <span class="leco-campaign-modal-kicker">LECO para famílias</span>
-                            <strong>Uma experiência prática para rotina, autonomia e responsabilidade.</strong>
-                            <span class="leco-campaign-modal-visual-badge">2 meses gr&aacute;tis no lan&ccedil;amento</span>
-                            <ul class="leco-campaign-modal-points">
-                                <li>Mais clareza na rotina</li>
-                                <li>Mais autonomia com acompanhamento</li>
-                                <li>Uma entrada especial no lançamento</li>
-                            </ul>
-                            <div class="leco-campaign-modal-visual-footer">Pensado para pais e respons&aacute;veis que querem mais organiza&ccedil;&atilde;o no dia a dia.</div>
+                    <div class="leco-campaign-modal-visual" aria-hidden="true">
+                        <div class="leco-campaign-modal-visual-orb"></div>
+                        <div class="leco-campaign-modal-device">
+                            <img src="Logo/mockup-responsavel.jpeg" alt="">
                         </div>
+                    </div>
+                </div>
+                <div class="leco-campaign-modal-footer">
+                    <a href="/regulamento-campanha-bonus-2-meses/" class="leco-campaign-modal-rule">Ver regulamento</a>
+                    <div class="leco-campaign-modal-brand" aria-label="LECO">
+                        <img src="Logo/Logo.png.jpeg" alt="">
+                        <span>LECO</span>
                     </div>
                 </div>
             </div>
@@ -293,6 +291,7 @@
         if (shouldShowModal()) {
             const modal = createModal();
             const delay = MODAL_DELAY_MIN + Math.floor(Math.random() * MODAL_DELAY_RANGE);
+
             window.setTimeout(function () {
                 if (!hasLeadSubmitted()) {
                     openModal(modal);
