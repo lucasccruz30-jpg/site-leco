@@ -200,7 +200,7 @@
                 <button type="button" class="leco-campaign-modal-close" aria-label="Fechar campanha" data-campaign-modal-close>&times;</button>
                 <div class="leco-campaign-modal-body">
                     <div class="leco-campaign-modal-copy">
-                        <span class="leco-campaign-modal-badge">Somente <span>50 vagas</span></span>
+                        <span class="leco-campaign-modal-badge">Somente 50 vagas</span>
                         <h2 id="campaign-modal-title">Ganhe 2 meses grátis no LECO</h2>
                         <p class="leco-campaign-modal-subtitle">Mais rotina, autonomia e menos cobrança no dia a dia da sua família.</p>
                         <div class="leco-campaign-modal-actions">
