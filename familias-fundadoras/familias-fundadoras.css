@@ -407,18 +407,18 @@
 }
 
 .fundadoras-form-section {
-    padding: 40px 0 92px;
+    padding: 28px 0 88px;
 }
 
 .fundadoras-form-shell {
     display: grid;
     grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
-    gap: 28px;
+    gap: 24px;
     align-items: start;
 }
 
 .fundadoras-form-copy {
-    padding: 32px;
+    padding: 28px;
     border-radius: 30px;
     border: 1px solid rgba(208, 216, 218, 0.92);
     background:
@@ -437,26 +437,19 @@
     line-height: 1.8;
 }
 
-.fundadoras-form-highlight {
-    margin-top: 22px;
-    padding: 18px 20px;
-    border-radius: 22px;
-    border: 1px solid rgba(30, 94, 255, 0.14);
-    background: rgba(30, 94, 255, 0.06);
-}
-
-.fundadoras-form-highlight strong {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--leco-blue);
+.fundadoras-form-support {
+    margin-top: 16px !important;
+    color: var(--aux-text);
+    font-size: 16px !important;
+    line-height: 1.75 !important;
 }
 
 .fundadoras-form-checklist {
-    margin: 24px 0 0;
+    margin: 20px 0 0;
     padding: 0;
     list-style: none;
     display: grid;
-    gap: 12px;
+    gap: 10px;
 }
 
 .fundadoras-form-checklist li {

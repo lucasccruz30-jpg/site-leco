@@ -151,11 +151,12 @@ function renderSuccessState(title, copy) {
     successCopy.textContent = copy;
 }
 
-function renderExistingLeadState() {
-    renderSuccessState(
-        'Seu cadastro já foi recebido anteriormente.',
-        'Se você já participou da campanha, não é necessário enviar novamente.'
-    );
+function ensureInitialUIState() {
+    hideStatus(backendNotice);
+    hideStatus(feedback);
+    hideStatus(alreadySubmittedNotice);
+    formCard.classList.remove('is-hidden');
+    successState.classList.add('is-hidden');
 }
 
 function bindTrackedLinks() {
@@ -288,6 +289,8 @@ async function handleSubmit(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    ensureInitialUIState();
+
     trackCampaign('campaign_landing_view', {
         location: 'familias_fundadoras',
     });
@@ -301,7 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'Seu cadastro já foi recebido anteriormente. Se você já participou da campanha, não é necessário enviar novamente.',
             'info'
         );
-        renderExistingLeadState();
     }
 });
 

@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/inscricao",
+      "destination": "/familias-fundadoras",
+      "permanent": true
+    },
+    {
+      "source": "/inscricao/",
+      "destination": "/familias-fundadoras/",
+      "permanent": true
+    }
+  ]
+}
