@@ -21,6 +21,18 @@ const pretendeInvestirGroup = document.getElementById('pretende-investir-group')
 const successTitle = document.getElementById('success-title');
 const successCopy = document.getElementById('success-copy');
 
+function trackCampaign(eventName, payload) {
+    if (typeof window.lecoTrackEvent === 'function') {
+        window.lecoTrackEvent(eventName, payload);
+    }
+}
+
+function markCampaignSubmitted(payload) {
+    if (window.lecoCampaign && typeof window.lecoCampaign.markLeadSubmitted === 'function') {
+        window.lecoCampaign.markLeadSubmitted(payload);
+    }
+}
+
 function formatCelular(value) {
     const digits = value.replace(/\D/g, '').slice(0, 11);
     if (digits.length <= 2) return digits ? `(${digits}` : '';
@@ -53,19 +65,23 @@ function showFieldErrors(errors) {
     Object.entries(errors).forEach(([field, messages]) => {
         const errorElement = document.querySelector(`[data-error-for="${field}"]`);
         const fieldElement = document.getElementById(field);
+
         if (errorElement) {
             errorElement.textContent = Array.isArray(messages) ? messages[0] : messages;
         }
+
         if (field === 'aceite_termos') {
             const terms = document.querySelector('.terms');
             if (terms) terms.classList.add('has-error');
             return;
         }
+
         if (field === 'paga_mesada') {
             const radioField = document.querySelector('fieldset.field');
             if (radioField) radioField.classList.add('has-error');
             return;
         }
+
         const container = fieldElement ? fieldElement.closest('.field') : null;
         if (container) {
             container.classList.add('has-error');
@@ -98,6 +114,7 @@ function updateProgress(total) {
     const totalExibicao = Math.min(total, MAX_VAGAS);
     const vagasRestantes = Math.max(0, MAX_VAGAS - totalExibicao);
     const percentual = Math.min(100, (totalExibicao / MAX_VAGAS) * 100);
+
     progressCount.textContent = `${totalExibicao} / ${MAX_VAGAS}`;
     progressBar.style.width = `${percentual}%`;
     progressCaption.textContent = vagasRestantes > 0
@@ -110,7 +127,7 @@ function renderSuccessState(numero) {
     formState.classList.add('is-hidden');
     successState.classList.remove('is-hidden');
     successTitle.textContent = 'Cadastro recebido!';
-    successCopy.textContent = `Seu cadastro foi registrado com sucesso na posição #${numero}. Nosso time vai validar sua entrada na campanha promocional de 2 meses gratuitos e entrar em contato com os próximos passos.`;
+    successCopy.textContent = `Seu cadastro foi registrado com sucesso na posição #${numero}. Agora vamos validar sua participação na campanha, considerando as regras de elegibilidade, a ordem de validação e a criação da conta após o lançamento oficial.`;
 }
 
 function collectFormData() {
@@ -134,9 +151,11 @@ function validateForm(data) {
     if (!data.nome || data.nome.length < 3) {
         errors.nome = ['Informe um nome com pelo menos 3 caracteres.'];
     }
+
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
         errors.email = ['Informe um e-mail válido.'];
     }
+
     if (!/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(data.celular)) {
         errors.celular = ['Use o formato (11) 99999-9999.'];
     }
@@ -145,21 +164,27 @@ function validateForm(data) {
     if (!Number.isInteger(quantidade) || quantidade < 1 || quantidade > 20) {
         errors.quantidade_criancas = ['Informe um número inteiro entre 1 e 20.'];
     }
+
     if (!data.cidade || data.cidade.length < 2) {
         errors.cidade = ['Informe uma cidade válida.'];
     }
+
     if (!ESTADOS.has(data.estado)) {
         errors.estado = ['Selecione um estado válido.'];
     }
+
     if (!['sim', 'nao'].includes(data.paga_mesada)) {
         errors.paga_mesada = ['Selecione uma opção.'];
     }
+
     if (data.paga_mesada === 'sim' && !data.valor_mesada) {
         errors.valor_mesada = ['Informe o valor da mesada.'];
     }
+
     if (data.paga_mesada === 'nao' && !data.pretende_investir) {
         errors.pretende_investir = ['Informe quanto pretende investir em mesada.'];
     }
+
     if (!data.aceite_termos) {
         errors.aceite_termos = ['Você deve aceitar os termos para continuar.'];
     }
@@ -196,7 +221,12 @@ async function handleSubmit(event) {
 
     const data = collectFormData();
     const errors = validateForm(data);
+
     if (Object.keys(errors).length > 0) {
+        trackCampaign('campaign_form_error', {
+            form: 'inscricao',
+            reason: 'validacao_front',
+        });
         showFieldErrors(errors);
         showFeedback('Revise os campos destacados e tente novamente.', 'error');
         return;
@@ -211,30 +241,65 @@ async function handleSubmit(event) {
             body: JSON.stringify({
                 ...data,
                 quantidade_criancas: Number(data.quantidade_criancas),
+                formulario: 'inscricao',
+                campanha: '2_meses_lancamento',
+                origem: 'inscricao',
+                canal: 'site',
+                status_lead: 'lead_campanha',
+                elegivel_promocao: 'pendente',
             }),
         });
 
         const result = await response.json();
 
         if (result.status === 'sucesso') {
+            markCampaignSubmitted({
+                source: 'inscricao',
+                numero: result.numero,
+            });
+            trackCampaign('campaign_form_submit', {
+                form: 'inscricao',
+                status: 'sucesso',
+            });
             renderSuccessState(result.numero);
             return;
         }
 
-        if (result.status === 'email_duplicado') {
-            showFeedback('Este e-mail já está cadastrado na campanha.', 'warning');
+        if (result.status === 'lead_existente' || result.status === 'email_duplicado') {
+            markCampaignSubmitted({
+                source: 'inscricao',
+                status: 'lead_existente',
+                duplicate_by: result.duplicate_by || 'email',
+            });
+            trackCampaign('campaign_form_duplicate', {
+                form: 'inscricao',
+                duplicate_by: result.duplicate_by || 'email',
+            });
+            showFeedback('Seu cadastro já foi recebido anteriormente. Se precisar de ajuda, fale com o time LECO.', 'warning');
             return;
         }
 
         if (result.status === 'validacao' && result.errors) {
+            trackCampaign('campaign_form_error', {
+                form: 'inscricao',
+                reason: 'validacao_api',
+            });
             showFieldErrors(result.errors);
             showFeedback('Alguns dados precisam ser corrigidos antes do envio.', 'error');
             return;
         }
 
+        trackCampaign('campaign_form_error', {
+            form: 'inscricao',
+            reason: result.status || 'erro',
+        });
         showFeedback(result.mensagem || 'Não foi possível concluir seu cadastro agora.', 'error');
     } catch (error) {
         console.error(error);
+        trackCampaign('campaign_form_error', {
+            form: 'inscricao',
+            reason: 'network',
+        });
         showFeedback('Falha de conexão. Tente novamente em alguns instantes.', 'error');
     } finally {
         setLoading(false);

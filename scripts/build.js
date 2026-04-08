@@ -6,6 +6,8 @@ const outputDir = path.join(rootDir, 'public');
 const itemsToCopy = [
   'index.html',
   'style.css',
+  'campaign.css',
+  'campaign.js',
   'legal.css',
   'legal-document.js',
   'script.js',
@@ -22,6 +24,7 @@ const itemsToCopy = [
   'Logo',
   'apresentacao',
   'excluir-dados',
+  'familias-fundadoras',
   'privacidade',
   'inscricao',
   'regulamento-campanha-bonus-2-meses',

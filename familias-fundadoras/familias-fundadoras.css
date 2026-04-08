@@ -1,0 +1,821 @@
+.fundadoras-page main {
+    overflow: clip;
+}
+
+.fundadoras-page .mobile-menu-nav a,
+.fundadoras-page .mobile-menu-actions .btn,
+.fundadoras-page .header-buttons .btn {
+    white-space: nowrap;
+}
+
+.fundadoras-page .hero-section {
+    padding: 92px 0 72px;
+}
+
+.fundadoras-page .hero-content {
+    align-items: center;
+}
+
+.fundadoras-hero-copy {
+    max-width: 660px;
+}
+
+.fundadoras-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.fundadoras-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: rgba(30, 94, 255, 0.08);
+    border: 1px solid rgba(30, 94, 255, 0.14);
+    color: var(--leco-blue);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.fundadoras-hero-copy h1 {
+    margin: 0;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.06em;
+}
+
+.fundadoras-hero-copy .subtitle {
+    max-width: 620px;
+    margin: 20px 0 0;
+    font-size: 20px;
+    line-height: 1.7;
+    color: var(--aux-text);
+}
+
+.fundadoras-hero-copy .hero-buttons {
+    margin-top: 34px;
+}
+
+.fundadoras-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.fundadoras-hero-meta a,
+.fundadoras-hero-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--aux-text);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.fundadoras-hero-meta a:hover {
+    color: var(--leco-blue);
+}
+
+.fundadoras-hero-visual {
+    position: relative;
+    width: min(100%, 620px);
+    min-height: 560px;
+    padding: 34px 24px 26px;
+    border-radius: 34px;
+    background:
+        radial-gradient(circle at top right, rgba(243, 168, 96, 0.16), transparent 30%),
+        radial-gradient(circle at top left, rgba(30, 94, 255, 0.18), transparent 38%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 251, 0.98));
+    border: 1px solid rgba(208, 216, 218, 0.92);
+    box-shadow: 0 28px 64px rgba(16, 23, 42, 0.12);
+}
+
+.fundadoras-visual-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.fundadoras-visual-header strong {
+    display: block;
+    font-size: 22px;
+    letter-spacing: -0.03em;
+}
+
+.fundadoras-visual-header p {
+    max-width: 280px;
+    margin: 6px 0 0;
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.fundadoras-visual-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: rgba(23, 196, 127, 0.1);
+    color: #119c63;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.fundadoras-mockups {
+    position: relative;
+    min-height: 370px;
+}
+
+.fundadoras-page .mockup-phone-center {
+    top: 18px;
+}
+
+.fundadoras-page .mockup-phone-left {
+    bottom: 18px;
+}
+
+.fundadoras-page .mockup-phone-right {
+    bottom: 42px;
+}
+
+.fundadoras-visual-footer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.fundadoras-stat {
+    padding: 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(208, 216, 218, 0.88);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.fundadoras-stat strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--navy);
+    font-size: 18px;
+    letter-spacing: -0.03em;
+}
+
+.fundadoras-stat span {
+    display: block;
+    color: var(--aux-text);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.fundadoras-split-section {
+    padding: 88px 0;
+}
+
+.fundadoras-split-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+}
+
+.fundadoras-split-copy h2,
+.fundadoras-faq h2,
+.fundadoras-form-section h2 {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.fundadoras-split-copy p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.fundadoras-points {
+    display: grid;
+    gap: 18px;
+}
+
+.fundadoras-point {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 22px;
+    border-radius: 22px;
+    border: 1px solid rgba(208, 216, 218, 0.9);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 16px 34px rgba(16, 23, 42, 0.05);
+}
+
+.fundadoras-point-icon {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: rgba(30, 94, 255, 0.08);
+    color: var(--leco-blue);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.fundadoras-point strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--navy);
+    font-size: 18px;
+}
+
+.fundadoras-point p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.fundadoras-steps-section,
+.fundadoras-rules-section,
+.fundadoras-faq {
+    background: var(--white);
+}
+
+.fundadoras-steps-intro,
+.fundadoras-section-intro {
+    max-width: 780px;
+    margin: -32px auto 38px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.75;
+}
+
+.fundadoras-steps-grid,
+.fundadoras-audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.fundadoras-step-card,
+.fundadoras-audience-card {
+    padding: 30px;
+    border-radius: 24px;
+    border: 1px solid rgba(208, 216, 218, 0.94);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 18px 36px rgba(16, 23, 42, 0.06);
+}
+
+.fundadoras-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 18px;
+    border-radius: 14px;
+    background: rgba(30, 94, 255, 0.08);
+    color: var(--leco-blue);
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.fundadoras-step-card h3,
+.fundadoras-audience-card h3 {
+    margin-bottom: 10px;
+}
+
+.fundadoras-step-card p,
+.fundadoras-audience-card p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.fundadoras-audience-card ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+    color: var(--aux-text);
+}
+
+.fundadoras-audience-card li + li {
+    margin-top: 8px;
+}
+
+.fundadoras-benefits-section .benefits-grid {
+    align-items: stretch;
+}
+
+.fundadoras-rules-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.86fr);
+    gap: 28px;
+    align-items: start;
+}
+
+.fundadoras-rules-card,
+.fundadoras-rules-summary {
+    padding: 30px;
+    border-radius: 28px;
+    border: 1px solid rgba(208, 216, 218, 0.94);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 18px 36px rgba(16, 23, 42, 0.06);
+}
+
+.fundadoras-rules-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 14px;
+}
+
+.fundadoras-rules-card li {
+    position: relative;
+    padding-left: 28px;
+    color: var(--aux-text);
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.fundadoras-rules-card li::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--leco-blue), var(--deep-blue));
+}
+
+.fundadoras-rules-summary strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 19px;
+}
+
+.fundadoras-rules-summary p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.fundadoras-rules-summary .btn {
+    margin-top: 22px;
+}
+
+.fundadoras-form-section {
+    padding: 92px 0;
+}
+
+.fundadoras-form-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: 28px;
+    align-items: start;
+}
+
+.fundadoras-form-copy {
+    padding: 32px;
+    border-radius: 30px;
+    border: 1px solid rgba(208, 216, 218, 0.92);
+    background:
+        radial-gradient(circle at top right, rgba(30, 94, 255, 0.12), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 251, 0.98));
+    box-shadow: 0 20px 40px rgba(16, 23, 42, 0.08);
+}
+
+.fundadoras-form-copy h2 {
+    margin-top: 14px;
+}
+
+.fundadoras-form-copy p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.fundadoras-form-highlight {
+    margin-top: 22px;
+    padding: 18px 20px;
+    border-radius: 22px;
+    border: 1px solid rgba(30, 94, 255, 0.14);
+    background: rgba(30, 94, 255, 0.06);
+}
+
+.fundadoras-form-highlight strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--leco-blue);
+}
+
+.fundadoras-form-checklist {
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+}
+
+.fundadoras-form-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--aux-text);
+    line-height: 1.7;
+}
+
+.fundadoras-form-checklist li::before {
+    content: "✓";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    border-radius: 999px;
+    background: rgba(23, 196, 127, 0.12);
+    color: var(--success-green);
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.fundadoras-form-card,
+.fundadoras-success-card {
+    padding: 32px;
+    border-radius: 30px;
+    border: 1px solid rgba(208, 216, 218, 0.94);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 22px 44px rgba(16, 23, 42, 0.08);
+}
+
+.fundadoras-form-card h3,
+.fundadoras-success-card h3 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    letter-spacing: -0.04em;
+}
+
+.fundadoras-form-card > p,
+.fundadoras-success-card > p {
+    margin: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.fundadoras-status {
+    padding: 16px 18px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+
+.fundadoras-status.is-hidden {
+    display: none;
+}
+
+.fundadoras-status.info {
+    background: rgba(30, 94, 255, 0.06);
+    border-color: rgba(30, 94, 255, 0.12);
+    color: var(--leco-blue);
+}
+
+.fundadoras-status.error {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.14);
+    color: #b42318;
+}
+
+.fundadoras-status.warning {
+    background: rgba(243, 168, 96, 0.12);
+    border-color: rgba(243, 168, 96, 0.18);
+    color: #9a5b15;
+}
+
+.fundadoras-form {
+    display: grid;
+    gap: 20px;
+}
+
+.fundadoras-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.fundadoras-field {
+    display: grid;
+    gap: 8px;
+}
+
+.fundadoras-field.is-full {
+    grid-column: 1 / -1;
+}
+
+.fundadoras-field label {
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.fundadoras-field .required-marker {
+    color: #ef4444;
+}
+
+.fundadoras-field input,
+.fundadoras-field select,
+.fundadoras-field textarea {
+    width: 100%;
+    min-height: 54px;
+    padding: 0 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(208, 216, 218, 0.96);
+    background: var(--white);
+    color: var(--navy);
+    font: inherit;
+    font-size: 15px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fundadoras-field textarea {
+    min-height: 120px;
+    padding: 14px 16px;
+    resize: vertical;
+}
+
+.fundadoras-field input:focus,
+.fundadoras-field select:focus,
+.fundadoras-field textarea:focus {
+    outline: none;
+    border-color: rgba(30, 94, 255, 0.42);
+    box-shadow: 0 0 0 4px rgba(30, 94, 255, 0.12);
+}
+
+.fundadoras-field.has-error input,
+.fundadoras-field.has-error select,
+.fundadoras-field.has-error textarea,
+.fundadoras-terms.has-error {
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.fundadoras-field-hint {
+    color: var(--aux-text);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.fundadoras-field-error {
+    min-height: 18px;
+    color: #b42318;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.fundadoras-terms {
+    padding: 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(208, 216, 218, 0.94);
+    background: rgba(247, 249, 251, 0.9);
+}
+
+.fundadoras-terms label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--aux-text);
+}
+
+.fundadoras-terms input {
+    margin-top: 4px;
+}
+
+.fundadoras-terms a {
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.fundadoras-terms a:hover {
+    text-decoration: underline;
+}
+
+.fundadoras-submit {
+    width: 100%;
+    min-height: 58px;
+    border: 0;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--leco-blue) 0%, var(--deep-blue) 100%);
+    color: #fff;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 18px 34px rgba(30, 94, 255, 0.18);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.fundadoras-submit:hover,
+.fundadoras-submit:focus-visible {
+    transform: translateY(-1px);
+    opacity: 0.96;
+}
+
+.fundadoras-submit:disabled {
+    cursor: wait;
+    opacity: 0.7;
+    transform: none;
+}
+
+.fundadoras-security {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--aux-text);
+}
+
+.fundadoras-success-card.is-hidden {
+    display: none;
+}
+
+.fundadoras-success-icon {
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    border-radius: 22px;
+    background: rgba(23, 196, 127, 0.12);
+    color: var(--success-green);
+}
+
+.fundadoras-success-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.fundadoras-faq .faq-container {
+    max-width: 920px;
+}
+
+.fundadoras-final-cta {
+    padding: 0 0 88px;
+    background: var(--white);
+}
+
+.fundadoras-final-shell {
+    padding: 34px;
+    border-radius: 30px;
+    border: 1px solid rgba(208, 216, 218, 0.94);
+    background:
+        radial-gradient(circle at top right, rgba(30, 94, 255, 0.16), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 251, 0.98));
+    box-shadow: 0 22px 44px rgba(16, 23, 42, 0.08);
+}
+
+.fundadoras-final-shell h2 {
+    text-align: left;
+    margin: 0 0 14px;
+}
+
+.fundadoras-final-shell p {
+    max-width: 760px;
+    margin: 0 0 22px;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.fundadoras-final-shell .cta-buttons {
+    justify-content: flex-start;
+}
+
+@media (max-width: 1100px) {
+    .fundadoras-form-shell,
+    .fundadoras-split-shell,
+    .fundadoras-rules-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .fundadoras-steps-grid,
+    .fundadoras-audience-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .fundadoras-page .hero-content {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .fundadoras-hero-visual {
+        min-height: 500px;
+    }
+
+    .fundadoras-visual-footer {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .fundadoras-page .hero-section {
+        padding: 72px 0 56px;
+    }
+
+    .fundadoras-badges {
+        gap: 10px;
+    }
+
+    .fundadoras-badge {
+        min-height: 34px;
+        padding: 0 13px;
+        font-size: 12px;
+    }
+
+    .fundadoras-hero-copy h1 {
+        font-size: 2.8rem;
+    }
+
+    .fundadoras-hero-copy .subtitle,
+    .fundadoras-split-copy p,
+    .fundadoras-steps-intro,
+    .fundadoras-section-intro,
+    .fundadoras-final-shell p,
+    .fundadoras-form-copy p {
+        font-size: 16px;
+    }
+
+    .fundadoras-hero-visual {
+        min-height: 430px;
+        padding: 24px 16px 18px;
+        border-radius: 28px;
+    }
+
+    .fundadoras-visual-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .fundadoras-visual-header p {
+        max-width: none;
+    }
+
+    .fundadoras-page .mockup-phone-center {
+        width: 168px;
+    }
+
+    .fundadoras-page .mockup-phone-left {
+        width: 138px;
+        left: 4px;
+    }
+
+    .fundadoras-page .mockup-phone-right {
+        width: 134px;
+        right: 4px;
+    }
+
+    .fundadoras-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fundadoras-form-card,
+    .fundadoras-success-card,
+    .fundadoras-form-copy,
+    .fundadoras-rules-card,
+    .fundadoras-rules-summary,
+    .fundadoras-final-shell {
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
+    .fundadoras-final-shell .cta-buttons,
+    .fundadoras-success-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .fundadoras-success-actions .btn,
+    .fundadoras-final-shell .btn {
+        width: 100%;
+    }
+}
