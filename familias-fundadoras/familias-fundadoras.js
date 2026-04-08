@@ -84,7 +84,7 @@ function hideStatus(element) {
 
 function setLoading(isLoading) {
     submitButton.disabled = isLoading;
-    submitButton.textContent = isLoading ? 'Enviando sua participação...' : 'Quero participar da campanha';
+    submitButton.textContent = isLoading ? 'Enviando seus dados...' : 'Quero participar da campanha';
 }
 
 function collectData() {
@@ -153,8 +153,8 @@ function renderSuccessState(title, copy) {
 
 function renderExistingLeadState() {
     renderSuccessState(
-        'Sua participação já foi registrada',
-        'Encontramos um cadastro anterior neste navegador. Se a sua família já participou, agora é só aguardar a validação da elegibilidade, da ordem de análise e a criação da conta após o lançamento oficial.'
+        'Seu cadastro já foi recebido anteriormente.',
+        'Se você já participou da campanha, não é necessário enviar novamente.'
     );
 }
 
@@ -210,7 +210,7 @@ async function handleSubmit(event) {
             form: 'familias_fundadoras',
             reason: 'validacao_front',
         });
-        showStatus(feedback, 'Revise os campos destacados antes de continuar.', 'error');
+        showStatus(feedback, 'Revise os campos obrigatórios e verifique se as informações foram preenchidas corretamente.', 'error');
         return;
     }
 
@@ -237,8 +237,8 @@ async function handleSubmit(event) {
                 status: 'sucesso',
             });
             renderSuccessState(
-                'Participação registrada',
-                'Seu interesse foi recebido com sucesso. Agora vamos validar os critérios da campanha, a ordem de análise e, após o lançamento oficial, a criação da conta para confirmar o benefício.'
+                'Cadastro recebido com sucesso.',
+                'Sua participação na campanha foi registrada. A concessão do benefício depende da elegibilidade, da ordem de validação e da criação da conta após o lançamento oficial, conforme as regras da campanha.'
             );
             return;
         }
@@ -254,8 +254,8 @@ async function handleSubmit(event) {
                 duplicate_by: result.duplicate_by || 'email',
             });
             renderSuccessState(
-                'Seu cadastro já foi recebido',
-                'Já temos uma participação com esses dados. Se você estiver entre os novos usuários elegíveis validados após o lançamento, o bônus poderá ser aplicado conforme o regulamento da campanha.'
+                'Seu cadastro já foi recebido anteriormente.',
+                'Se você já participou da campanha, não é necessário enviar novamente.'
             );
             return;
         }
@@ -266,7 +266,7 @@ async function handleSubmit(event) {
                 form: 'familias_fundadoras',
                 reason: 'validacao_api',
             });
-            showStatus(feedback, 'Algumas informações precisam ser corrigidas antes do envio.', 'error');
+            showStatus(feedback, 'Revise os campos obrigatórios e verifique se as informações foram preenchidas corretamente.', 'error');
             return;
         }
 
@@ -274,14 +274,14 @@ async function handleSubmit(event) {
             form: 'familias_fundadoras',
             reason: result.status || 'erro',
         });
-        showStatus(feedback, result.mensagem || 'Não foi possível registrar sua participação agora.', 'error');
+        showStatus(feedback, result.mensagem || 'Não foi possível concluir seu cadastro agora. Tente novamente em instantes.', 'error');
     } catch (error) {
         console.error(error);
         trackCampaign('campaign_form_error', {
             form: 'familias_fundadoras',
             reason: 'network',
         });
-        showStatus(feedback, 'Falha de conexão. Tente novamente em alguns instantes.', 'error');
+        showStatus(feedback, 'Houve uma instabilidade ao enviar seus dados. Tente novamente em alguns instantes.', 'error');
     } finally {
         setLoading(false);
     }
@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hasCampaignSubmitted()) {
         showStatus(
             alreadySubmittedNotice,
-            'Seu navegador já registra uma participação anterior nesta campanha. Se precisar falar com o time LECO, use os canais oficiais de contato.',
+            'Seu cadastro já foi recebido anteriormente. Se você já participou da campanha, não é necessário enviar novamente.',
             'info'
         );
         renderExistingLeadState();

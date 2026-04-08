@@ -57,6 +57,14 @@
     color: var(--aux-text);
 }
 
+.fundadoras-hero-support {
+    max-width: 620px;
+    margin: 18px 0 0;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--aux-text);
+}
+
 .fundadoras-hero-copy .hero-buttons {
     margin-top: 34px;
 }
@@ -261,11 +269,24 @@
     line-height: 1.75;
 }
 
+.fundadoras-steps-note {
+    max-width: 860px;
+    margin: 28px auto 0;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--aux-text);
+}
+
 .fundadoras-steps-grid,
 .fundadoras-audience-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
+}
+
+.fundadoras-audience-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .fundadoras-step-card,
@@ -756,8 +777,10 @@
     }
 
     .fundadoras-hero-copy .subtitle,
+    .fundadoras-hero-support,
     .fundadoras-split-copy p,
     .fundadoras-steps-intro,
+    .fundadoras-steps-note,
     .fundadoras-section-intro,
     .fundadoras-final-shell p,
     .fundadoras-form-copy p {

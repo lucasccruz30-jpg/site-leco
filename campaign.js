@@ -124,7 +124,7 @@
                     <span class="leco-campaign-topbar-icon" aria-hidden="true">🎁</span>
                     <div class="leco-campaign-topbar-text">
                         <span class="leco-campaign-topbar-title">50 primeiras famílias ganham 2 meses de LECO grátis</span>
-                        <span class="leco-campaign-topbar-note">Campanha de lançamento com vagas limitadas e elegibilidade sujeita ao regulamento.</span>
+                        <span class="leco-campaign-topbar-note">Válido para novos usuários elegíveis</span>
                     </div>
                 </div>
                 <a href="${targetHref}" class="leco-campaign-topbar-button" data-campaign-topbar-cta>Garantir minha vaga</a>
@@ -199,7 +199,7 @@
                             <span class="leco-campaign-modal-badge">Lançamento</span>
                         </div>
                         <h2 id="campaign-modal-title">50 famílias vão ganhar 2 meses de LECO grátis</h2>
-                        <p>Participe do lançamento e conheça a plataforma que ajuda no desenvolvimento da rotina, autonomia e responsabilidade das crianças.</p>
+                        <p>Participe do lançamento e conheça a plataforma que ajuda no desenvolvimento da rotina, da autonomia e da responsabilidade das crianças.</p>
                         <div class="leco-campaign-modal-actions">
                             <a href="${CAMPAIGN_PATH}" class="btn btn-primary" data-campaign-modal-primary>Garantir minha vaga</a>
                             <a href="${CAMPAIGN_PATH}#como-participar" class="btn btn-secondary" data-campaign-modal-secondary>Entender como funciona</a>
@@ -208,7 +208,7 @@
                     <div class="leco-campaign-modal-visual">
                         <div class="leco-campaign-modal-visual-card">
                             <strong>Lançamento LECO</strong>
-                            <p>Campanha válida para novos usuários elegíveis, com benefício sujeito à ordem de validação e à criação da conta após o lançamento oficial.</p>
+                            <p>Campanha válida para novos usuários elegíveis, sujeita às regras da promoção.</p>
                             <a href="/regulamento-campanha-bonus-2-meses/" class="leco-campaign-modal-rule">Ver regulamento completo</a>
                         </div>
                     </div>
