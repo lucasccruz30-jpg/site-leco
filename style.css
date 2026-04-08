@@ -1282,7 +1282,7 @@ p {
     font-weight: 700;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: rgba(16, 23, 42, 0.52);
+    color: var(--deep-blue);
 }
 
 .footer-links a,
