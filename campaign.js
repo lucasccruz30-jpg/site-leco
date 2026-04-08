@@ -200,9 +200,14 @@
                         <span class="leco-campaign-modal-badge">Somente 50 vagas</span>
                         <h2 id="campaign-modal-title">Ganhe 2 meses grátis no LECO</h2>
                         <p class="leco-campaign-modal-subtitle">Mais rotina, autonomia e menos cobrança no dia a dia da sua família.</p>
+                        <div class="leco-campaign-modal-highlights" aria-label="Destaques da campanha">
+                            <span>2 meses grátis</span>
+                            <span>Rotina mais clara</span>
+                            <span>Vagas limitadas</span>
+                        </div>
                         <div class="leco-campaign-modal-actions">
                             <a href="${CAMPAIGN_PATH}" class="btn btn-primary leco-campaign-modal-primary" data-campaign-modal-primary>Quero minha vaga</a>
-                            <a href="${CAMPAIGN_PATH}#o-que-e-leco" class="btn btn-secondary leco-campaign-modal-secondary" data-campaign-modal-secondary>Entender como funciona</a>
+                            <a href="${CAMPAIGN_PATH}#o-que-e-leco" class="leco-campaign-modal-secondary" data-campaign-modal-secondary>Entender como funciona</a>
                         </div>
                         <p class="leco-campaign-modal-legal">Campanha válida para novos usuários elegíveis, sujeita às regras da promoção. <a href="/regulamento-campanha-bonus-2-meses/" class="leco-campaign-modal-rule">Ver regulamento</a></p>
                     </div>
@@ -210,11 +215,13 @@
                         <div class="leco-campaign-modal-visual-card">
                             <span class="leco-campaign-modal-kicker">LECO para famílias</span>
                             <strong>Uma experiência prática para rotina, autonomia e responsabilidade.</strong>
+                            <span class="leco-campaign-modal-visual-badge">2 meses gr&aacute;tis no lan&ccedil;amento</span>
                             <ul class="leco-campaign-modal-points">
                                 <li>Mais clareza na rotina</li>
                                 <li>Mais autonomia com acompanhamento</li>
                                 <li>Uma entrada especial no lançamento</li>
                             </ul>
+                            <div class="leco-campaign-modal-visual-footer">Pensado para pais e respons&aacute;veis que querem mais organiza&ccedil;&atilde;o no dia a dia.</div>
                         </div>
                     </div>
                 </div>
