@@ -8,6 +8,7 @@ const itemsToCopy = [
   'style.css',
   'campaign.css',
   'campaign.js',
+  'navigation.js',
   'legal.css',
   'legal-document.js',
   'script.js',
