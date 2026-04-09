@@ -452,6 +452,14 @@ a {
     margin-bottom: 20px;
 }
 
+.support-success-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
 .support-protocol-shell {
     display: inline-flex;
     flex-direction: column;
@@ -460,7 +468,6 @@ a {
     border-radius: 18px;
     background: rgba(30, 94, 255, 0.08);
     border: 1px solid rgba(30, 94, 255, 0.14);
-    margin-bottom: 18px;
 }
 
 .support-protocol-label {
@@ -474,6 +481,12 @@ a {
 .support-protocol-shell strong {
     font-size: 1rem;
     letter-spacing: -0.02em;
+}
+
+.support-success-actions .support-state-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
 }
 
 .support-info-list {
