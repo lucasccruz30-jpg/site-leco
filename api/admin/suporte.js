@@ -98,6 +98,8 @@ module.exports = async function handler(request, response) {
         {
           status: String(body.status || '').trim(),
           prioridade: String(body.prioridade || '').trim(),
+          tipo: String(body.tipo || '').trim(),
+          tags: body.tags,
         },
         session.username
       );

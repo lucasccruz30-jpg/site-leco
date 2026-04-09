@@ -166,6 +166,18 @@ function getPriorityBadge(ticket) {
     return `<span class="admin-badge priority-${escapeHtml(ticket.prioridade)}">${escapeHtml(ticket.prioridade_label)}</span>`;
 }
 
+function renderTagList(tags, emptyLabel = 'Sem tags') {
+    if (!Array.isArray(tags) || tags.length === 0) {
+        return `<span class="admin-tag-empty">${escapeHtml(emptyLabel)}</span>`;
+    }
+
+    return `
+        <div class="admin-tag-list">
+            ${tags.map((tag) => `<span class="admin-tag-pill">${escapeHtml(tag)}</span>`).join('')}
+        </div>
+    `;
+}
+
 function renderTicketList() {
     if (!state.tickets.length) {
         tableBody.innerHTML = `
@@ -321,12 +333,24 @@ function renderTicketDetail(ticket) {
                         <strong>${escapeHtml(ticket.celular || 'Não informado')}</strong>
                     </div>
                     <div class="admin-data-item">
-                        <span>Tipo</span>
-                        <strong>${escapeHtml(ticket.tipo_label)}</strong>
+                        <span>Categoria original</span>
+                        <strong>${escapeHtml(ticket.categoria_label)}</strong>
                     </div>
                     <div class="admin-data-item">
                         <span>Assunto</span>
                         <strong>${escapeHtml(ticket.assunto || ticket.tipo_label)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Categoria automática</span>
+                        <strong>${escapeHtml(ticket.categoria_automatica_label)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Prioridade sugerida</span>
+                        <strong>${escapeHtml(ticket.prioridade_sugerida_label)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Categoria final</span>
+                        <strong>${escapeHtml(ticket.tipo_label)}</strong>
                     </div>
                     <div class="admin-data-item">
                         <span>Anexo</span>
@@ -339,11 +363,21 @@ function renderTicketDetail(ticket) {
                     <strong>Descrição completa</strong>
                     <p>${escapeHtml(ticket.descricao)}</p>
                 </div>
+                <div class="admin-classification-summary">
+                    <div class="admin-data-item">
+                        <span>Tags automáticas</span>
+                        ${renderTagList(ticket.tags_automaticas, 'Sem tags automáticas')}
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Tags finais</span>
+                        ${renderTagList(ticket.tags, 'Sem tags finais')}
+                    </div>
+                </div>
             </section>
 
             <section class="admin-ticket-grid">
                 <article class="admin-actions-card">
-                    <h3>Atualizar status e prioridade</h3>
+                    <h3>Atualizar classificação e status</h3>
                     <form id="ticket-status-form" class="admin-status-form">
                         <div class="admin-field">
                             <label for="detail-status">Status</label>
@@ -352,14 +386,24 @@ function renderTicketDetail(ticket) {
                             </select>
                         </div>
                         <div class="admin-field">
+                            <label for="detail-type">Categoria final</label>
+                            <select id="detail-type" name="tipo">
+                                ${state.meta.types.map((option) => `<option value="${escapeHtml(option.value)}"${option.value === ticket.tipo ? ' selected' : ''}>${escapeHtml(option.label)}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="admin-field">
                             <label for="detail-priority">Prioridade</label>
                             <select id="detail-priority" name="prioridade">
                                 ${state.meta.priorities.map((option) => `<option value="${escapeHtml(option.value)}"${option.value === ticket.prioridade ? ' selected' : ''}>${escapeHtml(option.label)}</option>`).join('')}
                             </select>
                         </div>
+                        <div class="admin-field">
+                            <label for="detail-tags">Tags finais</label>
+                            <input id="detail-tags" name="tags" type="text" value="${escapeHtml((ticket.tags || []).join(', '))}" placeholder="login, pagamento, bug">
+                        </div>
                         <button id="save-status-button" type="submit" class="admin-primary-button">Salvar</button>
                     </form>
-                    <p class="admin-helper-copy">Use esse bloco para organizar a fila de atendimento e refletir o andamento real de cada chamado.</p>
+                    <p class="admin-helper-copy">A classificação automática organiza a triagem inicial, mas o time pode ajustar categoria, prioridade e tags manualmente conforme o contexto real do chamado.</p>
                 </article>
 
                 <article class="admin-actions-card">
@@ -436,13 +480,15 @@ async function handleStatusSubmit(event, ticketId) {
 
     const button = document.getElementById('save-status-button');
     const status = document.getElementById('detail-status').value;
+    const tipo = document.getElementById('detail-type').value;
     const prioridade = document.getElementById('detail-priority').value;
+    const tags = document.getElementById('detail-tags').value;
     setButtonLoading(button, true, 'Salvando...', 'Salvar');
 
     try {
         const { response, payload } = await apiFetch('/api/admin/suporte', {
             method: 'PATCH',
-            body: JSON.stringify({ ticketId, status, prioridade }),
+            body: JSON.stringify({ ticketId, status, prioridade, tipo, tags }),
         });
 
         if (!response.ok || !payload.ticket) {
@@ -450,7 +496,7 @@ async function handleStatusSubmit(event, ticketId) {
             return;
         }
 
-        showInlineFeedback(detailFeedback, 'Status e prioridade atualizados com sucesso.', 'success');
+        showInlineFeedback(detailFeedback, 'Classificação e status atualizados com sucesso.', 'success');
         renderTicketDetail(payload.ticket);
         await loadTickets({ preserveSelection: true });
     } catch (error) {

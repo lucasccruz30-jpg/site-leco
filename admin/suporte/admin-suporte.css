@@ -611,6 +611,40 @@ textarea:focus-visible,
     white-space: pre-line;
 }
 
+.admin-classification-summary {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(223, 231, 242, 0.92);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.admin-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.admin-tag-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(30, 94, 255, 0.08);
+    color: var(--admin-primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.admin-tag-empty {
+    color: var(--admin-muted);
+    font-weight: 600;
+    line-height: 1.6;
+}
+
 .admin-actions-card {
     display: grid;
     gap: 16px;
@@ -618,9 +652,13 @@ textarea:focus-visible,
 
 .admin-status-form {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     align-items: end;
+}
+
+.admin-status-form .admin-primary-button {
+    grid-column: 1 / -1;
 }
 
 .admin-actions-card textarea {
@@ -756,7 +794,8 @@ textarea:focus-visible,
     .admin-filters-form,
     .admin-status-form,
     .admin-ticket-grid,
-    .admin-data-list {
+    .admin-data-list,
+    .admin-classification-summary {
         grid-template-columns: 1fr;
     }
 
