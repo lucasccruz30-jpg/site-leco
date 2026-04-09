@@ -1,4 +1,5 @@
 const { Pool, neonConfig } = require('@neondatabase/serverless');
+const { Resend } = require('resend');
 const ws = require('ws');
 
 const MAX_VAGAS = 50;
@@ -17,6 +18,7 @@ neonConfig.webSocketConstructor = ws;
 
 let pool;
 let schemaReady;
+let resendClient;
 
 function sendJson(response, status, payload) {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -26,11 +28,20 @@ function sendJson(response, status, payload) {
 
 function getConfig() {
   const connectionString = process.env.DATABASE_URL;
+  const resendApiKey = process.env.RESEND_API_KEY || '';
+  const contactEmail = process.env.LECO_CONTACT_EMAIL || 'contato@lecoapp.com.br';
+  const fromEmail = process.env.LECO_MAIL_FROM || 'LECO <onboarding@resend.dev>';
+  const replyToEmail = process.env.LECO_MAIL_REPLY_TO || contactEmail;
 
   return {
     connectionString,
+    resendApiKey,
+    contactEmail,
+    fromEmail,
+    replyToEmail,
     provider: DATABASE_PROVIDER,
     configured: Boolean(connectionString),
+    emailConfigured: Boolean(resendApiKey),
   };
 }
 
@@ -57,6 +68,27 @@ function normalizeBody(body) {
   }
 
   return body;
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getResendClient(apiKey) {
+  if (!apiKey) {
+    return null;
+  }
+
+  if (!resendClient) {
+    resendClient = new Resend(apiKey);
+  }
+
+  return resendClient;
 }
 
 function normalizeCelular(value) {
@@ -99,6 +131,10 @@ async function ensureSchema(connectionString) {
           canal TEXT,
           status_lead TEXT,
           elegivel_promocao TEXT,
+          email_status TEXT NOT NULL DEFAULT 'pendente',
+          notificacao_email_id TEXT,
+          confirmacao_email_id TEXT,
+          email_error TEXT,
           numero_inscricao INTEGER NOT NULL UNIQUE,
           criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
@@ -111,6 +147,10 @@ async function ensureSchema(connectionString) {
         ALTER TABLE inscricoes ADD COLUMN IF NOT EXISTS canal TEXT;
         ALTER TABLE inscricoes ADD COLUMN IF NOT EXISTS status_lead TEXT;
         ALTER TABLE inscricoes ADD COLUMN IF NOT EXISTS elegivel_promocao TEXT;
+        ALTER TABLE inscricoes ADD COLUMN IF NOT EXISTS email_status TEXT NOT NULL DEFAULT 'pendente';
+        ALTER TABLE inscricoes ADD COLUMN IF NOT EXISTS notificacao_email_id TEXT;
+        ALTER TABLE inscricoes ADD COLUMN IF NOT EXISTS confirmacao_email_id TEXT;
+        ALTER TABLE inscricoes ADD COLUMN IF NOT EXISTS email_error TEXT;
         ALTER TABLE inscricoes ALTER COLUMN paga_mesada SET DEFAULT FALSE;
 
         UPDATE inscricoes
@@ -347,6 +387,211 @@ async function registrarInscricao(config, payload) {
   }
 }
 
+async function updateEmailMetadata(config, numero, emailResult) {
+  await ensureSchema(config.connectionString);
+  const db = getPool(config.connectionString);
+
+  await db.query(
+    `
+      UPDATE inscricoes
+      SET email_status = $2,
+          notificacao_email_id = $3,
+          confirmacao_email_id = $4,
+          email_error = $5
+      WHERE numero_inscricao = $1
+    `,
+    [
+      numero,
+      emailResult.status,
+      emailResult.notificationId,
+      emailResult.confirmationId,
+      emailResult.error ? String(emailResult.error).slice(0, 1000) : null,
+    ]
+  );
+}
+
+function buildInternalEmailHtml(payload, numero) {
+  const titulo = payload.formulario === 'familias_fundadoras'
+    ? 'Nova participação na campanha LECO'
+    : 'Nova inscrição LECO';
+
+  return `
+    <div style="font-family:Arial,sans-serif;color:#10172a;line-height:1.6;">
+      <h1 style="margin:0 0 16px;font-size:24px;">${escapeHtml(titulo)}</h1>
+      <p style="margin:0 0 20px;">Uma nova inscrição chegou pelo site da LECO.</p>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr><td style="padding:8px 0;font-weight:700;">Número</td><td style="padding:8px 0;">#${escapeHtml(numero)}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Nome</td><td style="padding:8px 0;">${escapeHtml(payload.nome)}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">E-mail</td><td style="padding:8px 0;">${escapeHtml(payload.email)}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Celular</td><td style="padding:8px 0;">${escapeHtml(payload.celular)}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Quantidade de crianças</td><td style="padding:8px 0;">${escapeHtml(payload.quantidade_criancas)}</td></tr>
+        ${payload.idades_criancas ? `<tr><td style="padding:8px 0;font-weight:700;">Idades</td><td style="padding:8px 0;">${escapeHtml(payload.idades_criancas)}</td></tr>` : ''}
+        <tr><td style="padding:8px 0;font-weight:700;">Cidade / Estado</td><td style="padding:8px 0;">${escapeHtml(payload.cidade)} - ${escapeHtml(payload.estado)}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Formulário</td><td style="padding:8px 0;">${escapeHtml(payload.formulario)}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Campanha</td><td style="padding:8px 0;">${escapeHtml(payload.campanha || 'Não informada')}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:700;">Origem</td><td style="padding:8px 0;">${escapeHtml(payload.origem || 'site')}</td></tr>
+      </table>
+      ${
+        payload.formulario === 'inscricao'
+          ? `
+            <div style="margin-top:20px;padding:18px;border-radius:16px;background:#f4f7fb;border:1px solid #dfe7f2;">
+              <strong style="display:block;margin-bottom:8px;">Contexto familiar</strong>
+              <p style="margin:0;"><strong>Paga mesada:</strong> ${payload.paga_mesada === 'sim' ? 'Sim' : 'Não'}</p>
+              ${
+                payload.paga_mesada === 'sim'
+                  ? `<p style="margin:8px 0 0;"><strong>Valor da mesada:</strong> ${escapeHtml(payload.valor_mesada || 'Não informado')}</p>`
+                  : `<p style="margin:8px 0 0;"><strong>Pretende investir:</strong> ${escapeHtml(payload.pretende_investir || 'Não informado')}</p>`
+              }
+            </div>
+          `
+          : ''
+      }
+    </div>
+  `;
+}
+
+function buildInternalEmailText(payload, numero) {
+  const linhas = [
+    payload.formulario === 'familias_fundadoras' ? 'Nova participação na campanha LECO' : 'Nova inscrição LECO',
+    '',
+    `Número: #${numero}`,
+    `Nome: ${payload.nome}`,
+    `E-mail: ${payload.email}`,
+    `Celular: ${payload.celular}`,
+    `Quantidade de crianças: ${payload.quantidade_criancas}`,
+    `Cidade / Estado: ${payload.cidade} - ${payload.estado}`,
+    `Formulário: ${payload.formulario}`,
+    `Campanha: ${payload.campanha || 'Não informada'}`,
+    `Origem: ${payload.origem || 'site'}`,
+  ];
+
+  if (payload.idades_criancas) {
+    linhas.push(`Idades: ${payload.idades_criancas}`);
+  }
+
+  if (payload.formulario === 'inscricao') {
+    linhas.push(
+      `Paga mesada: ${payload.paga_mesada === 'sim' ? 'Sim' : 'Não'}`,
+      payload.paga_mesada === 'sim'
+        ? `Valor da mesada: ${payload.valor_mesada || 'Não informado'}`
+        : `Pretende investir: ${payload.pretende_investir || 'Não informado'}`
+    );
+  }
+
+  return linhas.join('\n');
+}
+
+function buildConfirmationHtml(payload, numero) {
+  const titulo = payload.formulario === 'familias_fundadoras'
+    ? 'Recebemos sua participação na campanha'
+    : 'Recebemos sua inscrição';
+
+  return `
+    <div style="font-family:Arial,sans-serif;color:#10172a;line-height:1.6;">
+      <h1 style="margin:0 0 16px;font-size:24px;">${escapeHtml(titulo)}</h1>
+      <p style="margin:0 0 16px;">Oi, ${escapeHtml(payload.nome)}.</p>
+      <p style="margin:0 0 16px;">
+        Seu cadastro foi recebido com sucesso pela LECO.
+        Nossa equipe vai considerar a campanha, a ordem de validação e os critérios de elegibilidade conforme o regulamento.
+      </p>
+      <div style="padding:18px;border-radius:16px;background:#f4f7fb;border:1px solid #dfe7f2;">
+        <strong style="display:block;margin-bottom:8px;">Resumo do envio</strong>
+        <p style="margin:0;"><strong>Número:</strong> #${escapeHtml(numero)}</p>
+        <p style="margin:8px 0 0;"><strong>Quantidade de crianças:</strong> ${escapeHtml(payload.quantidade_criancas)}</p>
+        ${payload.idades_criancas ? `<p style="margin:8px 0 0;"><strong>Idades:</strong> ${escapeHtml(payload.idades_criancas)}</p>` : ''}
+      </div>
+      <p style="margin:20px 0 0;">Obrigado,<br>Time LECO</p>
+    </div>
+  `;
+}
+
+function buildConfirmationText(payload, numero) {
+  const linhas = [
+    `Oi, ${payload.nome}.`,
+    '',
+    payload.formulario === 'familias_fundadoras'
+      ? 'Sua participação na campanha LECO foi recebida com sucesso.'
+      : 'Sua inscrição na LECO foi recebida com sucesso.',
+    'Nossa equipe vai considerar a campanha, a ordem de validação e os critérios de elegibilidade conforme o regulamento.',
+    '',
+    `Número: #${numero}`,
+    `Quantidade de crianças: ${payload.quantidade_criancas}`,
+  ];
+
+  if (payload.idades_criancas) {
+    linhas.push(`Idades: ${payload.idades_criancas}`);
+  }
+
+  linhas.push('', 'Obrigado,', 'Time LECO');
+  return linhas.join('\n');
+}
+
+async function sendEmails(config, payload, numero) {
+  if (!config.emailConfigured) {
+    return {
+      status: 'nao_configurado',
+      notificationId: null,
+      confirmationId: null,
+      error: 'RESEND_API_KEY ausente.',
+    };
+  }
+
+  const resend = getResendClient(config.resendApiKey);
+  const failures = [];
+  let notificationId = null;
+  let confirmationId = null;
+  const subjectBase = payload.formulario === 'familias_fundadoras'
+    ? `Nova participação na campanha - ${payload.nome}`
+    : `Nova inscrição LECO - ${payload.nome}`;
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: config.fromEmail,
+      to: [config.contactEmail],
+      replyTo: payload.email,
+      subject: subjectBase,
+      html: buildInternalEmailHtml(payload, numero),
+      text: buildInternalEmailText(payload, numero),
+    });
+
+    if (error) {
+      throw new Error(error.message || 'Falha ao enviar notificação interna.');
+    }
+
+    notificationId = data?.id || null;
+  } catch (error) {
+    failures.push(`notificacao: ${error.message}`);
+  }
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: config.fromEmail,
+      to: [payload.email],
+      replyTo: config.replyToEmail,
+      subject: payload.formulario === 'familias_fundadoras'
+        ? 'Recebemos sua participação na campanha LECO'
+        : 'Recebemos sua inscrição na LECO',
+      html: buildConfirmationHtml(payload, numero),
+      text: buildConfirmationText(payload, numero),
+    });
+
+    if (error) {
+      throw new Error(error.message || 'Falha ao enviar confirmação ao participante.');
+    }
+
+    confirmationId = data?.id || null;
+  } catch (error) {
+    failures.push(`confirmacao: ${error.message}`);
+  }
+
+  return {
+    status: failures.length === 0 ? 'enviado' : (notificationId || confirmationId ? 'parcial' : 'falha'),
+    notificationId,
+    confirmationId,
+    error: failures.length > 0 ? failures.join(' | ') : null,
+  };
+}
+
 module.exports = async function handler(request, response) {
   const config = getConfig();
 
@@ -369,6 +614,7 @@ module.exports = async function handler(request, response) {
         vagas_restantes: Math.max(0, MAX_VAGAS - total),
         vagas_esgotadas: false,
         backend_configured: true,
+        email_configured: config.emailConfigured,
         database_provider: config.provider,
       });
       return;
@@ -404,6 +650,17 @@ module.exports = async function handler(request, response) {
 
     try {
       const result = await registrarInscricao(config, data);
+
+      if (result.status === 'sucesso') {
+        const emailResult = await sendEmails(config, data, result.numero);
+        await updateEmailMetadata(config, result.numero, emailResult);
+        sendJson(response, 200, {
+          ...result,
+          email_status: emailResult.status,
+        });
+        return;
+      }
+
       sendJson(response, 200, result);
       return;
     } catch (error) {
