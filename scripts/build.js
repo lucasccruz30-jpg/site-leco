@@ -26,6 +26,7 @@ const itemsToCopy = [
   'apresentacao',
   'excluir-dados',
   'familias-fundadoras',
+  'admin',
   'suporte',
   'privacidade',
   'inscricao',

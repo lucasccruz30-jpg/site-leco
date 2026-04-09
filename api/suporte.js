@@ -1,130 +1,15 @@
-const { Pool, neonConfig } = require('@neondatabase/serverless');
-const { Resend } = require('resend');
-const ws = require('ws');
-
-const DATABASE_PROVIDER = 'neon';
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const CELULAR_REGEX = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
-const CATEGORIAS = new Map([
-  ['problemas-tecnicos', 'Problemas técnicos'],
-  ['acesso-e-conta', 'Acesso e conta'],
-  ['assinatura-e-planos', 'Assinatura e planos'],
-  ['outros-assuntos', 'Outros assuntos'],
-]);
-
-neonConfig.webSocketConstructor = ws;
-
-let pool;
-let schemaReady;
-let resendClient;
-
-function sendJson(response, status, payload) {
-  response.setHeader('Content-Type', 'application/json; charset=utf-8');
-  response.setHeader('Cache-Control', 'no-store');
-  response.status(status).send(payload);
-}
-
-function normalizeBody(body) {
-  if (!body) return {};
-  if (typeof body === 'string') {
-    try {
-      return JSON.parse(body);
-    } catch {
-      return {};
-    }
-  }
-  return body;
-}
-
-function escapeHtml(value) {
-  return String(value || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function getConfig() {
-  const connectionString = process.env.DATABASE_URL;
-  const resendApiKey = process.env.RESEND_API_KEY || '';
-  const supportEmail = process.env.LECO_SUPPORT_EMAIL || 'suporte@lecoapp.com.br';
-  const fromEmail = process.env.LECO_MAIL_FROM || 'LECO <onboarding@resend.dev>';
-  const replyToEmail = process.env.LECO_MAIL_REPLY_TO || supportEmail;
-
-  return {
-    connectionString,
-    resendApiKey,
-    supportEmail,
-    fromEmail,
-    replyToEmail,
-    provider: DATABASE_PROVIDER,
-    backendConfigured: Boolean(connectionString),
-    emailConfigured: Boolean(resendApiKey),
-  };
-}
-
-function getPool(connectionString) {
-  if (!pool) {
-    pool = new Pool({
-      connectionString,
-      max: 3,
-    });
-  }
-
-  return pool;
-}
-
-function getResendClient(apiKey) {
-  if (!apiKey) {
-    return null;
-  }
-
-  if (!resendClient) {
-    resendClient = new Resend(apiKey);
-  }
-
-  return resendClient;
-}
-
-async function ensureSchema(connectionString) {
-  if (!schemaReady) {
-    schemaReady = (async () => {
-      const db = getPool(connectionString);
-      await db.query(`
-        CREATE TABLE IF NOT EXISTS chamados_suporte (
-          id BIGSERIAL PRIMARY KEY,
-          protocolo TEXT UNIQUE,
-          nome TEXT NOT NULL,
-          email TEXT NOT NULL,
-          celular TEXT,
-          categoria TEXT NOT NULL,
-          descricao TEXT NOT NULL,
-          aceite_termos BOOLEAN NOT NULL,
-          origem TEXT NOT NULL DEFAULT 'site',
-          status TEXT NOT NULL DEFAULT 'recebido',
-          email_status TEXT NOT NULL DEFAULT 'pendente',
-          notificacao_email_id TEXT,
-          confirmacao_email_id TEXT,
-          email_error TEXT,
-          criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
-        );
-
-        CREATE INDEX IF NOT EXISTS idx_chamados_suporte_criado_em
-          ON chamados_suporte (criado_em DESC);
-        CREATE INDEX IF NOT EXISTS idx_chamados_suporte_email
-          ON chamados_suporte (email);
-        CREATE INDEX IF NOT EXISTS idx_chamados_suporte_categoria
-          ON chamados_suporte (categoria);
-      `);
-    })().catch((error) => {
-      schemaReady = null;
-      throw error;
-    });
-  }
-
-  return schemaReady;
-}
+const {
+  EMAIL_REGEX,
+  CELULAR_REGEX,
+  TYPE_LABELS,
+  sendJson,
+  normalizeBody,
+  escapeHtml,
+  getSupportConfig,
+  getResendClient,
+  insertSupportTicket,
+  updateSupportEmailMetadata,
+} = require('../lib/support-core');
 
 function validate(body) {
   const data = {
@@ -134,6 +19,8 @@ function validate(body) {
     categoria: String(body.categoria || '').trim(),
     descricao: String(body.descricao || '').trim(),
     aceite_termos: Boolean(body.aceite_termos),
+    prioridade: 'media',
+    origem: 'site',
   };
 
   const errors = {};
@@ -147,7 +34,7 @@ function validate(body) {
   if (data.celular && !CELULAR_REGEX.test(data.celular)) {
     errors.celular = ['Use o formato (11) 99999-9999.'];
   }
-  if (!CATEGORIAS.has(data.categoria)) {
+  if (!TYPE_LABELS.has(data.categoria)) {
     errors.categoria = ['Selecione o assunto do chamado.'];
   }
   if (data.descricao.length < 20) {
@@ -160,75 +47,8 @@ function validate(body) {
   return { data, errors };
 }
 
-async function insertChamado(config, payload) {
-  await ensureSchema(config.connectionString);
-  const db = getPool(config.connectionString);
-
-  const insertResult = await db.query(
-    `
-      INSERT INTO chamados_suporte (
-        nome,
-        email,
-        celular,
-        categoria,
-        descricao,
-        aceite_termos
-      ) VALUES ($1,$2,$3,$4,$5,$6)
-      RETURNING id, criado_em
-    `,
-    [
-      payload.nome,
-      payload.email,
-      payload.celular || null,
-      payload.categoria,
-      payload.descricao,
-      payload.aceite_termos,
-    ]
-  );
-
-  const created = insertResult.rows[0];
-  const protocolo = `SUP-${String(created.id).padStart(6, '0')}`;
-
-  await db.query(
-    `
-      UPDATE chamados_suporte
-      SET protocolo = $2
-      WHERE id = $1
-    `,
-    [created.id, protocolo]
-  );
-
-  return {
-    ...created,
-    protocolo,
-  };
-}
-
-async function updateEmailMetadata(config, id, emailResult) {
-  await ensureSchema(config.connectionString);
-  const db = getPool(config.connectionString);
-
-  await db.query(
-    `
-      UPDATE chamados_suporte
-      SET email_status = $2,
-          notificacao_email_id = $3,
-          confirmacao_email_id = $4,
-          email_error = $5
-      WHERE id = $1
-    `,
-    [
-      id,
-      emailResult.status,
-      emailResult.notificationId,
-      emailResult.confirmationId,
-      emailResult.error ? String(emailResult.error).slice(0, 1000) : null,
-    ]
-  );
-}
-
 function buildInternalEmailHtml(payload, protocolo) {
-  const categoria = CATEGORIAS.get(payload.categoria) || payload.categoria;
+  const categoria = TYPE_LABELS.get(payload.categoria) || payload.categoria;
 
   return `
     <div style="font-family:Arial,sans-serif;color:#10172a;line-height:1.6;">
@@ -253,7 +73,7 @@ function buildInternalEmailHtml(payload, protocolo) {
 }
 
 function buildInternalEmailText(payload, protocolo) {
-  const categoria = CATEGORIAS.get(payload.categoria) || payload.categoria;
+  const categoria = TYPE_LABELS.get(payload.categoria) || payload.categoria;
 
   return [
     'Novo chamado de suporte',
@@ -362,7 +182,7 @@ async function sendEmails(config, payload, protocolo) {
 }
 
 module.exports = async function handler(request, response) {
-  const config = getConfig();
+  const config = getSupportConfig();
 
   if (request.method === 'GET') {
     sendJson(response, 200, {
@@ -394,9 +214,9 @@ module.exports = async function handler(request, response) {
   }
 
   try {
-    const created = await insertChamado(config, data);
+    const created = await insertSupportTicket(config, data);
     const emailResult = await sendEmails(config, data, created.protocolo);
-    await updateEmailMetadata(config, created.id, emailResult);
+    await updateSupportEmailMetadata(config, created.id, emailResult);
 
     sendJson(response, 200, {
       status: 'sucesso',

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LECO | Painel de Suporte</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
+    <link rel="shortcut icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
+    <link rel="apple-touch-icon" href="/Logo/Logo.png.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/suporte/admin-suporte.css">
+</head>
+<body>
+    <main class="admin-support-page">
+        <header class="admin-support-header">
+            <a href="/" class="admin-brand-link" aria-label="Voltar para o site LECO">
+                <img src="/Logo/Logo.png.jpeg" alt="LECO">
+                <span>LECO</span>
+            </a>
+        </header>
+
+        <section class="admin-hero-card">
+            <div class="admin-hero-eyebrow">
+                <span class="admin-hero-dot"></span>
+                <span>Painel interno</span>
+            </div>
+            <h1>Painel de Suporte LECO</h1>
+            <p class="admin-hero-copy">Acompanhe os chamados recebidos pelo portal, responda usuários por e-mail e mantenha o histórico de atendimento organizado em um único lugar.</p>
+        </section>
+
+        <section id="session-feedback" class="admin-feedback is-hidden" aria-live="polite"></section>
+
+        <section id="config-state" class="admin-card admin-empty-card is-hidden" aria-live="polite">
+            <h2>Painel ainda não configurado</h2>
+            <p>As credenciais do painel interno ainda não foram definidas no ambiente de produção. Assim que elas forem configuradas, o acesso fica disponível nesta mesma rota.</p>
+        </section>
+
+        <section id="login-state" class="admin-card admin-login-card is-hidden">
+            <div class="admin-card-heading">
+                <h2>Acesso protegido</h2>
+                <p>Faça login com as credenciais internas para visualizar e gerenciar os chamados recebidos pelo LECO.</p>
+            </div>
+
+            <form id="login-form" class="admin-form" novalidate>
+                <div class="admin-field">
+                    <label for="username">Usuário</label>
+                    <input id="username" name="username" type="text" autocomplete="username" placeholder="Seu usuário interno">
+                </div>
+
+                <div class="admin-field">
+                    <label for="password">Senha</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Sua senha">
+                </div>
+
+                <button id="login-button" type="submit" class="admin-primary-button">Entrar no painel</button>
+            </form>
+        </section>
+
+        <section id="app-state" class="admin-app-shell is-hidden">
+            <section class="admin-card admin-toolbar-card">
+                <div>
+                    <p class="admin-toolbar-label">Gestão de chamados</p>
+                    <h2>Painel de atendimento</h2>
+                    <p class="admin-toolbar-copy">Veja os chamados mais recentes primeiro, atualize status, registre comentários internos e responda usuários sem sair do painel.</p>
+                </div>
+                <div class="admin-toolbar-actions">
+                    <div class="admin-toolbar-meta">
+                        <span id="logged-user">--</span>
+                        <strong id="ticket-count">0 chamados</strong>
+                    </div>
+                    <button id="logout-button" type="button" class="admin-secondary-button">Sair</button>
+                </div>
+            </section>
+
+            <section class="admin-card admin-filters-card">
+                <div class="admin-card-heading">
+                    <h2>Filtros e busca</h2>
+                    <p>Use os filtros para localizar chamados por status, prioridade, tipo, nome, e-mail ou protocolo.</p>
+                </div>
+
+                <form id="filters-form" class="admin-filters-form">
+                    <div class="admin-field admin-search-field">
+                        <label for="ticket-search">Busca</label>
+                        <input id="ticket-search" name="search" type="search" placeholder="Buscar por nome, e-mail ou protocolo">
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="filter-status">Status</label>
+                        <select id="filter-status" name="status">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="filter-priority">Prioridade</label>
+                        <select id="filter-priority" name="prioridade">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="filter-type">Tipo</label>
+                        <select id="filter-type" name="tipo">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-filter-buttons">
+                        <button type="submit" class="admin-primary-button">Aplicar</button>
+                        <button id="clear-filters-button" type="button" class="admin-secondary-button">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="admin-main-grid">
+                <article class="admin-card admin-list-card">
+                    <div class="admin-card-heading admin-list-heading">
+                        <div>
+                            <h2>Chamados recebidos</h2>
+                            <p id="list-summary">Carregando chamados...</p>
+                        </div>
+                        <button id="refresh-button" type="button" class="admin-tertiary-button">Atualizar</button>
+                    </div>
+
+                    <div id="list-feedback" class="admin-inline-feedback is-hidden" aria-live="polite"></div>
+
+                    <div class="admin-table-wrapper">
+                        <table class="admin-ticket-table">
+                            <thead>
+                                <tr>
+                                    <th>Protocolo</th>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Tipo</th>
+                                    <th>Prioridade</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticket-table-body">
+                                <tr>
+                                    <td colspan="7" class="admin-table-empty">Carregando chamados...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="admin-card admin-detail-card">
+                    <div id="detail-feedback" class="admin-inline-feedback is-hidden" aria-live="polite"></div>
+                    <div id="ticket-detail">
+                        <div class="admin-empty-detail">
+                            <h2>Selecione um chamado</h2>
+                            <p>Ao escolher um item da lista, você poderá ver todos os dados enviados, alterar o status, registrar comentários internos e responder o usuário.</p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </main>
+
+    <script src="/admin/suporte/admin-suporte.js"></script>
+</body>
+</html>
