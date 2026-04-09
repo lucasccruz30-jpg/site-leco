@@ -171,6 +171,33 @@ a {
     margin-bottom: 18px;
 }
 
+.support-help-center-card {
+    margin-top: 18px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.support-help-center-copy {
+    display: grid;
+    gap: 8px;
+}
+
+.support-help-center-copy h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+}
+
+.support-help-center-copy p {
+    margin: 0;
+    color: var(--support-muted);
+    line-height: 1.7;
+    max-width: 640px;
+}
+
 .support-section-heading {
     margin-bottom: 16px;
 }
@@ -558,6 +585,12 @@ a {
 
     .support-hero-actions {
         flex-direction: column;
+    }
+
+    .support-help-center-card {
+        padding: 20px 18px;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .support-primary-button,

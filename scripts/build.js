@@ -28,6 +28,7 @@ const itemsToCopy = [
   'familias-fundadoras',
   'admin',
   'suporte',
+  'ajuda',
   'privacidade',
   'inscricao',
   'regulamento-campanha-bonus-2-meses',

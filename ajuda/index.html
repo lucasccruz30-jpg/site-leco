@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LECO | Central de Ajuda</title>
+    <link rel="icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
+    <link rel="shortcut icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
+    <link rel="apple-touch-icon" href="/Logo/Logo.png.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/campaign.css">
+    <link rel="stylesheet" href="/suporte/suporte.css">
+    <link rel="stylesheet" href="/ajuda/ajuda.css">
+</head>
+<body>
+    <main class="support-page knowledge-page">
+        <header class="support-header">
+            <a href="/" class="brand-link" aria-label="Voltar para o site LECO">
+                <img src="/Logo/Logo.png.jpeg" alt="LECO">
+            </a>
+        </header>
+
+        <section class="support-hero knowledge-hero">
+            <div class="support-eyebrow">
+                <span class="support-eyebrow-icon">i</span>
+                <span>Base de conhecimento</span>
+            </div>
+            <h1>Central de Ajuda LECO</h1>
+            <p class="support-hero-subtitle">Encontre respostas rápidas para dúvidas sobre conta, assinatura, uso do app e situações comuns do dia a dia.</p>
+            <p class="support-hero-copy">Use a busca por palavra-chave ou navegue pelas categorias para encontrar a orientação certa sem precisar abrir um chamado.</p>
+            <div class="support-hero-actions">
+                <a href="#knowledge-search" class="support-primary-button">Buscar artigos</a>
+                <a href="/suporte/" class="support-secondary-button">Abrir chamado</a>
+            </div>
+        </section>
+
+        <section class="knowledge-toolbar support-card" aria-label="Busca na base de conhecimento">
+            <div class="support-section-heading">
+                <h2>Como podemos te ajudar?</h2>
+                <p>Busque por palavra-chave ou filtre os artigos por categoria para chegar mais rápido na resposta.</p>
+            </div>
+
+            <div class="knowledge-search-row">
+                <label class="knowledge-search-field" for="knowledge-search">
+                    <span>Buscar na base de conhecimento</span>
+                    <input
+                        id="knowledge-search"
+                        type="search"
+                        placeholder="Busque por acesso, cobrança, tarefas, senha..."
+                        autocomplete="off"
+                    >
+                </label>
+            </div>
+
+            <div id="knowledge-categories" class="knowledge-categories" aria-label="Categorias de ajuda"></div>
+            <p id="knowledge-results" class="knowledge-results" aria-live="polite"></p>
+        </section>
+
+        <section id="knowledge-empty" class="knowledge-empty support-card is-hidden" aria-live="polite">
+            <h2>Nenhum artigo encontrado</h2>
+            <p>Tente buscar com outros termos ou abra um chamado para que nosso time possa analisar sua situação.</p>
+            <a href="/suporte/" class="support-primary-button">Não encontrou? Abra um chamado</a>
+        </section>
+
+        <section id="knowledge-articles" class="knowledge-articles" aria-label="Lista de artigos"></section>
+
+        <section class="knowledge-support-cta support-card">
+            <div class="knowledge-support-copy">
+                <div class="support-eyebrow">
+                    <span class="support-eyebrow-icon">?</span>
+                    <span>Suporte humano</span>
+                </div>
+                <h2>Não encontrou? Abra um chamado</h2>
+                <p>Se a sua dúvida não estiver resolvida na base de conhecimento, nossa equipe pode analisar o caso com mais detalhes pelo canal oficial de suporte.</p>
+            </div>
+            <a href="/suporte/" class="support-primary-button">Abrir chamado</a>
+        </section>
+    </main>
+
+    <script src="/campaign.js"></script>
+    <script src="/navigation.js"></script>
+    <script src="/ajuda/ajuda.js"></script>
+</body>
+</html>
