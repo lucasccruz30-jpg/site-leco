@@ -75,6 +75,102 @@
                 </div>
             </section>
 
+            <section class="admin-card admin-dashboard-card">
+                <div class="admin-card-heading admin-dashboard-heading">
+                    <div>
+                        <h2>Dashboard de métricas</h2>
+                        <p>Monitore volume, categorias, prioridades e eficiência do suporte com dados reais do painel.</p>
+                    </div>
+                    <div class="admin-dashboard-meta">
+                        <span id="dashboard-period-label">Últimos 30 dias</span>
+                        <strong id="dashboard-generated-at">Atualizando...</strong>
+                    </div>
+                </div>
+
+                <form id="dashboard-filters-form" class="admin-dashboard-filters-form">
+                    <div class="admin-field">
+                        <label for="dashboard-period">Período</label>
+                        <select id="dashboard-period" name="period">
+                            <option value="7d">Últimos 7 dias</option>
+                            <option value="30d" selected>Últimos 30 dias</option>
+                            <option value="custom">Personalizado</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="dashboard-from">De</label>
+                        <input id="dashboard-from" name="from" type="date">
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="dashboard-to">Até</label>
+                        <input id="dashboard-to" name="to" type="date">
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="dashboard-type">Categoria</label>
+                        <select id="dashboard-type" name="tipo">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="dashboard-priority">Prioridade</label>
+                        <select id="dashboard-priority" name="prioridade">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+
+                    <div class="admin-filter-buttons">
+                        <button type="submit" class="admin-primary-button">Atualizar métricas</button>
+                        <button id="dashboard-clear-filters-button" type="button" class="admin-secondary-button">Limpar</button>
+                    </div>
+                </form>
+
+                <div id="dashboard-feedback" class="admin-inline-feedback is-hidden" aria-live="polite"></div>
+                <div id="dashboard-alerts" class="admin-alert-list is-hidden" aria-live="polite"></div>
+
+                <section id="dashboard-kpis" class="admin-kpi-grid" aria-live="polite">
+                    <article class="admin-kpi-card admin-kpi-card-loading">
+                        <span class="admin-kpi-label">Carregando métricas...</span>
+                        <strong>--</strong>
+                    </article>
+                </section>
+
+                <section class="admin-dashboard-charts">
+                    <article class="admin-chart-card">
+                        <div class="admin-chart-heading">
+                            <div>
+                                <h3>Volume ao longo do tempo</h3>
+                                <p>Visualize a entrada de chamados no período selecionado.</p>
+                            </div>
+                            <button id="volume-drilldown-button" type="button" class="admin-tertiary-button">Ver chamados do período</button>
+                        </div>
+                        <div id="dashboard-volume-chart" class="admin-chart-surface" aria-live="polite"></div>
+                    </article>
+
+                    <article class="admin-chart-card">
+                        <div class="admin-chart-heading">
+                            <div>
+                                <h3>Chamados por categoria</h3>
+                                <p>Identifique rapidamente os temas que mais concentram atendimento.</p>
+                            </div>
+                        </div>
+                        <div id="dashboard-category-chart" class="admin-chart-surface" aria-live="polite"></div>
+                    </article>
+
+                    <article class="admin-chart-card">
+                        <div class="admin-chart-heading">
+                            <div>
+                                <h3>Chamados por prioridade</h3>
+                                <p>Entenda o peso relativo entre casos críticos, médios e simples.</p>
+                            </div>
+                        </div>
+                        <div id="dashboard-priority-chart" class="admin-chart-surface" aria-live="polite"></div>
+                    </article>
+                </section>
+            </section>
+
             <section class="admin-card admin-filters-card">
                 <div class="admin-card-heading">
                     <h2>Filtros e busca</h2>

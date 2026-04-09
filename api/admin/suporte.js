@@ -7,6 +7,7 @@ const {
   normalizeBody,
   getSupportConfig,
   listSupportTickets,
+  getSupportDashboardMetrics,
   getSupportTicketDetail,
   updateSupportTicket,
   addSupportComment,
@@ -31,6 +32,7 @@ module.exports = async function handler(request, response) {
 
   if (request.method === 'GET') {
     try {
+      const view = String(request.query.view || '').trim();
       const ticketId = String(request.query.ticketId || request.query.protocolo || '').trim();
 
       if (ticketId) {
@@ -50,11 +52,34 @@ module.exports = async function handler(request, response) {
         return;
       }
 
+      if (view === 'dashboard') {
+        const dashboard = await getSupportDashboardMetrics(config, {
+          from: String(request.query.from || '').trim(),
+          to: String(request.query.to || '').trim(),
+          prioridade: String(request.query.prioridade || '').trim(),
+          tipo: String(request.query.tipo || '').trim(),
+        });
+
+        sendJson(response, 200, {
+          status: 'sucesso',
+          dashboard,
+          meta: {
+            statuses: Array.from(STATUS_LABELS.entries()).map(([value, label]) => ({ value, label })),
+            priorities: Array.from(PRIORITY_LABELS.entries()).map(([value, label]) => ({ value, label })),
+            types: Array.from(TYPE_LABELS.entries()).map(([value, label]) => ({ value, label })),
+          },
+        });
+        return;
+      }
+
       const filters = {
         status: String(request.query.status || '').trim(),
+        statusGroup: String(request.query.statusGroup || '').trim(),
         prioridade: String(request.query.prioridade || '').trim(),
         tipo: String(request.query.tipo || '').trim(),
         search: String(request.query.search || '').trim(),
+        from: String(request.query.from || '').trim(),
+        to: String(request.query.to || '').trim(),
       };
 
       const tickets = await listSupportTickets(config, filters);

@@ -19,6 +19,24 @@ const statusFilter = document.getElementById('filter-status');
 const priorityFilter = document.getElementById('filter-priority');
 const typeFilter = document.getElementById('filter-type');
 
+const dashboardFiltersForm = document.getElementById('dashboard-filters-form');
+const dashboardPeriodFilter = document.getElementById('dashboard-period');
+const dashboardFromFilter = document.getElementById('dashboard-from');
+const dashboardToFilter = document.getElementById('dashboard-to');
+const dashboardTypeFilter = document.getElementById('dashboard-type');
+const dashboardPriorityFilter = document.getElementById('dashboard-priority');
+const dashboardClearFiltersButton = document.getElementById('dashboard-clear-filters-button');
+const dashboardFeedback = document.getElementById('dashboard-feedback');
+const dashboardAlerts = document.getElementById('dashboard-alerts');
+const dashboardKpis = document.getElementById('dashboard-kpis');
+const dashboardVolumeChart = document.getElementById('dashboard-volume-chart');
+const dashboardCategoryChart = document.getElementById('dashboard-category-chart');
+const dashboardPriorityChart = document.getElementById('dashboard-priority-chart');
+const dashboardPeriodLabel = document.getElementById('dashboard-period-label');
+const dashboardGeneratedAt = document.getElementById('dashboard-generated-at');
+const volumeDrilldownButton = document.getElementById('volume-drilldown-button');
+const listCard = document.querySelector('.admin-list-card');
+
 const state = {
     authenticated: false,
     configured: true,
@@ -30,6 +48,17 @@ const state = {
     tickets: [],
     selectedTicketId: null,
     selectedTicket: null,
+    listDrilldown: null,
+    dashboard: {
+        filters: {
+            period: '30d',
+            from: '',
+            to: '',
+            tipo: '',
+            prioridade: '',
+        },
+        data: null,
+    },
 };
 
 function escapeHtml(value) {
@@ -51,6 +80,81 @@ function formatDateTime(value) {
     } catch {
         return value;
     }
+}
+
+function formatDateLabel(value) {
+    if (!value) return '';
+    const date = new Date(`${value}T12:00:00`);
+    return new Intl.DateTimeFormat('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+    }).format(date);
+}
+
+function formatNumber(value) {
+    return new Intl.NumberFormat('pt-BR').format(Number(value) || 0);
+}
+
+function formatPercent(value) {
+    return `${new Intl.NumberFormat('pt-BR', {
+        minimumFractionDigits: value % 1 ? 1 : 0,
+        maximumFractionDigits: 1,
+    }).format(Number(value) || 0)}%`;
+}
+
+function formatMinutes(value) {
+    const minutes = Number(value) || 0;
+    if (!minutes) return '—';
+
+    if (minutes < 60) {
+        return `${Math.round(minutes)} min`;
+    }
+
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = Math.round(minutes % 60);
+
+    if (hours < 24) {
+        return remainingMinutes ? `${hours}h ${remainingMinutes}min` : `${hours}h`;
+    }
+
+    const days = Math.floor(hours / 24);
+    const remainingHours = hours % 24;
+    if (!remainingHours) {
+        return `${days} dia${days > 1 ? 's' : ''}`;
+    }
+
+    return `${days}d ${remainingHours}h`;
+}
+
+function toDateInputValue(date) {
+    const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    return localDate.toISOString().slice(0, 10);
+}
+
+function getPresetRange(period) {
+    const today = new Date();
+    const end = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const start = new Date(end);
+
+    if (period === '7d') {
+        start.setDate(start.getDate() - 6);
+    } else {
+        start.setDate(start.getDate() - 29);
+    }
+
+    return {
+        from: toDateInputValue(start),
+        to: toDateInputValue(end),
+    };
+}
+
+function getRangeLabel(filters) {
+    if (filters.period === '7d') return 'Últimos 7 dias';
+    if (filters.period === '30d') return 'Últimos 30 dias';
+    if (filters.from && filters.to) {
+        return `${formatDateLabel(filters.from)} até ${formatDateLabel(filters.to)}`;
+    }
+    return 'Período personalizado';
 }
 
 function showSessionFeedback(message, type = 'warning') {
@@ -132,6 +236,19 @@ function buildOptions(options, placeholder) {
     ].join('');
 }
 
+function syncDashboardRangeInputs() {
+    const isCustom = dashboardPeriodFilter.value === 'custom';
+
+    if (!isCustom) {
+        const range = getPresetRange(dashboardPeriodFilter.value);
+        dashboardFromFilter.value = range.from;
+        dashboardToFilter.value = range.to;
+    }
+
+    dashboardFromFilter.disabled = !isCustom;
+    dashboardToFilter.disabled = !isCustom;
+}
+
 function syncFilterMeta(meta) {
     if (!meta) return;
 
@@ -148,14 +265,20 @@ function syncFilterMeta(meta) {
     const currentStatus = statusFilter.value;
     const currentPriority = priorityFilter.value;
     const currentType = typeFilter.value;
+    const currentDashboardPriority = dashboardPriorityFilter.value;
+    const currentDashboardType = dashboardTypeFilter.value;
 
     statusFilter.innerHTML = buildOptions(state.meta.statuses, 'Todos');
     priorityFilter.innerHTML = buildOptions(state.meta.priorities, 'Todas');
     typeFilter.innerHTML = buildOptions(state.meta.types, 'Todos');
+    dashboardPriorityFilter.innerHTML = buildOptions(state.meta.priorities, 'Todas');
+    dashboardTypeFilter.innerHTML = buildOptions(state.meta.types, 'Todas');
 
     statusFilter.value = currentStatus;
     priorityFilter.value = currentPriority;
     typeFilter.value = currentType;
+    dashboardPriorityFilter.value = currentDashboardPriority || state.dashboard.filters.prioridade || '';
+    dashboardTypeFilter.value = currentDashboardType || state.dashboard.filters.tipo || '';
 }
 
 function getTicketStatusBadge(ticket) {
@@ -167,7 +290,7 @@ function getPriorityBadge(ticket) {
 }
 
 function renderTagList(tags, emptyLabel = 'Sem tags') {
-    if (!Array.isArray(tags) || tags.length === 0) {
+    if (!Array.isArray(tags) || !tags.length) {
         return `<span class="admin-tag-empty">${escapeHtml(emptyLabel)}</span>`;
     }
 
@@ -178,6 +301,40 @@ function renderTagList(tags, emptyLabel = 'Sem tags') {
     `;
 }
 
+function getListQueryOverrides(overrides = {}) {
+    return {
+        from: overrides.from ?? state.listDrilldown?.from ?? '',
+        to: overrides.to ?? state.listDrilldown?.to ?? '',
+        statusGroup: overrides.statusGroup ?? state.listDrilldown?.statusGroup ?? '',
+        status: overrides.status ?? '',
+        prioridade: overrides.prioridade ?? '',
+        tipo: overrides.tipo ?? '',
+        label: overrides.label ?? state.listDrilldown?.label ?? '',
+    };
+}
+
+function getTicketQuery(overrides = {}) {
+    const params = new URLSearchParams();
+    const search = document.getElementById('ticket-search').value.trim();
+    const context = getListQueryOverrides(overrides);
+    const status = statusFilter.value || context.status;
+    const prioridade = priorityFilter.value || context.prioridade;
+    const tipo = typeFilter.value || context.tipo;
+    const from = context.from;
+    const to = context.to;
+    const statusGroup = status ? '' : context.statusGroup;
+
+    if (search) params.set('search', search);
+    if (status) params.set('status', status);
+    if (statusGroup) params.set('statusGroup', statusGroup);
+    if (prioridade) params.set('prioridade', prioridade);
+    if (tipo) params.set('tipo', tipo);
+    if (from) params.set('from', from);
+    if (to) params.set('to', to);
+
+    return params.toString();
+}
+
 function renderTicketList() {
     if (!state.tickets.length) {
         tableBody.innerHTML = `
@@ -185,7 +342,9 @@ function renderTicketList() {
                 <td colspan="7" class="admin-table-empty">Nenhum chamado encontrado com os filtros atuais.</td>
             </tr>
         `;
-        listSummary.textContent = 'Nenhum chamado encontrado.';
+        listSummary.textContent = state.listDrilldown?.label
+            ? `Nenhum chamado encontrado para ${state.listDrilldown.label.toLowerCase()}.`
+            : 'Nenhum chamado encontrado.';
         ticketCount.textContent = '0 chamados';
         return;
     }
@@ -208,34 +367,30 @@ function renderTicketList() {
         </tr>
     `).join('');
 
-    listSummary.textContent = `${state.tickets.length} chamado(s) carregado(s), com os mais recentes primeiro.`;
+    listSummary.textContent = state.listDrilldown?.label
+        ? `${state.tickets.length} chamado(s) carregado(s) para ${state.listDrilldown.label.toLowerCase()}.`
+        : `${state.tickets.length} chamado(s) carregado(s), com os mais recentes primeiro.`;
     ticketCount.textContent = `${state.tickets.length} chamados`;
 }
 
-function getFilterQuery() {
-    const params = new URLSearchParams();
-    const search = document.getElementById('ticket-search').value.trim();
-    const status = statusFilter.value;
-    const prioridade = priorityFilter.value;
-    const tipo = typeFilter.value;
+async function loadTickets({ preserveSelection = true, drilldown = undefined } = {}) {
+    if (drilldown !== undefined) {
+        state.listDrilldown = drilldown;
+    }
 
-    if (search) params.set('search', search);
-    if (status) params.set('status', status);
-    if (prioridade) params.set('prioridade', prioridade);
-    if (tipo) params.set('tipo', tipo);
+    if (state.listDrilldown?.label) {
+        showInlineFeedback(listFeedback, `Lista filtrada: ${state.listDrilldown.label}.`, 'success');
+    } else {
+        hideInlineFeedback(listFeedback);
+    }
 
-    return params.toString();
-}
-
-async function loadTickets({ preserveSelection = true } = {}) {
-    hideInlineFeedback(listFeedback);
     tableBody.innerHTML = `
         <tr>
             <td colspan="7" class="admin-table-empty">Carregando chamados...</td>
         </tr>
     `;
 
-    const query = getFilterQuery();
+    const query = getTicketQuery();
     const url = query ? `/api/admin/suporte?${query}` : '/api/admin/suporte';
 
     try {
@@ -442,6 +597,7 @@ function renderTicketDetail(ticket) {
 }
 
 function setButtonLoading(button, isLoading, loadingText, defaultText) {
+    if (!button) return;
     button.disabled = isLoading;
     button.textContent = isLoading ? loadingText : defaultText;
 }
@@ -498,7 +654,10 @@ async function handleStatusSubmit(event, ticketId) {
 
         showInlineFeedback(detailFeedback, 'Classificação e status atualizados com sucesso.', 'success');
         renderTicketDetail(payload.ticket);
-        await loadTickets({ preserveSelection: true });
+        await Promise.all([
+            loadTickets({ preserveSelection: true }),
+            loadDashboard({ silent: true }),
+        ]);
     } catch (error) {
         console.error(error);
     } finally {
@@ -539,7 +698,10 @@ async function handleCommentSubmit(event, ticketId) {
         textarea.value = '';
         showInlineFeedback(detailFeedback, 'Comentário interno registrado com sucesso.', 'success');
         renderTicketDetail(payload.ticket);
-        await loadTickets({ preserveSelection: true });
+        await Promise.all([
+            loadTickets({ preserveSelection: true }),
+            loadDashboard({ silent: true }),
+        ]);
     } catch (error) {
         console.error(error);
     } finally {
@@ -580,7 +742,10 @@ async function handleReplySubmit(event, ticketId) {
         textarea.value = '';
         showInlineFeedback(detailFeedback, 'Resposta enviada ao usuário e registrada no histórico.', 'success');
         renderTicketDetail(payload.ticket);
-        await loadTickets({ preserveSelection: true });
+        await Promise.all([
+            loadTickets({ preserveSelection: true }),
+            loadDashboard({ silent: true }),
+        ]);
     } catch (error) {
         console.error(error);
     } finally {
@@ -606,6 +771,447 @@ function attachDetailEventHandlers(ticketId) {
     }
 }
 
+function buildChartEmptyState(message) {
+    return `<div class="admin-chart-empty">${escapeHtml(message)}</div>`;
+}
+
+function buildVolumeSeriesPoints(series) {
+    if (!series.length) {
+        return [];
+    }
+
+    const width = 620;
+    const height = 220;
+    const paddingX = 24;
+    const paddingTop = 24;
+    const paddingBottom = 48;
+    const graphWidth = width - (paddingX * 2);
+    const graphHeight = height - paddingTop - paddingBottom;
+    const maxValue = Math.max(...series.map((item) => item.total), 1);
+
+    return series.map((item, index) => {
+        const ratioX = series.length === 1 ? 0.5 : index / (series.length - 1);
+        const x = paddingX + (ratioX * graphWidth);
+        const y = paddingTop + graphHeight - ((item.total / maxValue) * graphHeight);
+        return {
+            ...item,
+            x,
+            y,
+        };
+    });
+}
+
+function expandVolumeSeries(series, from, to) {
+    const index = new Map(series.map((item) => [item.date, item.total]));
+
+    if (!from || !to) {
+        return series;
+    }
+
+    const start = new Date(`${from}T12:00:00`);
+    const end = new Date(`${to}T12:00:00`);
+    const expanded = [];
+
+    for (let current = new Date(start); current <= end; current.setDate(current.getDate() + 1)) {
+        const key = toDateInputValue(current);
+        expanded.push({
+            date: key,
+            total: Number(index.get(key) || 0),
+            label: formatDateLabel(key),
+        });
+    }
+
+    return expanded;
+}
+
+function renderVolumeChart(series, filters) {
+    const expandedSeries = expandVolumeSeries(series, filters.from, filters.to);
+
+    if (!expandedSeries.length) {
+        dashboardVolumeChart.innerHTML = buildChartEmptyState('Ainda não há chamados suficientes para montar a curva deste período.');
+        return;
+    }
+
+    const points = buildVolumeSeriesPoints(expandedSeries);
+    const polylinePoints = points.map((point) => `${point.x},${point.y}`).join(' ');
+    const areaPoints = [
+        '24,172',
+        ...points.map((point) => `${point.x},${point.y}`),
+        `${points[points.length - 1].x},172`,
+    ].join(' ');
+    const labels = [
+        points[0],
+        points[Math.floor(points.length / 2)],
+        points[points.length - 1],
+    ].filter((item, index, items) => items.findIndex((candidate) => candidate.date === item.date) === index);
+    const maxValue = Math.max(...expandedSeries.map((item) => item.total), 1);
+
+    dashboardVolumeChart.innerHTML = `
+        <svg viewBox="0 0 620 220" class="admin-line-chart" role="img" aria-label="Gráfico de volume de chamados ao longo do tempo">
+            <defs>
+                <linearGradient id="volume-area" x1="0%" x2="0%" y1="0%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(30, 94, 255, 0.28)"></stop>
+                    <stop offset="100%" stop-color="rgba(30, 94, 255, 0.02)"></stop>
+                </linearGradient>
+            </defs>
+            <line x1="24" y1="172" x2="596" y2="172" class="admin-line-chart-axis"></line>
+            <line x1="24" y1="24" x2="24" y2="172" class="admin-line-chart-axis"></line>
+            <text x="12" y="32" class="admin-line-chart-ylabel">${escapeHtml(formatNumber(maxValue))}</text>
+            <text x="12" y="176" class="admin-line-chart-ylabel">0</text>
+            <polygon points="${areaPoints}" fill="url(#volume-area)"></polygon>
+            <polyline points="${polylinePoints}" class="admin-line-chart-path"></polyline>
+            ${points.map((point) => `
+                <g>
+                    <circle cx="${point.x}" cy="${point.y}" r="4.5" class="admin-line-chart-dot"></circle>
+                    <title>${escapeHtml(point.label || formatDateLabel(point.date))}: ${escapeHtml(formatNumber(point.total))} chamado(s)</title>
+                </g>
+            `).join('')}
+            ${labels.map((label) => `
+                <text x="${label.x}" y="202" class="admin-line-chart-xlabel" text-anchor="middle">${escapeHtml(label.label || formatDateLabel(label.date))}</text>
+            `).join('')}
+        </svg>
+    `;
+}
+
+function renderCategoryChart(categories) {
+    if (!categories.length) {
+        dashboardCategoryChart.innerHTML = buildChartEmptyState('Nenhuma categoria foi registrada dentro do filtro atual.');
+        return;
+    }
+
+    const maxValue = Math.max(...categories.map((item) => item.total), 1);
+
+    dashboardCategoryChart.innerHTML = `
+        <div class="admin-bar-chart">
+            ${categories.map((item) => {
+                const width = `${Math.max(12, (item.total / maxValue) * 100)}%`;
+                return `
+                    <button
+                        type="button"
+                        class="admin-bar-row"
+                        data-drilldown='${escapeHtml(JSON.stringify({ tipo: item.value, label: `categoria ${item.label}` }))}'
+                    >
+                        <span class="admin-bar-label">${escapeHtml(item.label)}</span>
+                        <span class="admin-bar-track">
+                            <span class="admin-bar-fill" style="width:${width};"></span>
+                        </span>
+                        <strong class="admin-bar-value">${escapeHtml(formatNumber(item.total))}</strong>
+                    </button>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+function renderPriorityChart(priorities) {
+    if (!priorities.length) {
+        dashboardPriorityChart.innerHTML = buildChartEmptyState('Nenhuma prioridade foi registrada dentro do filtro atual.');
+        return;
+    }
+
+    const palette = {
+        alta: '#f04438',
+        media: '#f5b83d',
+        baixa: '#17c47f',
+    };
+    const total = priorities.reduce((sum, item) => sum + item.total, 0);
+    let currentAngle = 0;
+    const segments = priorities.map((item) => {
+        const percentage = total ? (item.total / total) * 100 : 0;
+        const start = currentAngle;
+        currentAngle += percentage;
+        return `${palette[item.value] || '#1e5eff'} ${start}% ${currentAngle}%`;
+    });
+
+    dashboardPriorityChart.innerHTML = `
+        <div class="admin-priority-chart">
+            <div class="admin-priority-donut" style="background: conic-gradient(${segments.join(', ')});">
+                <div class="admin-priority-donut-core">
+                    <strong>${escapeHtml(formatNumber(total))}</strong>
+                    <span>no período</span>
+                </div>
+            </div>
+            <div class="admin-priority-legend">
+                ${priorities.map((item) => `
+                    <button
+                        type="button"
+                        class="admin-priority-item"
+                        data-drilldown='${escapeHtml(JSON.stringify({ prioridade: item.value, label: `prioridade ${item.label}` }))}'
+                    >
+                        <span class="admin-priority-swatch" style="background:${palette[item.value] || '#1e5eff'};"></span>
+                        <span class="admin-priority-copy">
+                            <strong>${escapeHtml(item.label)}</strong>
+                            <small>${escapeHtml(formatNumber(item.total))} chamado(s)</small>
+                        </span>
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function renderDashboardAlerts(alerts = []) {
+    if (!alerts.length) {
+        dashboardAlerts.innerHTML = '';
+        dashboardAlerts.classList.add('is-hidden');
+        return;
+    }
+
+    dashboardAlerts.innerHTML = alerts.map((alert) => `
+        <button
+            type="button"
+            class="admin-alert-card ${escapeHtml(alert.severity || 'warning')}"
+            data-drilldown='${escapeHtml(JSON.stringify(alert.drilldown || {}))}'
+        >
+            <strong>${escapeHtml(alert.title)}</strong>
+            <span>${escapeHtml(alert.description)}</span>
+        </button>
+    `).join('');
+    dashboardAlerts.classList.remove('is-hidden');
+}
+
+function buildKpiCards(metrics) {
+    const currentRange = state.dashboard.filters;
+    const range7 = getPresetRange('7d');
+    const range30 = getPresetRange('30d');
+    const todayRange = {
+        from: currentRange.to,
+        to: currentRange.to,
+    };
+
+    return [
+        {
+            label: 'Hoje',
+            value: formatNumber(metrics.totals.day),
+            hint: 'Chamados recebidos hoje',
+            drilldown: {
+                ...todayRange,
+                prioridade: currentRange.prioridade,
+                tipo: currentRange.tipo,
+                label: 'chamados de hoje',
+            },
+        },
+        {
+            label: 'Últimos 7 dias',
+            value: formatNumber(metrics.totals.week),
+            hint: 'Volume recente de atendimento',
+            drilldown: {
+                ...range7,
+                prioridade: currentRange.prioridade,
+                tipo: currentRange.tipo,
+                label: 'chamados dos últimos 7 dias',
+            },
+        },
+        {
+            label: 'Últimos 30 dias',
+            value: formatNumber(metrics.totals.month),
+            hint: 'Volume acumulado no mês móvel',
+            drilldown: {
+                ...range30,
+                prioridade: currentRange.prioridade,
+                tipo: currentRange.tipo,
+                label: 'chamados dos últimos 30 dias',
+            },
+        },
+        {
+            label: 'Em aberto',
+            value: formatNumber(metrics.totals.open),
+            hint: 'Chamados ainda pendentes no filtro',
+            drilldown: {
+                ...currentRange,
+                statusGroup: 'open',
+                label: 'chamados em aberto',
+            },
+        },
+        {
+            label: 'Taxa de conclusão',
+            value: formatPercent(metrics.totals.completionRate),
+            hint: `${formatNumber(metrics.totals.completed)} chamado(s) concluído(s)`,
+            drilldown: {
+                ...currentRange,
+                status: 'concluido',
+                label: 'chamados concluídos',
+            },
+        },
+        {
+            label: '1ª resposta média',
+            value: formatMinutes(metrics.totals.averageFirstResponseMinutes),
+            hint: 'Tempo entre criação e primeira resposta',
+            drilldown: {
+                ...currentRange,
+                label: 'chamados do período filtrado',
+            },
+        },
+        {
+            label: 'Resolução média',
+            value: formatMinutes(metrics.totals.averageResolutionMinutes),
+            hint: 'Tempo entre criação e conclusão',
+            drilldown: {
+                ...currentRange,
+                status: 'concluido',
+                label: 'chamados concluídos do período',
+            },
+        },
+    ];
+}
+
+function renderDashboard(metrics) {
+    const kpis = buildKpiCards(metrics);
+    dashboardKpis.innerHTML = kpis.map((item) => `
+        <button
+            type="button"
+            class="admin-kpi-card"
+            data-drilldown='${escapeHtml(JSON.stringify(item.drilldown || {}))}'
+        >
+            <span class="admin-kpi-label">${escapeHtml(item.label)}</span>
+            <strong>${escapeHtml(item.value)}</strong>
+            <small>${escapeHtml(item.hint)}</small>
+        </button>
+    `).join('');
+
+    renderDashboardAlerts(metrics.alerts);
+    renderVolumeChart(metrics.volumeSeries, state.dashboard.filters);
+    renderCategoryChart(metrics.categories);
+    renderPriorityChart(metrics.priorities);
+}
+
+function setDashboardLoadingState() {
+    dashboardKpis.innerHTML = `
+        <article class="admin-kpi-card admin-kpi-card-loading">
+            <span class="admin-kpi-label">Atualizando métricas...</span>
+            <strong>--</strong>
+            <small>Buscando dados do suporte</small>
+        </article>
+    `;
+    dashboardVolumeChart.innerHTML = buildChartEmptyState('Carregando gráfico de volume...');
+    dashboardCategoryChart.innerHTML = buildChartEmptyState('Carregando categorias...');
+    dashboardPriorityChart.innerHTML = buildChartEmptyState('Carregando prioridades...');
+}
+
+function getDashboardFiltersFromForm() {
+    const period = dashboardPeriodFilter.value || '30d';
+    const isCustom = period === 'custom';
+    const range = isCustom
+        ? {
+            from: dashboardFromFilter.value,
+            to: dashboardToFilter.value,
+        }
+        : getPresetRange(period);
+
+    return {
+        period,
+        from: range.from,
+        to: range.to,
+        tipo: dashboardTypeFilter.value || '',
+        prioridade: dashboardPriorityFilter.value || '',
+    };
+}
+
+function syncDashboardForm(filters) {
+    dashboardPeriodFilter.value = filters.period || '30d';
+    dashboardTypeFilter.value = filters.tipo || '';
+    dashboardPriorityFilter.value = filters.prioridade || '';
+    syncDashboardRangeInputs();
+    if (filters.from) dashboardFromFilter.value = filters.from;
+    if (filters.to) dashboardToFilter.value = filters.to;
+}
+
+async function loadDashboard({ silent = false } = {}) {
+    hideInlineFeedback(dashboardFeedback);
+    if (!silent) {
+        setDashboardLoadingState();
+    }
+
+    const filters = getDashboardFiltersFromForm();
+    if (filters.period === 'custom' && (!filters.from || !filters.to)) {
+        showInlineFeedback(dashboardFeedback, 'Selecione as datas inicial e final para carregar o dashboard personalizado.', 'error');
+        return;
+    }
+
+    state.dashboard.filters = filters;
+    dashboardPeriodLabel.textContent = getRangeLabel(filters);
+
+    const params = new URLSearchParams({
+        view: 'dashboard',
+        from: filters.from,
+        to: filters.to,
+    });
+
+    if (filters.tipo) params.set('tipo', filters.tipo);
+    if (filters.prioridade) params.set('prioridade', filters.prioridade);
+
+    try {
+        const { response, payload } = await apiFetch(`/api/admin/suporte?${params.toString()}`, { method: 'GET' });
+
+        if (!response.ok || !payload.dashboard) {
+            showInlineFeedback(dashboardFeedback, payload.mensagem || 'Não foi possível carregar as métricas agora.', 'error');
+            return;
+        }
+
+        syncFilterMeta(payload.meta);
+        state.dashboard.data = payload.dashboard.metrics;
+        dashboardGeneratedAt.textContent = `Atualizado em ${formatDateTime(new Date().toISOString())}`;
+        renderDashboard(payload.dashboard.metrics);
+    } catch (error) {
+        console.error(error);
+        showInlineFeedback(dashboardFeedback, 'Não foi possível carregar as métricas agora.', 'error');
+    }
+}
+
+async function applyDashboardDrilldown(drilldown = {}) {
+    const filters = {
+        ...state.dashboard.filters,
+        ...drilldown,
+    };
+
+    if (drilldown.tipo !== undefined) {
+        typeFilter.value = drilldown.tipo || '';
+    }
+    if (drilldown.prioridade !== undefined) {
+        priorityFilter.value = drilldown.prioridade || '';
+    }
+    if (drilldown.status !== undefined) {
+        statusFilter.value = drilldown.status || '';
+    } else if (drilldown.statusGroup) {
+        statusFilter.value = '';
+    }
+
+    const listDrilldown = {
+        from: filters.from || '',
+        to: filters.to || '',
+        statusGroup: drilldown.statusGroup || '',
+        status: drilldown.status || '',
+        prioridade: drilldown.prioridade || '',
+        tipo: drilldown.tipo || '',
+        label: drilldown.label || 'chamados do dashboard',
+    };
+
+    await loadTickets({
+        preserveSelection: false,
+        drilldown: listDrilldown,
+    });
+
+    if (listCard) {
+        listCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function attachDashboardChartEvents() {
+    [dashboardKpis, dashboardAlerts, dashboardCategoryChart, dashboardPriorityChart].forEach((container) => {
+        container.addEventListener('click', async (event) => {
+            const trigger = event.target.closest('[data-drilldown]');
+            if (!trigger) return;
+
+            try {
+                const drilldown = JSON.parse(trigger.getAttribute('data-drilldown') || '{}');
+                await applyDashboardDrilldown(drilldown);
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    });
+}
+
 async function loadSession() {
     try {
         const { response, payload } = await apiFetch('/api/admin/session', { method: 'GET' });
@@ -626,7 +1232,11 @@ async function loadSession() {
         if (state.authenticated) {
             loggedUser.textContent = payload.username || 'Painel LECO';
             showAppState();
-            await loadTickets({ preserveSelection: false });
+            syncDashboardForm(state.dashboard.filters);
+            await Promise.all([
+                loadDashboard(),
+                loadTickets({ preserveSelection: false }),
+            ]);
             return;
         }
 
@@ -664,7 +1274,11 @@ async function handleLoginSubmit(event) {
 
         loggedUser.textContent = payload.username || username;
         showAppState();
-        await loadTickets({ preserveSelection: false });
+        syncDashboardForm(state.dashboard.filters);
+        await Promise.all([
+            loadDashboard(),
+            loadTickets({ preserveSelection: false }),
+        ]);
     } catch (error) {
         console.error(error);
     } finally {
@@ -684,6 +1298,7 @@ async function handleLogout() {
         logoutButton.disabled = false;
         state.selectedTicketId = null;
         state.selectedTicket = null;
+        state.listDrilldown = null;
         showLoginState('Sessão encerrada com sucesso.', 'success');
     }
 }
@@ -718,13 +1333,51 @@ filtersForm.addEventListener('submit', async (event) => {
 
 clearFiltersButton.addEventListener('click', async () => {
     filtersForm.reset();
+    state.listDrilldown = null;
     hideInlineFeedback(listFeedback);
     await loadTickets({ preserveSelection: false });
 });
 
 refreshButton.addEventListener('click', async () => {
-    await loadTickets({ preserveSelection: true });
+    await Promise.all([
+        loadDashboard({ silent: true }),
+        loadTickets({ preserveSelection: true }),
+    ]);
+});
+
+dashboardPeriodFilter.addEventListener('change', () => {
+    syncDashboardRangeInputs();
+});
+
+dashboardFiltersForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await loadDashboard();
+});
+
+dashboardClearFiltersButton.addEventListener('click', async () => {
+    state.dashboard.filters = {
+        period: '30d',
+        ...getPresetRange('30d'),
+        tipo: '',
+        prioridade: '',
+    };
+    syncDashboardForm(state.dashboard.filters);
+    await loadDashboard();
+});
+
+volumeDrilldownButton.addEventListener('click', async () => {
+    await applyDashboardDrilldown({
+        ...state.dashboard.filters,
+        label: 'chamados do período selecionado',
+    });
 });
 
 attachTableEvents();
+attachDashboardChartEvents();
+syncDashboardForm({
+    period: '30d',
+    ...getPresetRange('30d'),
+    tipo: '',
+    prioridade: '',
+});
 loadSession();
