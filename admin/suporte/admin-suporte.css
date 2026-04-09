@@ -738,6 +738,10 @@ textarea:focus-visible,
     gap: 12px;
 }
 
+.admin-closed-list-card {
+    margin-top: -2px;
+}
+
 .admin-table-wrapper {
     overflow: auto;
     border: 1px solid rgba(223, 231, 242, 0.92);
@@ -893,6 +897,30 @@ textarea:focus-visible,
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.admin-ticket-meta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.admin-quick-close-button {
+    min-height: 42px;
+    padding: 0 16px;
+    border-color: rgba(16, 23, 42, 0.12);
+    color: var(--admin-text);
+    background: rgba(16, 23, 42, 0.04);
+}
+
+.admin-quick-close-button.reopen {
+    border-color: rgba(30, 94, 255, 0.18);
+    color: var(--admin-primary);
+    background: rgba(30, 94, 255, 0.08);
 }
 
 .admin-ticket-subtitle {
@@ -1161,6 +1189,11 @@ textarea:focus-visible,
         width: 100%;
     }
 
+    .admin-ticket-meta,
+    .admin-ticket-meta-actions {
+        justify-content: stretch;
+    }
+
     .admin-toolbar-actions {
         width: 100%;
         justify-content: stretch;
@@ -1194,7 +1227,8 @@ textarea:focus-visible,
 
     .admin-primary-button,
     .admin-secondary-button,
-    .admin-tertiary-button {
+    .admin-tertiary-button,
+    .admin-quick-close-button {
         width: 100%;
     }
 }

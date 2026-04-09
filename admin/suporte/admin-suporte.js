@@ -9,10 +9,13 @@ const filtersForm = document.getElementById('filters-form');
 const clearFiltersButton = document.getElementById('clear-filters-button');
 const refreshButton = document.getElementById('refresh-button');
 const tableBody = document.getElementById('ticket-table-body');
+const closedTableBody = document.getElementById('closed-ticket-table-body');
 const detailContainer = document.getElementById('ticket-detail');
 const detailFeedback = document.getElementById('detail-feedback');
 const listFeedback = document.getElementById('list-feedback');
+const closedListFeedback = document.getElementById('closed-list-feedback');
 const listSummary = document.getElementById('list-summary');
+const closedListSummary = document.getElementById('closed-list-summary');
 const ticketCount = document.getElementById('ticket-count');
 const loggedUser = document.getElementById('logged-user');
 const statusFilter = document.getElementById('filter-status');
@@ -36,6 +39,7 @@ const dashboardPeriodLabel = document.getElementById('dashboard-period-label');
 const dashboardGeneratedAt = document.getElementById('dashboard-generated-at');
 const volumeDrilldownButton = document.getElementById('volume-drilldown-button');
 const listCard = document.querySelector('.admin-list-card');
+const closedListCard = document.querySelector('.admin-closed-list-card');
 const adminMainGrid = document.getElementById('admin-main-grid');
 
 const state = {
@@ -47,8 +51,10 @@ const state = {
         types: [],
     },
     tickets: [],
+    closedTickets: [],
     selectedTicketId: null,
     selectedTicket: null,
+    selectedTicketGroup: 'active',
     detailOpen: false,
     listDrilldown: null,
     dashboard: {
@@ -324,46 +330,55 @@ function getListQueryOverrides(overrides = {}) {
     };
 }
 
-function getTicketQuery(overrides = {}) {
-    const params = new URLSearchParams();
-    const search = document.getElementById('ticket-search').value.trim();
+function getCurrentTicketFilters(overrides = {}) {
     const context = getListQueryOverrides(overrides);
-    const status = statusFilter.value || context.status;
-    const prioridade = priorityFilter.value || context.prioridade;
-    const tipo = typeFilter.value || context.tipo;
-    const from = context.from;
-    const to = context.to;
-    const statusGroup = status ? '' : context.statusGroup;
 
-    if (search) params.set('search', search);
-    if (status) params.set('status', status);
-    if (statusGroup) params.set('statusGroup', statusGroup);
-    if (prioridade) params.set('prioridade', prioridade);
-    if (tipo) params.set('tipo', tipo);
-    if (from) params.set('from', from);
-    if (to) params.set('to', to);
+    return {
+        search: document.getElementById('ticket-search').value.trim(),
+        status: statusFilter.value || context.status,
+        prioridade: priorityFilter.value || context.prioridade,
+        tipo: typeFilter.value || context.tipo,
+        from: context.from,
+        to: context.to,
+        statusGroup: context.statusGroup,
+    };
+}
+
+function buildTicketQuery(filters = {}) {
+    const params = new URLSearchParams();
+
+    if (filters.search) params.set('search', filters.search);
+    if (filters.status) {
+        params.set('status', filters.status);
+    } else if (filters.statusGroup) {
+        params.set('statusGroup', filters.statusGroup);
+    }
+    if (filters.prioridade) params.set('prioridade', filters.prioridade);
+    if (filters.tipo) params.set('tipo', filters.tipo);
+    if (filters.from) params.set('from', filters.from);
+    if (filters.to) params.set('to', filters.to);
 
     return params.toString();
 }
 
-function renderTicketList() {
-    if (!state.tickets.length) {
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="7" class="admin-table-empty">Nenhum chamado encontrado com os filtros atuais.</td>
-            </tr>
-        `;
-        listSummary.textContent = state.listDrilldown?.label
-            ? `Nenhum chamado encontrado para ${state.listDrilldown.label.toLowerCase()}.`
-            : 'Nenhum chamado encontrado.';
-        ticketCount.textContent = '0 chamados';
-        return;
+function buildListSummary(count, emptyText, defaultText, drilldownLabel) {
+    if (!count) {
+        return emptyText;
     }
 
-    tableBody.innerHTML = state.tickets.map((ticket) => `
+    if (drilldownLabel) {
+        return `${count} chamado(s) carregado(s) para ${drilldownLabel.toLowerCase()}.`;
+    }
+
+    return defaultText.replace('{count}', String(count));
+}
+
+function renderTicketRows(tickets, group) {
+    return tickets.map((ticket) => `
         <tr
-            class="admin-ticket-row${ticket.id === state.selectedTicketId ? ' is-selected' : ''}"
+            class="admin-ticket-row${ticket.id === state.selectedTicketId && state.selectedTicketGroup === group ? ' is-selected' : ''}"
             data-ticket-id="${ticket.id}"
+            data-ticket-group="${group}"
             tabindex="0"
             role="button"
             aria-label="Abrir chamado ${escapeHtml(ticket.protocolo)}"
@@ -377,11 +392,43 @@ function renderTicketList() {
             <td>${escapeHtml(formatDateTime(ticket.created_at))}</td>
         </tr>
     `).join('');
+}
 
-    listSummary.textContent = state.listDrilldown?.label
-        ? `${state.tickets.length} chamado(s) carregado(s) para ${state.listDrilldown.label.toLowerCase()}.`
-        : `${state.tickets.length} chamado(s) carregado(s), com os mais recentes primeiro.`;
-    ticketCount.textContent = `${state.tickets.length} chamados`;
+function renderTicketList() {
+    tableBody.innerHTML = state.tickets.length
+        ? renderTicketRows(state.tickets, 'active')
+        : `
+            <tr>
+                <td colspan="7" class="admin-table-empty">Nenhum chamado ativo encontrado com os filtros atuais.</td>
+            </tr>
+        `;
+
+    closedTableBody.innerHTML = state.closedTickets.length
+        ? renderTicketRows(state.closedTickets, 'closed')
+        : `
+            <tr>
+                <td colspan="7" class="admin-table-empty">Nenhum chamado fechado encontrado com os filtros atuais.</td>
+            </tr>
+        `;
+
+    listSummary.textContent = buildListSummary(
+        state.tickets.length,
+        state.listDrilldown?.label
+            ? `Nenhum chamado ativo encontrado para ${state.listDrilldown.label.toLowerCase()}.`
+            : 'Nenhum chamado ativo encontrado.',
+        '{count} chamado(s) ativo(s), com os mais recentes primeiro.',
+        state.listDrilldown?.label
+    );
+    closedListSummary.textContent = buildListSummary(
+        state.closedTickets.length,
+        state.listDrilldown?.label
+            ? `Nenhum chamado fechado encontrado para ${state.listDrilldown.label.toLowerCase()}.`
+            : 'Nenhum chamado fechado encontrado.',
+        '{count} chamado(s) concluído(s), com os mais recentes primeiro.',
+        state.listDrilldown?.label
+    );
+
+    ticketCount.textContent = `${state.tickets.length + state.closedTickets.length} chamados`;
 }
 
 async function loadTickets({ preserveSelection = true, drilldown = undefined } = {}) {
@@ -391,23 +438,57 @@ async function loadTickets({ preserveSelection = true, drilldown = undefined } =
 
     if (state.listDrilldown?.label) {
         showInlineFeedback(listFeedback, `Lista filtrada: ${state.listDrilldown.label}.`, 'success');
+        showInlineFeedback(closedListFeedback, `Lista filtrada: ${state.listDrilldown.label}.`, 'success');
     } else {
         hideInlineFeedback(listFeedback);
+        hideInlineFeedback(closedListFeedback);
     }
 
     tableBody.innerHTML = `
         <tr>
-            <td colspan="7" class="admin-table-empty">Carregando chamados...</td>
+            <td colspan="7" class="admin-table-empty">Carregando chamados ativos...</td>
+        </tr>
+    `;
+    closedTableBody.innerHTML = `
+        <tr>
+            <td colspan="7" class="admin-table-empty">Carregando chamados fechados...</td>
         </tr>
     `;
 
-    const query = getTicketQuery();
-    const url = query ? `/api/admin/suporte?${query}` : '/api/admin/suporte';
-
     try {
-        const { response, payload } = await apiFetch(url, { method: 'GET' });
+        const baseFilters = getCurrentTicketFilters();
+        let activeFilters = null;
 
-        if (!response.ok) {
+        if (baseFilters.status && baseFilters.status !== 'concluido') {
+            activeFilters = {
+                ...baseFilters,
+                statusGroup: '',
+            };
+        } else if (!baseFilters.status) {
+            activeFilters = {
+                ...baseFilters,
+                status: '',
+                statusGroup: 'open',
+            };
+        }
+
+        const closedFilters = {
+            ...baseFilters,
+            status: 'concluido',
+            statusGroup: '',
+        };
+
+        const [activeResult, closedResult] = await Promise.all([
+            activeFilters
+                ? apiFetch(`/api/admin/suporte?${buildTicketQuery(activeFilters)}`, { method: 'GET' })
+                : Promise.resolve({ response: { ok: true }, payload: { tickets: [], meta: null } }),
+            apiFetch(`/api/admin/suporte?${buildTicketQuery(closedFilters)}`, { method: 'GET' }),
+        ]);
+
+        const { response: activeResponse, payload: activePayload } = activeResult;
+        const { response: closedResponse, payload: closedPayload } = closedResult;
+
+        if (!activeResponse.ok || !closedResponse.ok) {
             showInlineFeedback(listFeedback, payload.mensagem || 'Não foi possível carregar os chamados agora.', 'error');
             tableBody.innerHTML = `
                 <tr>
@@ -1351,6 +1432,458 @@ function attachTableEvents() {
     });
 }
 
+function showTicketListSuccess(message, group = 'active') {
+    const targetFeedback = group === 'closed' ? closedListFeedback : listFeedback;
+    showInlineFeedback(targetFeedback, message, 'success');
+}
+
+function scrollToTicketList(group = 'active') {
+    const targetCard = group === 'closed' ? closedListCard : listCard;
+    if (targetCard) {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+async function loadTickets({ preserveSelection = true, drilldown = undefined } = {}) {
+    if (drilldown !== undefined) {
+        state.listDrilldown = drilldown;
+    }
+
+    if (state.listDrilldown?.label) {
+        showInlineFeedback(listFeedback, `Lista filtrada: ${state.listDrilldown.label}.`, 'success');
+        showInlineFeedback(closedListFeedback, `Lista filtrada: ${state.listDrilldown.label}.`, 'success');
+    } else {
+        hideInlineFeedback(listFeedback);
+        hideInlineFeedback(closedListFeedback);
+    }
+
+    tableBody.innerHTML = `
+        <tr>
+            <td colspan="7" class="admin-table-empty">Carregando chamados ativos...</td>
+        </tr>
+    `;
+    closedTableBody.innerHTML = `
+        <tr>
+            <td colspan="7" class="admin-table-empty">Carregando chamados fechados...</td>
+        </tr>
+    `;
+
+    try {
+        const baseFilters = getCurrentTicketFilters();
+        let activeFilters = null;
+
+        if (baseFilters.status && baseFilters.status !== 'concluido') {
+            activeFilters = {
+                ...baseFilters,
+                statusGroup: '',
+            };
+        } else if (!baseFilters.status) {
+            activeFilters = {
+                ...baseFilters,
+                status: '',
+                statusGroup: 'open',
+            };
+        }
+
+        const closedFilters = {
+            ...baseFilters,
+            status: 'concluido',
+            statusGroup: '',
+        };
+
+        const [activeResult, closedResult] = await Promise.all([
+            activeFilters
+                ? apiFetch(`/api/admin/suporte?${buildTicketQuery(activeFilters)}`, { method: 'GET' })
+                : Promise.resolve({ response: { ok: true }, payload: { tickets: [], meta: null } }),
+            apiFetch(`/api/admin/suporte?${buildTicketQuery(closedFilters)}`, { method: 'GET' }),
+        ]);
+
+        const { response: activeResponse, payload: activePayload } = activeResult;
+        const { response: closedResponse, payload: closedPayload } = closedResult;
+
+        if (!activeResponse.ok || !closedResponse.ok) {
+            showInlineFeedback(listFeedback, activePayload.mensagem || closedPayload.mensagem || 'Não foi possível carregar os chamados agora.', 'error');
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="admin-table-empty">Não foi possível carregar os chamados agora.</td>
+                </tr>
+            `;
+            closedTableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="admin-table-empty">Não foi possível carregar os chamados fechados agora.</td>
+                </tr>
+            `;
+            return;
+        }
+
+        syncFilterMeta(activePayload.meta || closedPayload.meta);
+        state.tickets = Array.isArray(activePayload.tickets) ? activePayload.tickets : [];
+        state.closedTickets = Array.isArray(closedPayload.tickets) ? closedPayload.tickets : [];
+
+        const allTickets = [...state.tickets, ...state.closedTickets];
+        if (!preserveSelection || !allTickets.some((ticket) => ticket.id === state.selectedTicketId)) {
+            state.selectedTicketId = state.tickets[0]?.id || state.closedTickets[0]?.id || null;
+            state.selectedTicketGroup = state.tickets[0]
+                ? 'active'
+                : (state.closedTickets[0] ? 'closed' : 'active');
+        }
+
+        renderTicketList();
+
+        if (state.detailOpen && state.selectedTicketId) {
+            await loadTicketDetail(state.selectedTicketId, {
+                silent: true,
+                group: state.selectedTicketGroup,
+            });
+        } else {
+            renderEmptyDetail();
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function renderTicketDetail(ticket) {
+    state.selectedTicket = ticket;
+    setDetailMode(true);
+
+    const isClosed = ticket.status === 'concluido';
+
+    detailContainer.innerHTML = `
+        <div class="admin-detail-shell">
+            <header class="admin-ticket-header">
+                <div class="admin-ticket-header-main">
+                    <button id="detail-back-button" type="button" class="admin-secondary-button admin-detail-back">Voltar para chamados ${state.selectedTicketGroup === 'closed' ? 'fechados' : 'recebidos'}</button>
+                    <div>
+                        <h2>${escapeHtml(ticket.protocolo)}</h2>
+                        <p class="admin-ticket-subtitle">Chamado aberto em ${escapeHtml(formatDateTime(ticket.created_at))}. Última atualização em ${escapeHtml(formatDateTime(ticket.updated_at))}.</p>
+                    </div>
+                </div>
+                <div class="admin-ticket-meta-actions">
+                    ${getTicketStatusBadge(ticket)}
+                    ${getPriorityBadge(ticket)}
+                    <button
+                        id="toggle-close-ticket-button"
+                        type="button"
+                        class="admin-secondary-button admin-quick-close-button${isClosed ? ' reopen' : ''}"
+                    >
+                        ${isClosed ? 'Reabrir chamado' : 'Concluir chamado'}
+                    </button>
+                </div>
+            </header>
+
+            <section class="admin-data-card">
+                <h3>Dados enviados pelo usuário</h3>
+                <div class="admin-data-list">
+                    <div class="admin-data-item">
+                        <span>Nome</span>
+                        <strong>${escapeHtml(ticket.nome)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>E-mail</span>
+                        <a href="mailto:${escapeHtml(ticket.email)}">${escapeHtml(ticket.email)}</a>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Celular</span>
+                        <strong>${escapeHtml(ticket.celular || 'Não informado')}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Categoria original</span>
+                        <strong>${escapeHtml(ticket.categoria_label)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Assunto</span>
+                        <strong>${escapeHtml(ticket.assunto || ticket.tipo_label)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Categoria automática</span>
+                        <strong>${escapeHtml(ticket.categoria_automatica_label)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Prioridade sugerida</span>
+                        <strong>${escapeHtml(ticket.prioridade_sugerida_label)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Categoria final</span>
+                        <strong>${escapeHtml(ticket.tipo_label)}</strong>
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Anexo</span>
+                        ${ticket.anexo_url
+                            ? `<a href="${escapeHtml(ticket.anexo_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ticket.anexo_nome || 'Abrir anexo')}</a>`
+                            : '<strong>Nenhum anexo enviado</strong>'}
+                    </div>
+                </div>
+                <div class="admin-description">
+                    <strong>Descrição completa</strong>
+                    <p>${escapeHtml(ticket.descricao)}</p>
+                </div>
+                <div class="admin-classification-summary">
+                    <div class="admin-data-item">
+                        <span>Tags automáticas</span>
+                        ${renderTagList(ticket.tags_automaticas, 'Sem tags automáticas')}
+                    </div>
+                    <div class="admin-data-item">
+                        <span>Tags finais</span>
+                        ${renderTagList(ticket.tags, 'Sem tags finais')}
+                    </div>
+                </div>
+            </section>
+
+            <section class="admin-ticket-grid">
+                <article class="admin-actions-card">
+                    <h3>Atualizar classificação e status</h3>
+                    <form id="ticket-status-form" class="admin-status-form">
+                        <div class="admin-field">
+                            <label for="detail-status">Status</label>
+                            <select id="detail-status" name="status">
+                                ${state.meta.statuses.map((option) => `<option value="${escapeHtml(option.value)}"${option.value === ticket.status ? ' selected' : ''}>${escapeHtml(option.label)}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="admin-field">
+                            <label for="detail-type">Categoria final</label>
+                            <select id="detail-type" name="tipo">
+                                ${state.meta.types.map((option) => `<option value="${escapeHtml(option.value)}"${option.value === ticket.tipo ? ' selected' : ''}>${escapeHtml(option.label)}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="admin-field">
+                            <label for="detail-priority">Prioridade</label>
+                            <select id="detail-priority" name="prioridade">
+                                ${state.meta.priorities.map((option) => `<option value="${escapeHtml(option.value)}"${option.value === ticket.prioridade ? ' selected' : ''}>${escapeHtml(option.label)}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="admin-field">
+                            <label for="detail-tags">Tags finais</label>
+                            <input id="detail-tags" name="tags" type="text" value="${escapeHtml((ticket.tags || []).join(', '))}" placeholder="login, pagamento, bug">
+                        </div>
+                        <button id="save-status-button" type="submit" class="admin-primary-button">Salvar</button>
+                    </form>
+                    <p class="admin-helper-copy">A classificação automática organiza a triagem inicial, mas o time pode ajustar categoria, prioridade e tags manualmente conforme o contexto real do chamado.</p>
+                </article>
+
+                <article class="admin-actions-card">
+                    <h3>Comentário interno</h3>
+                    <form id="internal-comment-form" class="admin-action-form">
+                        <div class="admin-field">
+                            <label for="internal-comment">Registro interno</label>
+                            <textarea id="internal-comment" name="comment" placeholder="Adicione uma anotação para uso interno da equipe."></textarea>
+                        </div>
+                        <button id="comment-button" type="submit" class="admin-secondary-button">Salvar comentário</button>
+                    </form>
+                    <p class="admin-helper-copy">O comentário interno fica registrado no histórico do chamado e não é enviado ao usuário.</p>
+                </article>
+            </section>
+
+            <section class="admin-actions-card">
+                <h3>Responder usuário</h3>
+                <form id="reply-form" class="admin-action-form">
+                    <div class="admin-field">
+                        <label for="reply-message">Resposta</label>
+                        <textarea id="reply-message" name="message" placeholder="Escreva aqui a resposta que será enviada por e-mail ao usuário."></textarea>
+                    </div>
+                    <button id="reply-button" type="submit" class="admin-primary-button">Enviar resposta por e-mail</button>
+                </form>
+                <p class="admin-helper-copy">A resposta será enviada automaticamente para ${escapeHtml(ticket.email)} e ficará registrada no histórico deste chamado.</p>
+            </section>
+
+            <section class="admin-history-card">
+                <h3>Histórico do chamado</h3>
+                ${renderHistory(ticket.history)}
+            </section>
+        </div>
+    `;
+
+    attachDetailEventHandlers(ticket.id);
+}
+
+async function loadTicketDetail(ticketId, { silent = false, group = 'active' } = {}) {
+    if (!silent) {
+        hideInlineFeedback(detailFeedback);
+        detailContainer.innerHTML = `
+            <div class="admin-empty-detail">
+                <h2>Carregando chamado</h2>
+                <p>Buscando os detalhes completos e o histórico do atendimento.</p>
+            </div>
+        `;
+    }
+
+    try {
+        const { response, payload } = await apiFetch(`/api/admin/suporte?ticketId=${encodeURIComponent(ticketId)}`, { method: 'GET' });
+
+        if (!response.ok || !payload.ticket) {
+            showInlineFeedback(detailFeedback, payload.mensagem || 'Não foi possível carregar este chamado agora.', 'error');
+            renderEmptyDetail();
+            return;
+        }
+
+        state.selectedTicketId = payload.ticket.id;
+        state.selectedTicketGroup = group;
+        renderTicketList();
+        renderTicketDetail(payload.ticket);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function handleQuickStatusAction(ticketId, nextStatus) {
+    hideInlineFeedback(detailFeedback);
+
+    const button = document.getElementById('toggle-close-ticket-button');
+    const defaultLabel = nextStatus === 'concluido' ? 'Concluir chamado' : 'Reabrir chamado';
+    const loadingLabel = nextStatus === 'concluido' ? 'Concluindo...' : 'Reabrindo...';
+    setButtonLoading(button, true, loadingLabel, defaultLabel);
+
+    try {
+        const { response, payload } = await apiFetch('/api/admin/suporte', {
+            method: 'PATCH',
+            body: JSON.stringify({ ticketId, status: nextStatus }),
+        });
+
+        if (!response.ok || !payload.ticket) {
+            showInlineFeedback(detailFeedback, payload.mensagem || 'Não foi possível atualizar o chamado agora.', 'error');
+            return;
+        }
+
+        state.selectedTicketId = payload.ticket.id;
+        state.selectedTicketGroup = nextStatus === 'concluido' ? 'closed' : 'active';
+
+        await Promise.all([
+            loadTickets({ preserveSelection: true }),
+            loadDashboard({ silent: true }),
+        ]);
+
+        setDetailMode(false);
+        renderTicketList();
+        showTicketListSuccess(
+            nextStatus === 'concluido'
+                ? 'Chamado concluído e movido para chamados fechados.'
+                : 'Chamado reaberto e devolvido para chamados recebidos.',
+            state.selectedTicketGroup
+        );
+        scrollToTicketList(state.selectedTicketGroup);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        setButtonLoading(button, false, loadingLabel, defaultLabel);
+    }
+}
+
+async function handleStatusSubmit(event, ticketId) {
+    event.preventDefault();
+    hideInlineFeedback(detailFeedback);
+
+    const button = document.getElementById('save-status-button');
+    const status = document.getElementById('detail-status').value;
+    const tipo = document.getElementById('detail-type').value;
+    const prioridade = document.getElementById('detail-priority').value;
+    const tags = document.getElementById('detail-tags').value;
+    const previousStatus = state.selectedTicket?.status || '';
+    setButtonLoading(button, true, 'Salvando...', 'Salvar');
+
+    try {
+        const { response, payload } = await apiFetch('/api/admin/suporte', {
+            method: 'PATCH',
+            body: JSON.stringify({ ticketId, status, prioridade, tipo, tags }),
+        });
+
+        if (!response.ok || !payload.ticket) {
+            showInlineFeedback(detailFeedback, payload.mensagem || 'Não foi possível atualizar o chamado agora.', 'error');
+            return;
+        }
+
+        const movedGroup = (previousStatus === 'concluido') !== (payload.ticket.status === 'concluido');
+        state.selectedTicketId = payload.ticket.id;
+        state.selectedTicketGroup = payload.ticket.status === 'concluido' ? 'closed' : 'active';
+
+        await Promise.all([
+            loadTickets({ preserveSelection: true }),
+            loadDashboard({ silent: true }),
+        ]);
+
+        if (movedGroup) {
+            setDetailMode(false);
+            renderTicketList();
+            showTicketListSuccess(
+                payload.ticket.status === 'concluido'
+                    ? 'Chamado concluído e movido para chamados fechados.'
+                    : 'Chamado reaberto e devolvido para chamados recebidos.',
+                state.selectedTicketGroup
+            );
+            scrollToTicketList(state.selectedTicketGroup);
+            return;
+        }
+
+        showInlineFeedback(detailFeedback, 'Classificação e status atualizados com sucesso.', 'success');
+        renderTicketDetail(payload.ticket);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        setButtonLoading(button, false, 'Salvando...', 'Salvar');
+    }
+}
+
+function attachDetailEventHandlers(ticketId) {
+    const statusForm = document.getElementById('ticket-status-form');
+    const commentForm = document.getElementById('internal-comment-form');
+    const replyForm = document.getElementById('reply-form');
+    const backButton = document.getElementById('detail-back-button');
+    const toggleCloseButton = document.getElementById('toggle-close-ticket-button');
+
+    if (statusForm) {
+        statusForm.addEventListener('submit', (event) => handleStatusSubmit(event, ticketId));
+    }
+
+    if (commentForm) {
+        commentForm.addEventListener('submit', (event) => handleCommentSubmit(event, ticketId));
+    }
+
+    if (replyForm) {
+        replyForm.addEventListener('submit', (event) => handleReplySubmit(event, ticketId));
+    }
+
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            setDetailMode(false);
+            renderTicketList();
+            scrollToTicketList(state.selectedTicketGroup);
+        });
+    }
+
+    if (toggleCloseButton) {
+        toggleCloseButton.addEventListener('click', () => {
+            const nextStatus = state.selectedTicket?.status === 'concluido' ? 'aberto' : 'concluido';
+            handleQuickStatusAction(ticketId, nextStatus);
+        });
+    }
+}
+
+function attachTicketRowEvents(container) {
+    container.addEventListener('click', (event) => {
+        const row = event.target.closest('.admin-ticket-row');
+        if (!row) return;
+        const ticketId = row.getAttribute('data-ticket-id');
+        const group = row.getAttribute('data-ticket-group') || 'active';
+        if (!ticketId) return;
+        loadTicketDetail(ticketId, { group });
+    });
+
+    container.addEventListener('keydown', (event) => {
+        const row = event.target.closest('.admin-ticket-row');
+        if (!row) return;
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        const ticketId = row.getAttribute('data-ticket-id');
+        const group = row.getAttribute('data-ticket-group') || 'active';
+        if (!ticketId) return;
+        loadTicketDetail(ticketId, { group });
+    });
+}
+
+function attachTableEvents() {
+    attachTicketRowEvents(tableBody);
+    attachTicketRowEvents(closedTableBody);
+}
+
 loginForm.addEventListener('submit', handleLoginSubmit);
 logoutButton.addEventListener('click', handleLogout);
 
@@ -1363,6 +1896,7 @@ clearFiltersButton.addEventListener('click', async () => {
     filtersForm.reset();
     state.listDrilldown = null;
     hideInlineFeedback(listFeedback);
+    hideInlineFeedback(closedListFeedback);
     await loadTickets({ preserveSelection: false });
 });
 

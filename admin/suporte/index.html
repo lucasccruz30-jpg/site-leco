@@ -245,6 +245,38 @@
                     </div>
                 </article>
 
+                <article class="admin-card admin-list-card admin-closed-list-card">
+                    <div class="admin-card-heading admin-list-heading">
+                        <div>
+                            <h2>Chamados fechados</h2>
+                            <p id="closed-list-summary">Carregando chamados fechados...</p>
+                        </div>
+                    </div>
+
+                    <div id="closed-list-feedback" class="admin-inline-feedback is-hidden" aria-live="polite"></div>
+
+                    <div class="admin-table-wrapper">
+                        <table class="admin-ticket-table">
+                            <thead>
+                                <tr>
+                                    <th>Protocolo</th>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Tipo</th>
+                                    <th>Prioridade</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="closed-ticket-table-body">
+                                <tr>
+                                    <td colspan="7" class="admin-table-empty">Carregando chamados fechados...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
                 <article class="admin-card admin-detail-card">
                     <div id="detail-feedback" class="admin-inline-feedback is-hidden" aria-live="polite"></div>
                     <div id="ticket-detail">
