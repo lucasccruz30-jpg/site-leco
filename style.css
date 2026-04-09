@@ -1285,6 +1285,10 @@ p {
     color: var(--deep-blue);
 }
 
+.footer-subsection-title-normal {
+    text-transform: none;
+}
+
 .footer-links a,
 .footer-inline-link {
     text-decoration: none;
