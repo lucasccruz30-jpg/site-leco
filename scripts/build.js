@@ -26,6 +26,7 @@ const itemsToCopy = [
   'apresentacao',
   'excluir-dados',
   'familias-fundadoras',
+  'suporte',
   'privacidade',
   'inscricao',
   'regulamento-campanha-bonus-2-meses',

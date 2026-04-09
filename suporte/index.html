@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LECO | Suporte</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
+    <link rel="shortcut icon" type="image/jpeg" href="/Logo/Logo.png.jpeg">
+    <link rel="apple-touch-icon" href="/Logo/Logo.png.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/campaign.css">
+    <link rel="stylesheet" href="/suporte/suporte.css">
+</head>
+<body>
+    <main class="support-page">
+        <header class="support-header">
+            <a href="/" class="brand-link" aria-label="Voltar para o site LECO">
+                <img src="/Logo/Logo.png.jpeg" alt="LECO">
+            </a>
+        </header>
+
+        <section class="support-hero">
+            <div class="support-eyebrow">
+                <span class="support-eyebrow-icon">?</span>
+                <span>Atendimento organizado</span>
+            </div>
+            <h1>Central de Suporte LECO</h1>
+            <p class="support-hero-subtitle">Precisa de ajuda? Abra um chamado e nossa equipe irá analisar sua solicitação com atenção e organização.</p>
+            <p class="support-hero-copy">Quanto mais detalhes você enviar, mais rápido conseguimos te ajudar.</p>
+            <div class="support-hero-actions">
+                <a href="#abrir-chamado" class="support-primary-button">Abrir chamado</a>
+                <a href="mailto:suporte@lecoapp.com.br" class="support-secondary-button">Falar com suporte</a>
+            </div>
+        </section>
+
+        <section class="support-guidance" aria-label="Como podemos te ajudar?">
+            <div class="support-section-heading">
+                <h2>Como podemos te ajudar?</h2>
+            </div>
+            <div class="support-guidance-grid">
+                <article class="support-guidance-card">
+                    <h3>Problemas técnicos</h3>
+                    <p>Erros no sistema, falhas no aplicativo ou algo que não está funcionando como deveria.</p>
+                </article>
+                <article class="support-guidance-card">
+                    <h3>Acesso e conta</h3>
+                    <p>Dificuldade para entrar, recuperar acesso ou gerenciar sua conta.</p>
+                </article>
+                <article class="support-guidance-card">
+                    <h3>Assinatura e planos</h3>
+                    <p>Dúvidas sobre planos, cobrança, cancelamento ou acesso ao serviço.</p>
+                </article>
+                <article class="support-guidance-card">
+                    <h3>Outros assuntos</h3>
+                    <p>Sugestões, dúvidas gerais ou qualquer outro tipo de solicitação.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="backend-notice" class="support-notice is-hidden" aria-live="polite"></section>
+
+        <section id="form-state" class="support-card support-form-card">
+            <div id="abrir-chamado" class="support-form-heading">
+                <h2>Abrir chamado</h2>
+                <p>Preencha as informações abaixo com o máximo de detalhes possível para que possamos entender e resolver sua solicitação com mais rapidez.</p>
+            </div>
+
+            <div id="form-feedback" class="support-feedback is-hidden" aria-live="polite"></div>
+
+            <form id="support-form" novalidate>
+                <div class="support-grid">
+                    <div class="support-field">
+                        <label for="nome">Nome completo <span class="required-marker">*</span></label>
+                        <input id="nome" name="nome" type="text" placeholder="Nome do responsável" autocomplete="name">
+                        <p class="support-field-error" data-error-for="nome"></p>
+                    </div>
+
+                    <div class="support-field">
+                        <label for="email">E-mail <span class="required-marker">*</span></label>
+                        <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email">
+                        <p class="support-field-error" data-error-for="email"></p>
+                    </div>
+                </div>
+
+                <div class="support-grid">
+                    <div class="support-field">
+                        <label for="celular">Celular</label>
+                        <input id="celular" name="celular" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel">
+                        <p class="support-field-error" data-error-for="celular"></p>
+                    </div>
+
+                    <div class="support-field">
+                        <label for="categoria">Assunto do chamado <span class="required-marker">*</span></label>
+                        <select id="categoria" name="categoria">
+                            <option value="">Selecione uma opção</option>
+                            <option value="problemas-tecnicos">Problemas técnicos</option>
+                            <option value="acesso-e-conta">Acesso e conta</option>
+                            <option value="assinatura-e-planos">Assinatura e planos</option>
+                            <option value="outros-assuntos">Outros assuntos</option>
+                        </select>
+                        <p class="support-field-error" data-error-for="categoria"></p>
+                    </div>
+                </div>
+
+                <div class="support-field">
+                    <label for="descricao">Descrição da solicitação <span class="required-marker">*</span></label>
+                    <textarea id="descricao" name="descricao" rows="6" placeholder="Descreva sua solicitação com o máximo de detalhes possível. Inclua o que aconteceu, quando aconteceu e qualquer informação que ajude nosso time a entender melhor o problema."></textarea>
+                    <p class="support-field-error" data-error-for="descricao"></p>
+                </div>
+
+                <div class="support-terms">
+                    <label class="support-checkbox-row" for="aceite_termos">
+                        <input id="aceite_termos" name="aceite_termos" type="checkbox">
+                        <span>Li e concordo com os <a href="/termos-de-uso/" target="_blank" rel="noopener noreferrer">termos de uso</a> e <a href="/politica-de-privacidade/" target="_blank" rel="noopener noreferrer">política de privacidade</a>.</span>
+                    </label>
+                    <p class="support-field-error" data-error-for="aceite_termos"></p>
+                </div>
+
+                <button id="submit-button" type="submit" class="support-submit-button">
+                    Enviar chamado
+                </button>
+
+                <p class="support-security-note">Seus dados serão utilizados para registrar seu chamado e realizar comunicações relacionadas ao atendimento, conforme os termos e a política de privacidade.</p>
+            </form>
+        </section>
+
+        <section id="success-state" class="support-card support-state-card is-hidden" aria-live="polite">
+            <div class="support-state-icon success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h2>Chamado enviado com sucesso</h2>
+            <p>Recebemos sua solicitação e nossa equipe irá analisar o caso.</p>
+            <p id="success-details" class="support-success-details">Você receberá a resposta no e-mail informado. Guarde o número do protocolo para futuras referências.</p>
+            <div class="support-protocol-shell">
+                <span class="support-protocol-label">Protocolo do atendimento</span>
+                <strong id="support-protocol">--</strong>
+            </div>
+            <a class="support-state-link" href="/">Voltar para o site LECO</a>
+        </section>
+
+        <section class="support-card support-info-card">
+            <div class="support-section-heading">
+                <h2>Informações importantes</h2>
+            </div>
+            <ul class="support-info-list">
+                <li>Nosso canal oficial de suporte é o e-mail suporte@lecoapp.com.br</li>
+                <li>Todas as solicitações são analisadas por ordem de recebimento e prioridade</li>
+                <li>Quanto mais completo for o chamado, mais rápido conseguimos te ajudar</li>
+                <li>Evite abrir múltiplos chamados para o mesmo problema</li>
+            </ul>
+        </section>
+
+        <section class="support-card support-faq-card">
+            <div class="support-section-heading">
+                <h2>Dúvidas frequentes</h2>
+            </div>
+            <div class="support-faq-list" aria-label="FAQ de suporte">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Como sei se meu chamado foi enviado?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Após o envio, você verá uma confirmação na tela com o número do protocolo do seu atendimento.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Por onde recebo a resposta?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nossa equipe entra em contato pelo e-mail informado no momento da abertura do chamado.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Posso abrir mais de um chamado?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, mas recomendamos evitar chamados duplicados para o mesmo assunto.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Preciso enviar print ou imagem?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não é obrigatório, mas ajuda muito a acelerar a análise do problema.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Quanto tempo demora o atendimento?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O tempo de resposta pode variar conforme o volume de solicitações e a complexidade do caso.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="support-closing">
+            <p>Nosso objetivo é oferecer um atendimento claro, rápido e organizado.</p>
+            <p>Se precisar de ajuda, estamos aqui para resolver.</p>
+        </section>
+    </main>
+
+    <script src="/campaign.js"></script>
+    <script src="/navigation.js"></script>
+    <script src="/suporte/suporte.js"></script>
+</body>
+</html>
