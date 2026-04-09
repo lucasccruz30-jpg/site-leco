@@ -36,6 +36,7 @@ const dashboardPeriodLabel = document.getElementById('dashboard-period-label');
 const dashboardGeneratedAt = document.getElementById('dashboard-generated-at');
 const volumeDrilldownButton = document.getElementById('volume-drilldown-button');
 const listCard = document.querySelector('.admin-list-card');
+const adminMainGrid = document.getElementById('admin-main-grid');
 
 const state = {
     authenticated: false,
@@ -48,6 +49,7 @@ const state = {
     tickets: [],
     selectedTicketId: null,
     selectedTicket: null,
+    detailOpen: false,
     listDrilldown: null,
     dashboard: {
         filters: {
@@ -180,12 +182,14 @@ function hideInlineFeedback(element) {
 }
 
 function showConfigState() {
+    setDetailMode(false);
     configState.classList.remove('is-hidden');
     loginState.classList.add('is-hidden');
     appState.classList.add('is-hidden');
 }
 
 function showLoginState(message, type = 'warning') {
+    setDetailMode(false);
     configState.classList.add('is-hidden');
     loginState.classList.remove('is-hidden');
     appState.classList.add('is-hidden');
@@ -201,6 +205,13 @@ function showAppState() {
     loginState.classList.add('is-hidden');
     appState.classList.remove('is-hidden');
     hideSessionFeedback();
+}
+
+function setDetailMode(isOpen) {
+    state.detailOpen = Boolean(isOpen);
+    if (adminMainGrid) {
+        adminMainGrid.classList.toggle('has-ticket-open', state.detailOpen);
+    }
 }
 
 async function apiFetch(url, options = {}) {
@@ -415,7 +426,7 @@ async function loadTickets({ preserveSelection = true, drilldown = undefined } =
 
         renderTicketList();
 
-        if (state.selectedTicketId) {
+        if (state.detailOpen && state.selectedTicketId) {
             await loadTicketDetail(state.selectedTicketId, { silent: true });
         } else {
             renderEmptyDetail();
@@ -427,6 +438,7 @@ async function loadTickets({ preserveSelection = true, drilldown = undefined } =
 
 function renderEmptyDetail() {
     state.selectedTicket = null;
+    setDetailMode(false);
     detailContainer.innerHTML = `
         <div class="admin-empty-detail">
             <h2>Selecione um chamado</h2>
@@ -458,13 +470,17 @@ function renderHistory(history = []) {
 
 function renderTicketDetail(ticket) {
     state.selectedTicket = ticket;
+    setDetailMode(true);
 
     detailContainer.innerHTML = `
         <div class="admin-detail-shell">
             <header class="admin-ticket-header">
-                <div>
-                    <h2>${escapeHtml(ticket.protocolo)}</h2>
-                    <p class="admin-ticket-subtitle">Chamado aberto em ${escapeHtml(formatDateTime(ticket.created_at))}. Última atualização em ${escapeHtml(formatDateTime(ticket.updated_at))}.</p>
+                <div class="admin-ticket-header-main">
+                    <button id="detail-back-button" type="button" class="admin-secondary-button admin-detail-back">Voltar para chamados recebidos</button>
+                    <div>
+                        <h2>${escapeHtml(ticket.protocolo)}</h2>
+                        <p class="admin-ticket-subtitle">Chamado aberto em ${escapeHtml(formatDateTime(ticket.created_at))}. Última atualização em ${escapeHtml(formatDateTime(ticket.updated_at))}.</p>
+                    </div>
                 </div>
                 <div class="admin-ticket-meta">
                     ${getTicketStatusBadge(ticket)}
@@ -757,6 +773,7 @@ function attachDetailEventHandlers(ticketId) {
     const statusForm = document.getElementById('ticket-status-form');
     const commentForm = document.getElementById('internal-comment-form');
     const replyForm = document.getElementById('reply-form');
+    const backButton = document.getElementById('detail-back-button');
 
     if (statusForm) {
         statusForm.addEventListener('submit', (event) => handleStatusSubmit(event, ticketId));
@@ -768,6 +785,16 @@ function attachDetailEventHandlers(ticketId) {
 
     if (replyForm) {
         replyForm.addEventListener('submit', (event) => handleReplySubmit(event, ticketId));
+    }
+
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            setDetailMode(false);
+            renderTicketList();
+            if (listCard) {
+                listCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
     }
 }
 
@@ -1298,6 +1325,7 @@ async function handleLogout() {
         logoutButton.disabled = false;
         state.selectedTicketId = null;
         state.selectedTicket = null;
+        setDetailMode(false);
         state.listDrilldown = null;
         showLoginState('Sessão encerrada com sucesso.', 'success');
     }

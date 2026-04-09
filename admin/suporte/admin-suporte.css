@@ -714,9 +714,21 @@ textarea:focus-visible,
 
 .admin-main-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
+    grid-template-columns: 1fr;
     gap: 18px;
     align-items: start;
+}
+
+.admin-main-grid .admin-detail-card {
+    display: none;
+}
+
+.admin-main-grid.has-ticket-open .admin-list-card {
+    display: none;
+}
+
+.admin-main-grid.has-ticket-open .admin-detail-card {
+    display: block;
 }
 
 .admin-list-heading {
@@ -857,6 +869,18 @@ textarea:focus-visible,
     align-items: flex-start;
     padding-bottom: 18px;
     border-bottom: 1px solid rgba(223, 231, 242, 0.92);
+}
+
+.admin-ticket-header-main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-detail-back {
+    width: fit-content;
+    min-height: 42px;
+    padding: 0 16px;
 }
 
 .admin-ticket-header h2 {
@@ -1091,10 +1115,6 @@ textarea:focus-visible,
         grid-column: auto;
     }
 
-    .admin-main-grid {
-        grid-template-columns: 1fr;
-    }
-
     .admin-empty-detail {
         min-height: 280px;
     }
@@ -1134,6 +1154,11 @@ textarea:focus-visible,
     .admin-dashboard-heading,
     .admin-chart-heading {
         flex-direction: column;
+    }
+
+    .admin-ticket-header-main,
+    .admin-ticket-meta {
+        width: 100%;
     }
 
     .admin-toolbar-actions {
