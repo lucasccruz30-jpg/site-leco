@@ -84,7 +84,7 @@ function hideStatus(element) {
 
 function setLoading(isLoading) {
     submitButton.disabled = isLoading;
-    submitButton.textContent = isLoading ? 'Enviando seus dados...' : 'Quero participar da campanha';
+    submitButton.textContent = isLoading ? 'Enviando seus dados...' : 'Quero minha vaga';
 }
 
 function collectData() {

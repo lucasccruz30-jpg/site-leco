@@ -9,7 +9,7 @@
 }
 
 .fundadoras-page .hero-section {
-    padding: 92px 0 72px;
+    padding: 84px 0 28px;
 }
 
 .fundadoras-page .hero-content {
@@ -51,38 +51,30 @@
 
 .fundadoras-hero-copy .subtitle {
     max-width: 620px;
-    margin: 20px 0 0;
-    font-size: 20px;
-    line-height: 1.7;
+    margin: 18px 0 0;
+    font-size: 19px;
+    line-height: 1.6;
     color: var(--aux-text);
 }
 
 .fundadoras-hero-reinforcement {
     max-width: 620px;
-    margin: 16px 0 0;
-    color: var(--navy);
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.7;
-}
-
-.fundadoras-hero-support {
-    max-width: 600px;
     margin: 14px 0 0;
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--aux-text);
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.55;
 }
 
 .fundadoras-hero-copy .hero-buttons {
-    margin-top: 34px;
+    margin-top: 24px;
 }
 
 .fundadoras-hero-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    margin-top: 20px;
+    margin-top: 14px;
 }
 
 .fundadoras-hero-meta a,
@@ -103,8 +95,8 @@
 .fundadoras-hero-visual {
     position: relative;
     width: min(100%, 620px);
-    min-height: 560px;
-    padding: 34px 24px 26px;
+    min-height: 470px;
+    padding: 28px 22px 22px;
     border-radius: 34px;
     background:
         radial-gradient(circle at top right, rgba(243, 168, 96, 0.16), transparent 30%),
@@ -152,7 +144,7 @@
 
 .fundadoras-mockups {
     position: relative;
-    min-height: 370px;
+    min-height: 310px;
 }
 
 .fundadoras-page .mockup-phone-center {
@@ -168,10 +160,7 @@
 }
 
 .fundadoras-visual-footer {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 22px;
+    display: none;
 }
 
 .fundadoras-stat {
@@ -407,49 +396,50 @@
 }
 
 .fundadoras-form-section {
-    padding: 28px 0 88px;
+    position: relative;
+    z-index: 2;
+    margin-top: -42px;
+    padding: 0 0 88px;
 }
 
 .fundadoras-form-shell {
     display: grid;
-    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
-    gap: 24px;
+    grid-template-columns: minmax(0, 0.52fr) minmax(0, 1.48fr);
+    gap: 20px;
     align-items: start;
 }
 
 .fundadoras-form-copy {
-    padding: 28px;
+    padding: 24px;
     border-radius: 30px;
     border: 1px solid rgba(208, 216, 218, 0.92);
     background:
-        radial-gradient(circle at top right, rgba(30, 94, 255, 0.12), transparent 34%),
+        radial-gradient(circle at top right, rgba(30, 94, 255, 0.08), transparent 32%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 251, 0.98));
-    box-shadow: 0 20px 40px rgba(16, 23, 42, 0.08);
+    box-shadow: 0 16px 30px rgba(16, 23, 42, 0.06);
 }
 
 .fundadoras-form-copy h2 {
-    margin-top: 14px;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 .fundadoras-form-copy p {
     margin: 0;
-    font-size: 17px;
-    line-height: 1.8;
+    font-size: 16px;
+    line-height: 1.7;
 }
 
 .fundadoras-form-support {
-    margin-top: 16px !important;
-    color: var(--aux-text);
-    font-size: 16px !important;
-    line-height: 1.75 !important;
+    margin-top: 10px !important;
+    color: var(--navy);
+    font-size: 14px !important;
+    font-weight: 700;
+    line-height: 1.55 !important;
 }
 
 .fundadoras-form-checklist {
-    margin: 20px 0 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 10px;
+    display: none;
 }
 
 .fundadoras-form-checklist li {
@@ -478,21 +468,19 @@
 
 .fundadoras-form-card,
 .fundadoras-success-card {
-    padding: 32px;
+    padding: 28px 28px 30px;
     border-radius: 30px;
-    border: 1px solid rgba(208, 216, 218, 0.94);
+    border: 1px solid rgba(30, 94, 255, 0.14);
     background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 22px 44px rgba(16, 23, 42, 0.08);
+    box-shadow: 0 28px 54px rgba(16, 23, 42, 0.09);
 }
 
-.fundadoras-form-card h3,
 .fundadoras-success-card h3 {
     margin: 0 0 10px;
     font-size: 28px;
     letter-spacing: -0.04em;
 }
 
-.fundadoras-form-card > p,
 .fundadoras-success-card > p {
     margin: 0 0 24px;
     font-size: 15px;
@@ -666,6 +654,15 @@
     transform: none;
 }
 
+.fundadoras-submit-note {
+    margin: -10px 0 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--aux-text);
+}
+
 .fundadoras-security {
     margin: 0;
     font-size: 13px;
@@ -761,7 +758,7 @@
 
 @media (max-width: 768px) {
     .fundadoras-page .hero-section {
-        padding: 72px 0 56px;
+        padding: 64px 0 16px;
     }
 
     .fundadoras-badges {
@@ -780,7 +777,6 @@
 
     .fundadoras-hero-copy .subtitle,
     .fundadoras-hero-reinforcement,
-    .fundadoras-hero-support,
     .fundadoras-split-copy p,
     .fundadoras-steps-intro,
     .fundadoras-steps-note,
@@ -791,36 +787,35 @@
     }
 
     .fundadoras-hero-visual {
-        min-height: 320px;
-        padding: 24px 16px 18px;
+        min-height: 220px;
+        padding: 18px 14px 12px;
         border-radius: 28px;
     }
 
     .fundadoras-mockups {
-        min-height: 240px;
+        min-height: 165px;
     }
 
     .fundadoras-visual-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+        gap: 8px;
+        margin-bottom: 10px;
     }
 
     .fundadoras-visual-header p {
-        max-width: none;
+        display: none;
     }
 
     .fundadoras-page .mockup-phone-center {
-        width: 150px;
+        width: 120px;
     }
 
     .fundadoras-page .mockup-phone-left {
-        width: 120px;
+        width: 92px;
         left: 4px;
     }
 
     .fundadoras-page .mockup-phone-right {
-        width: 118px;
+        width: 90px;
         right: 4px;
     }
 
@@ -847,7 +842,8 @@
     }
 
     .fundadoras-form-section {
-        padding: 32px 0 88px;
+        margin-top: -26px;
+        padding: 0 0 88px;
     }
 
     .fundadoras-final-shell .cta-buttons,
