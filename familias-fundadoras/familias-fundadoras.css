@@ -654,11 +654,11 @@
     transform: none;
 }
 
-.fundadoras-submit-note {
+.fundadoras-social-proof {
     margin: -10px 0 0;
     text-align: center;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.5;
     color: var(--aux-text);
 }
