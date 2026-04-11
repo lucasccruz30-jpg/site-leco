@@ -1,4 +1,4 @@
-LECO - Regulamento da Campanha Pagina 1
+LECO - Regulamento da Campanha Página 1
 REGULAMENTO DA CAMPANHA - 2 MESES
 DE BÔNUS LECO
 Regras aplicáveis à campanha promocional destinada aos 50 primeiros novos usuários elegíveis após o
@@ -30,7 +30,7 @@ regulamento, podendo ser encerrada automaticamente assim que esse limite for ati
 5. Quem pode participar
 Podem participar apenas novos usuários, entendidos como pessoas que ainda não possuam conta
 previamente criada no LECO no momento da campanha.
-Não são elegíveis usuários antigos, contas previamente cadastradas, cadastros duplicados, ou usuários
+Não são elegíveis usuários antigos, contas previamente cadastradas, cadastros duplicados ou usuários
 que utilizem dados de terceiros sem legitimidade.
 6. Condições para concessão do bônus
 O bônus será concedido aos 50 primeiros novos usuários que, cumulativamente:
@@ -38,7 +38,7 @@ O bônus será concedido aos 50 primeiros novos usuários que, cumulativamente:
 
 -- 1 of 2 --
 
-LECO - Regulamento da Campanha Pagina 2
+LECO - Regulamento da Campanha Página 2
 - informem dados verdadeiros, completos e atualizados;
 - concluam a criação da conta após o lançamento oficial da plataforma;
 - atendam aos critérios deste regulamento e dos documentos jurídicos do LECO.
@@ -72,4 +72,5 @@ Em caso de dúvidas, os canais oficiais são:
 Este regulamento entra em vigor em 07/04/2026, versão 1.0.
 
 -- 2 of 2 --
+
 

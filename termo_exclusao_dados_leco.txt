@@ -1,4 +1,4 @@
-LECO - Exclusão de Dados Pagina 1
+LECO - Exclusão de Dados Página 1
 TERMO DE EXCLUSÃO DE DADOS E
 ENCERRAMENTO DE CONTA - LECO
 Documento público que disciplina a solicitação de exclusão de dados pessoais, encerramento de conta e
@@ -37,7 +37,7 @@ confirmação suficiente.
 
 -- 1 of 2 --
 
-LECO - Exclusão de Dados Pagina 2
+LECO - Exclusão de Dados Página 2
 6. Efeitos da exclusão e do encerramento
 Uma vez validado o pedido, o LECO poderá, conforme o caso:
 - desativar a conta principal;
@@ -71,4 +71,5 @@ Este documento entra em vigor em 07/04/2026, versão 1.0, podendo ser atualizado
 legais, operacionais ou técnicas.
 
 -- 2 of 2 --
+
 

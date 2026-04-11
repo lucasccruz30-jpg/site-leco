@@ -164,7 +164,7 @@ async function handleSubmit(event) {
         }
 
         if (!response.ok) {
-            showFeedback(result.mensagem || 'Não foi possível concluir seu cadastro agora. Tente novamente em instantes.', 'error');
+            showFeedback(result.mensagem || 'Não foi possível concluir seu chamado agora. Tente novamente em instantes.', 'error');
             return;
         }
 

@@ -92,7 +92,7 @@ module.exports = async function handler(request, response) {
     console.error('[POST /api/suporte]', error);
     sendJson(response, 500, {
       status: 'erro',
-      mensagem: 'Não foi possível concluir seu cadastro agora. Tente novamente em instantes.',
+      mensagem: 'Não foi possível concluir seu chamado agora. Tente novamente em instantes.',
     });
   }
 };

@@ -19,18 +19,18 @@ informações fornecidas.
 4. Cadastro e acesso
 Para uso do LECO, poderá ser necessário criar conta com dados cadastrais válidos e atualizados.
 O tutor ou responsável legal compromete-se a:
-l fornecer informações verdadeiras, completas e atualizadas;
-l manter a confidencialidade de suas credenciais;
-l não compartilhar sua conta principal de forma indevida;
-l comunicar prontamente qualquer uso não autorizado de sua conta.
+- fornecer informações verdadeiras, completas e atualizadas;
+- manter a confidencialidade de suas credenciais;
+- não compartilhar sua conta principal de forma indevida;
+- comunicar prontamente qualquer uso não autorizado de sua conta.
 O LECO poderá disponibilizar mecanismos de autenticação específicos para perfis infantis, inclusive
 por identificador interno e PIN, observadas as regras internas de segurança da plataforma.
 5. Perfis infantis
 O tutor ou responsável legal é exclusivamente responsável por:
-l criar e manter os perfis infantis vinculados;
-l supervisionar a utilização do LECO por crianças e adolescentes;
-l assegurar que as informações informadas em nome da criança sejam verdadeiras e adequadas;
-l decidir, nos limites da lei, pela criação, atualização e eventual exclusão dos perfis infantis.
+- criar e manter os perfis infantis vinculados;
+- supervisionar a utilização do LECO por crianças e adolescentes;
+- assegurar que as informações informadas em nome da criança sejam verdadeiras e adequadas;
+- decidir, nos limites da lei, pela criação, atualização e eventual exclusão dos perfis infantis.
 
 -- 1 of 4 --
 
@@ -42,39 +42,39 @@ O LECO poderá exigir novo aceite quando houver atualização relevante dos docu
 ou de regras operacionais da plataforma.
 7. Funcionalidades da plataforma
 O LECO poderá disponibilizar, entre outras, as seguintes funcionalidades:
-l organização de tarefas, hábitos e metas;
-l definição de objetivos e recompensas;
-l aprovações, ajustes e registros internos da dinâmica familiar;
-l wallet interna, extratos, poupança e XP;
-l marketplace interno familiar, com pedidos, aprovações e estornos internos;
-l notificações internas e fluxos de acompanhamento operacional.
+- organização de tarefas, hábitos e metas;
+- definição de objetivos e recompensas;
+- aprovações, ajustes e registros internos da dinâmica familiar;
+- wallet interna, extratos, poupança e XP;
+- marketplace interno familiar, com pedidos, aprovações e estornos internos;
+- notificações internas e fluxos de acompanhamento operacional.
 8. Assinatura, trial, cobrança e cancelamento
 O LECO poderá operar mediante assinatura mensal, inclusive com período de teste gratuito e
 aplicação de cupons promocionais, conforme as condições apresentadas ao usuário no momento da
 contratação.
 Salvo disposição específica em oferta promocional:
-l a cobrança terá início após o término do período de teste gratuito, quando aplicável;
-l o cancelamento poderá ser solicitado a qualquer tempo pelo tutor ou responsável legal, produzindo
+- a cobrança terá início após o término do período de teste gratuito, quando aplicável;
+- o cancelamento poderá ser solicitado a qualquer tempo pelo tutor ou responsável legal, produzindo
 efeitos para o próximo ciclo de cobrança, salvo informação diversa apresentada no momento da
 contratação;
-l a ausência de uso da plataforma não implica cancelamento automático da assinatura;
-l eventuais pedidos de estorno ou reembolso serão analisados conforme a política comercial vigente,
+- a ausência de uso da plataforma não implica cancelamento automático da assinatura;
+- eventuais pedidos de estorno ou reembolso serão analisados conforme a política comercial vigente,
 a natureza da cobrança e a legislação aplicável;
-l em caso de inadimplência, o LECO poderá aplicar restrição de acesso, suspensão parcial ou
+- em caso de inadimplência, o LECO poderá aplicar restrição de acesso, suspensão parcial ou
 suspensão da conta, conforme as regras informadas ao usuário.
 9. Regras de uso
 Ao utilizar o LECO, o usuário compromete-se a não:
-l utilizar a plataforma para fins ilícitos, fraudulentos ou contrários à legislação;
-l inserir informações falsas ou em nome de terceiros sem legitimidade;
-l tentar acessar áreas, contas, perfis, dados ou recursos sem autorização;
-l interferir na segurança, estabilidade ou funcionamento da plataforma;
-l utilizar o LECO para assédio, abuso, discriminação, violência, fraude ou qualquer forma de violação
+- utilizar a plataforma para fins ilícitos, fraudulentos ou contrários à legislação;
+- inserir informações falsas ou em nome de terceiros sem legitimidade;
+- tentar acessar áreas, contas, perfis, dados ou recursos sem autorização;
+- interferir na segurança, estabilidade ou funcionamento da plataforma;
+- utilizar o LECO para assédio, abuso, discriminação, violência, fraude ou qualquer forma de violação
 de direitos;
 
 -- 2 of 4 --
 
 LECO Página 3
-l explorar comercialmente a plataforma, suas marcas, layout, tecnologia ou conteúdo sem
+- explorar comercialmente a plataforma, suas marcas, layout, tecnologia ou conteúdo sem
 autorização.
 10. Conteúdo inserido pelo usuário
 O tutor ou responsável legal é responsável pelos conteúdos, descrições, textos e informações
@@ -101,12 +101,12 @@ entrar em contato imediatamente com o LECO pelos canais oficiais.
 14. Suspensão e encerramento
 O LECO poderá limitar, suspender ou encerrar o acesso à conta, temporária ou definitivamente,
 quando houver:
-l violação destes Termos;
-l inadimplência;
-l uso indevido ou fraudulento;
-l risco à segurança da plataforma;
-l necessidade de cumprimento legal ou regulatório;
-l proteção de direitos do LECO, de terceiros ou da própria família usuária.
+- violação destes Termos;
+- inadimplência;
+- uso indevido ou fraudulento;
+- risco à segurança da plataforma;
+- necessidade de cumprimento legal ou regulatório;
+- proteção de direitos do LECO, de terceiros ou da própria família usuária.
 15. Exclusão de conta
 
 -- 3 of 4 --
@@ -122,12 +122,12 @@ interfaces, integrações e recursos, de forma temporária ou definitiva, por ra
 operacionais, estratégicas, legais ou comerciais.
 17. Limitação de responsabilidade
 Na máxima extensão permitida pela legislação aplicável, o LECO não se responsabiliza por:
-l falhas decorrentes de uso inadequado da plataforma;
-l informações incorretas fornecidas pelo usuário;
-l indisponibilidades causadas por caso fortuito, força maior ou falhas de terceiros;
-l decisões familiares, pedagógicas ou financeiras tomadas pelos usuários com base nos recursos da
+- falhas decorrentes de uso inadequado da plataforma;
+- informações incorretas fornecidas pelo usuário;
+- indisponibilidades causadas por caso fortuito, força maior ou falhas de terceiros;
+- decisões familiares, pedagógicas ou financeiras tomadas pelos usuários com base nos recursos da
 plataforma;
-l danos decorrentes de violação de credenciais causada por culpa exclusiva do usuário ou de
+- danos decorrentes de violação de credenciais causada por culpa exclusiva do usuário ou de
 terceiros fora do controle razoável do LECO.
 Nada nesta cláusula exclui responsabilidade que não possa ser legalmente afastada.
 18. Comunicações
@@ -143,4 +143,5 @@ Para suporte geral: suporte@lecoapp.com.br
 Para privacidade e proteção de dados: privacidade@lecoapp.com.br
 
 -- 4 of 4 --
+
 
